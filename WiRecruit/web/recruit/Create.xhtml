@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecruitCreateDlg" widgetVar="RecruitCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRecruitTitle}">
+            <h:form id="RecruitCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recruitController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{recruitController.selected.id}" title="#{bundle.CreateRecruitTitle_id}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_firstName}" for="firstName" />
+                        <p:inputText id="firstName" value="#{recruitController.selected.firstName}" title="#{bundle.CreateRecruitTitle_firstName}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_firstName}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_lastName}" for="lastName" />
+                        <p:inputText id="lastName" value="#{recruitController.selected.lastName}" title="#{bundle.CreateRecruitTitle_lastName}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_lastName}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_school}" for="school" />
+                        <p:inputText id="school" value="#{recruitController.selected.school}" title="#{bundle.CreateRecruitTitle_school}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_school}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_address1}" for="address1" />
+                        <p:inputText id="address1" value="#{recruitController.selected.address1}" title="#{bundle.CreateRecruitTitle_address1}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_address1}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_address2}" for="address2" />
+                        <p:inputText id="address2" value="#{recruitController.selected.address2}" title="#{bundle.CreateRecruitTitle_address2}" />
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{recruitController.selected.city}" title="#{bundle.CreateRecruitTitle_city}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_city}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_state}" for="state" />
+                        <p:inputText id="state" value="#{recruitController.selected.state}" title="#{bundle.CreateRecruitTitle_state}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_state}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_zipcode}" for="zipcode" />
+                        <p:inputText id="zipcode" value="#{recruitController.selected.zipcode}" title="#{bundle.CreateRecruitTitle_zipcode}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_zipcode}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_year}" for="year" />
+                        <p:inputText id="year" value="#{recruitController.selected.year}" title="#{bundle.CreateRecruitTitle_year}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_year}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_gpa}" for="gpa" />
+                        <p:inputText id="gpa" value="#{recruitController.selected.gpa}" title="#{bundle.CreateRecruitTitle_gpa}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_gpa}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{recruitController.selected.phone}" title="#{bundle.CreateRecruitTitle_phone}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_phone}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{recruitController.selected.email}" title="#{bundle.CreateRecruitTitle_email}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_email}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_skillLevel}" for="skillLevel" />
+                        <p:inputText id="skillLevel" value="#{recruitController.selected.skillLevel}" title="#{bundle.CreateRecruitTitle_skillLevel}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_skillLevel}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_position}" for="position" />
+                        <p:inputText id="position" value="#{recruitController.selected.position}" title="#{bundle.CreateRecruitTitle_position}" required="true" requiredMessage="#{bundle.CreateRecruitRequiredMessage_position}"/>
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_commitment}" for="commitment" />
+                        <p:inputText id="commitment" value="#{recruitController.selected.commitment}" title="#{bundle.CreateRecruitTitle_commitment}" />
+                        <p:outputLabel value="#{bundle.CreateRecruitLabel_notes}" for="notes" />
+                        <p:inputTextarea rows="4" cols="30" id="notes" value="#{recruitController.selected.notes}" title="#{bundle.CreateRecruitTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recruitController.create}" value="#{bundle.Save}" update="display,:RecruitListForm:datalist,:growl" oncomplete="handleSubmit(args,'RecruitCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RecruitCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
