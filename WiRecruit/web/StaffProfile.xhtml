@@ -7,7 +7,6 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Profile</title>
@@ -26,8 +25,6 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
                 <br/>
                 <br/>
-                <p:tabView  >
-                  <p:tab title="Basic Info">
                     <!-- Basic Info goes here -->
                     <h:panelGrid columns="2" cellpadding="6">
                       <h:outputText value="First Name: " />
@@ -53,9 +50,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                       <h:outputText value="Email " />
                       <h:outputText value="#{profileViewManager.loggedInUser.email}" />
-                    </h:panelGrid>
-                  </p:tab>           
-                </p:tabView>
+                    </h:panelGrid>         
                 <br/>
                 <h:link outcome="Recruits" value="Recruits Page" />
             </h:form> 
