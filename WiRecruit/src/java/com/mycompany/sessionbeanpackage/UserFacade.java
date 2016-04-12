@@ -28,4 +28,26 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
+    public User getUser(int id) {
+        return em.find(User.class, id);
+    }
+
+    public User findByUsername(String username) {
+        if (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
+                .setParameter("uname", username)
+                .getResultList().isEmpty()) {
+            return null;
+        } else {
+            return (User) (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
+                .setParameter("uname", username)
+                .getSingleResult());    
+        }
+    }
+    
+    public void deleteUser(int id){
+        
+        User user = em.find(User.class, id);
+        em.remove(user);
+    }
+    
 }

@@ -1,5 +1,5 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
+ * Created by Julio Suriano Siu on 2016.04.12  * 
  * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
  */
 package com.mycompany.entitypackage;
@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Recruit.findByState", query = "SELECT r FROM Recruit r WHERE r.state = :state"),
     @NamedQuery(name = "Recruit.findByZipcode", query = "SELECT r FROM Recruit r WHERE r.zipcode = :zipcode"),
     @NamedQuery(name = "Recruit.findByYear", query = "SELECT r FROM Recruit r WHERE r.year = :year"),
+    @NamedQuery(name = "Recruit.findByHeight", query = "SELECT r FROM Recruit r WHERE r.height = :height"),
+    @NamedQuery(name = "Recruit.findByWeight", query = "SELECT r FROM Recruit r WHERE r.weight = :weight"),
     @NamedQuery(name = "Recruit.findByGpa", query = "SELECT r FROM Recruit r WHERE r.gpa = :gpa"),
     @NamedQuery(name = "Recruit.findByPhone", query = "SELECT r FROM Recruit r WHERE r.phone = :phone"),
     @NamedQuery(name = "Recruit.findByEmail", query = "SELECT r FROM Recruit r WHERE r.email = :email"),
@@ -98,12 +100,20 @@ public class Recruit implements Serializable {
     private int year;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "height")
+    private int height;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "weight")
+    private int weight;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "gpa")
     private float gpa;
     @Basic(optional = false)
     @NotNull
     @Column(name = "phone")
-    private int phone;
+    private long phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -138,7 +148,7 @@ public class Recruit implements Serializable {
         this.id = id;
     }
 
-    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, float gpa, int phone, String email, int skillLevel, String position) {
+    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, int phone, String email, int skillLevel, String position) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -148,6 +158,8 @@ public class Recruit implements Serializable {
         this.state = state;
         this.zipcode = zipcode;
         this.year = year;
+        this.height = height;
+        this.weight = weight;
         this.gpa = gpa;
         this.phone = phone;
         this.email = email;
@@ -235,6 +247,22 @@ public class Recruit implements Serializable {
         this.year = year;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public float getGpa() {
         return gpa;
     }
@@ -243,11 +271,11 @@ public class Recruit implements Serializable {
         this.gpa = gpa;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

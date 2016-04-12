@@ -28,4 +28,13 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
         super(Recruit.class);
     }
     
+    public Recruit getRecruit(int id) {
+        return em.find(Recruit.class, id);
+    }
+
+    public void deleteRecruit(int id){
+        Recruit recruit = em.find(Recruit.class, id);
+        em.remove(recruit);
+    }
+    
 }

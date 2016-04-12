@@ -1,5 +1,5 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
+ * Created by Julio Suriano Siu on 2016.04.12  * 
  * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
  */
 package com.mycompany.entitypackage;

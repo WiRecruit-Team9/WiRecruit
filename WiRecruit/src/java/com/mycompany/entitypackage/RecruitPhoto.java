@@ -1,5 +1,5 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
+ * Created by Julio Suriano Siu on 2016.04.12  * 
  * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
  */
 package com.mycompany.entitypackage;
@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RecruitPhoto.findAll", query = "SELECT r FROM RecruitPhoto r"),
     @NamedQuery(name = "RecruitPhoto.findById", query = "SELECT r FROM RecruitPhoto r WHERE r.id = :id"),
+    @NamedQuery(name = "RecruitPhoto.findPhotosByRecruitId", query = "SELECT p FROM RecruitPhoto p WHERE p.recruitId.id = :recruitId"),
     @NamedQuery(name = "RecruitPhoto.findByExtension", query = "SELECT r FROM RecruitPhoto r WHERE r.extension = :extension")})
 public class RecruitPhoto implements Serializable {
 
@@ -58,6 +59,11 @@ public class RecruitPhoto implements Serializable {
     public RecruitPhoto(Integer id, String extension) {
         this.id = id;
         this.extension = extension;
+    }
+    
+    public RecruitPhoto(String extension, Recruit id) {
+        this.extension = extension;
+        recruitId = id;
     }
 
     public Integer getId() {

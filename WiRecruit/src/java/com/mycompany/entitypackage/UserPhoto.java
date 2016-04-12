@@ -1,8 +1,10 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
+ * Created by Julio Suriano Siu on 2016.04.12  * 
  * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
  */
 package com.mycompany.entitypackage;
+
+import com.mycompany.managers.Constants;  // Added
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "UserPhoto.findAll", query = "SELECT u FROM UserPhoto u"),
     @NamedQuery(name = "UserPhoto.findById", query = "SELECT u FROM UserPhoto u WHERE u.id = :id"),
+    @NamedQuery(name = "UserPhoto.findPhotosByUserId", query = "SELECT p FROM UserPhoto p WHERE p.userId.id = :userId"),
     @NamedQuery(name = "UserPhoto.findByExtension", query = "SELECT u FROM UserPhoto u WHERE u.extension = :extension")})
 public class UserPhoto implements Serializable {
 
@@ -58,6 +61,11 @@ public class UserPhoto implements Serializable {
     public UserPhoto(Integer id, String extension) {
         this.id = id;
         this.extension = extension;
+    }
+    
+    public UserPhoto(String extension, User id) {
+        this.extension = extension;
+        userId = id;
     }
 
     public Integer getId() {
@@ -107,6 +115,22 @@ public class UserPhoto implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entitypackage.UserPhoto[ id=" + id + " ]";
+    }
+    
+    public String getFilePath() {
+        return Constants.ROOT_DIRECTORY + getFilename();
+    }
+
+    public String getFilename() {
+        return getId() + "." + getExtension();
+    }
+    
+    public String getThumbnailName() {
+        return getId() + "_thumbnail." + getExtension();
+    }
+    
+    public String getThumbnailFilePath() {
+        return Constants.ROOT_DIRECTORY + getThumbnailName();
     }
     
 }
