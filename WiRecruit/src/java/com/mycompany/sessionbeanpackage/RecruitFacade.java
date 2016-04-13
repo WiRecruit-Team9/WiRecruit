@@ -5,6 +5,7 @@
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.Recruit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +36,19 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
     public void deleteRecruit(int id){
         Recruit recruit = em.find(Recruit.class, id);
         em.remove(recruit);
+    }
+    
+    public List findRecruitsByCommitment(String search){
+        if (em.createQuery("SELECT r FROM Recruit r WHERE r.commitment = :commit")
+                .setParameter("commit", search)
+                .getResultList().isEmpty()) {
+            return null;
+        }
+        else {
+            return (List) (em.createQuery("SELECT r FROM Recruit r WHERE r.commitment = :commit")
+                .setParameter("commit", search)
+                .getResultList());        
+        }
     }
     
 }

@@ -12,6 +12,7 @@ import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
 import com.mycompany.managers.ProfileViewManager;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,8 @@ public class RecruitManager implements Serializable {
     private final String[] listOfStates = Constants.STATES;
     private final int[] listOfSkillLevels = Constants.SKILL_LEVELS;
     private final String[] listOfPositions = Constants.POSITIONS;
+    
+    private List<Recruit> listOfRecruits = null;
     
     @EJB
     private RecruitFacade recruitFacade;
@@ -234,6 +237,10 @@ public class RecruitManager implements Serializable {
         return listOfPositions;
     }
     
+    public List getListOfRecruits() {
+        return listOfRecruits;
+    }
+    
     
     public String createRecruit() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
@@ -303,5 +310,15 @@ public class RecruitManager implements Serializable {
         }
         return photoList.get(0).getThumbnailName();*/
         return "";
+    }
+    
+    public String getListOfRecruitsByCommitment()
+    {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User user = userFacade.find(user_id);
+    
+        //commitment = user.getSchool();
+        listOfRecruits = recruitFacade.findRecruitsByCommitment("Virgina Tech");
+        return "RecruitBook";
     }
 }

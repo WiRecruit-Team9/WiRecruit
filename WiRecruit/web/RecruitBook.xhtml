@@ -19,12 +19,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:form>
          
             <table border="1">
-                <ui:repeat var="" value="">
-                    <tr><td rowspan="4"><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                <ui:repeat var="recruit" value="#{recruitManager.listOfRecruits}">
+                    <tr><td rowspan="4"><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="recruits"
                             height="60px" width="60px"></h:graphicImage></td><td></td></tr>
-                    <tr><td>#{recruitManager.firstName} #{recruitManager.lastName}</td></tr>
-                    <tr><td>#{recruitManager.school}</td></tr>
-                    <tr><td>#{recruitManager.position}</td></tr>
+                    <tr><td>#{recruit.firstName} #{recruit.lastName}</td></tr>
+                    <tr><td>#{recruit.school}</td></tr>
+                    <tr><td>#{recruit.position}</td></tr>
                     
                 </ui:repeat>
 
