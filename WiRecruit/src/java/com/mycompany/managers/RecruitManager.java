@@ -264,8 +264,6 @@ public class RecruitManager implements Serializable {
                 recruit.setYear(year);
                 recruit.setNotes(notes);
                 
-                System.out.println("Test");
-                
                 recruitFacade.create(recruit);                
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the recruit!";
