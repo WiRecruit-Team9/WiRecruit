@@ -113,6 +113,13 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     </h:selectOneMenu>
                     <p:message for="position" display="icon" /> 
                     
+                    <p:outputLabel for="secondaryPosition" value="Secondary Position" />
+                    <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.secondaryPosition}" required="false">
+                        <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
+                                       itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
+                    </h:selectOneMenu>
+                    <p:message for="secondaryPosition" display="icon" /> 
+                    
                     <p:outputLabel for="skillLevel" value="Skill Level" />
                     <h:selectOneMenu id="skillLevel" value="#{recruitManager.skillLevel}" required="true">
                         <f:selectItems value="#{recruitManager.listOfSkillLevels}" var="skillLevel"

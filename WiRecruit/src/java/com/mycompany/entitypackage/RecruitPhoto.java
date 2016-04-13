@@ -4,6 +4,7 @@
  */
 package com.mycompany.entitypackage;
 
+import com.mycompany.managers.Constants;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -113,6 +114,22 @@ public class RecruitPhoto implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entitypackage.RecruitPhoto[ id=" + id + " ]";
+    }
+    
+    public String getFilePath() {
+        return Constants.ROOT_DIRECTORY + getFilename();
+    }
+
+    public String getFilename() {
+        return getId() + "." + getExtension();
+    }
+    
+    public String getThumbnailName() {
+        return getId() + "_thumbnail." + getExtension();
+    }
+    
+    public String getThumbnailFilePath() {
+        return Constants.ROOT_DIRECTORY + getThumbnailName();
     }
     
 }

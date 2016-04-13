@@ -45,6 +45,7 @@ public class RecruitManager implements Serializable {
     private long phone;
     private int skillLevel;
     private String position;
+    private String secondaryPosition;
     private int height;
     private int weight;
     private String commitment;
@@ -177,6 +178,14 @@ public class RecruitManager implements Serializable {
         this.position = position;
     }
     
+    public String getSecondaryPosition() {
+        return secondaryPosition;
+    }
+    
+    public void setSecondaryPosition(String secondaryPosition) {
+        this.secondaryPosition = secondaryPosition;
+    }
+    
     public int getHeight() {
         return height;
     }
@@ -246,6 +255,7 @@ public class RecruitManager implements Serializable {
                 recruit.setAddress1(address1);
                 recruit.setAddress2(address2);
                 recruit.setPosition(position);
+                recruit.setSecondaryPosition(secondaryPosition);
                 recruit.setSkillLevel(skillLevel);
                 recruit.setGpa(gpa);
                 recruit.setCommitment(commitment);
@@ -254,14 +264,44 @@ public class RecruitManager implements Serializable {
                 recruit.setYear(year);
                 recruit.setNotes(notes);
                 
+                System.out.println("Test");
+                
                 recruitFacade.create(recruit);                
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the recruit!";
                 return "";
             }
             return "Recruits";
-        } else {
         }
+        return "";
+    }
+    
+    public String updateRecruit() {
+        if (statusMessage.isEmpty()) {
+            try {
+                
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while editing the recruit!";
+                return "";
+            }
+            return "RecruitProfile";
+        }
+        return "";
+    }
+    
+    public String deleteRecruit() {
+        return "";
+    }
+    
+    public String userPhoto() {
+        /*String user_name = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
+        Recruit recruit = recruitFacade.findByUsername(user_name);
+        List<RecruitPhoto> photoList = recruitPhotoFacade.findPhotosByRecruitID(user.getId());
+        if (photoList.isEmpty()) {
+            return "defaultUserPhoto.png";
+        }
+        return photoList.get(0).getThumbnailName();*/
         return "";
     }
 }

@@ -1,11 +1,10 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.12  * 
+ * Created by Julio Suriano Siu on 2016.04.13  * 
  * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
  */
 package com.mycompany.entitypackage;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,6 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Recruit.findByEmail", query = "SELECT r FROM Recruit r WHERE r.email = :email"),
     @NamedQuery(name = "Recruit.findBySkillLevel", query = "SELECT r FROM Recruit r WHERE r.skillLevel = :skillLevel"),
     @NamedQuery(name = "Recruit.findByPosition", query = "SELECT r FROM Recruit r WHERE r.position = :position"),
+    @NamedQuery(name = "Recruit.findBySecondaryPosition", query = "SELECT r FROM Recruit r WHERE r.secondaryPosition = :secondaryPosition"),
     @NamedQuery(name = "Recruit.findByCommitment", query = "SELECT r FROM Recruit r WHERE r.commitment = :commitment")})
 public class Recruit implements Serializable {
 
@@ -130,16 +128,15 @@ public class Recruit implements Serializable {
     @Column(name = "position")
     private String position;
     @Size(max = 255)
+    @Column(name = "secondary_position")
+    private String secondaryPosition;
+    @Size(max = 255)
     @Column(name = "commitment")
     private String commitment;
     @Lob
     @Size(max = 65535)
     @Column(name = "notes")
     private String notes;
-    @OneToMany(mappedBy = "recruitId")
-    private Collection<RecruitPhoto> recruitPhotoCollection;
-    @OneToMany(mappedBy = "recruitId")
-    private Collection<Upvote> upvoteCollection;
 
     public Recruit() {
     }
@@ -148,7 +145,7 @@ public class Recruit implements Serializable {
         this.id = id;
     }
 
-    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, int phone, String email, int skillLevel, String position) {
+    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, long phone, String email, int skillLevel, String position) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -303,6 +300,14 @@ public class Recruit implements Serializable {
         this.position = position;
     }
 
+    public String getSecondaryPosition() {
+        return secondaryPosition;
+    }
+
+    public void setSecondaryPosition(String secondaryPosition) {
+        this.secondaryPosition = secondaryPosition;
+    }
+
     public String getCommitment() {
         return commitment;
     }
@@ -317,24 +322,6 @@ public class Recruit implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    @XmlTransient
-    public Collection<RecruitPhoto> getRecruitPhotoCollection() {
-        return recruitPhotoCollection;
-    }
-
-    public void setRecruitPhotoCollection(Collection<RecruitPhoto> recruitPhotoCollection) {
-        this.recruitPhotoCollection = recruitPhotoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Upvote> getUpvoteCollection() {
-        return upvoteCollection;
-    }
-
-    public void setUpvoteCollection(Collection<Upvote> upvoteCollection) {
-        this.upvoteCollection = upvoteCollection;
     }
 
     @Override
