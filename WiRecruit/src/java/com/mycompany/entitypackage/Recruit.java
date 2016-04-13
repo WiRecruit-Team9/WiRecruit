@@ -145,7 +145,7 @@ public class Recruit implements Serializable {
         this.id = id;
     }
 
-    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, long phone, String email, int skillLevel, String position) {
+    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, long phone, String email, int skillLevel, String position, String secondaryPosition) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -162,6 +162,7 @@ public class Recruit implements Serializable {
         this.email = email;
         this.skillLevel = skillLevel;
         this.position = position;
+        this.secondaryPosition = secondaryPosition;
     }
 
     public Integer getId() {
