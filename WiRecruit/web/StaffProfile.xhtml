@@ -7,7 +7,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,6 +16,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet library="css" name="globalStyles.css"/>
     </h:head>
     <h:body>
+        <ui:composition template="/template/siteTemplate.xhtml">
+            <ui:define name="editableContent">
+                <br />
+                <br />
+                <br />
         <div align="center" style="width:50%; margin:0 auto;">
             <h:form class="form-signin">
                 <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
@@ -55,6 +61,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Recruits Page" />
             </h:form> 
         </div>
+            </ui:define>
+        </ui:composition>
     </h:body>
 
 </html>

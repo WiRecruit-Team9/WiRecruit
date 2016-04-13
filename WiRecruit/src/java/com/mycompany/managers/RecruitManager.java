@@ -51,6 +51,8 @@ public class RecruitManager implements Serializable {
     private int weight;
     private String commitment;
     private String notes;
+    private Recruit currentRecruitID;
+
     
     private String statusMessage = "";
     
@@ -68,6 +70,14 @@ public class RecruitManager implements Serializable {
     
     @EJB
     private UserFacade userFacade;
+    
+    public Recruit getCurrentRecruitID() {
+        return currentRecruitID;
+    }
+
+    public void setCurrentRecruitID(Recruit currentRecruitID) {
+        this.currentRecruitID = currentRecruitID;
+    }
     
     public String getFirstName() {
         return firstName;
@@ -276,7 +286,7 @@ public class RecruitManager implements Serializable {
                 statusMessage = "Something went wrong while creating the recruit!";
                 return "";
             }
-            return "Recruits";
+            return "RecruitBook";
         }
         return "";
     }
@@ -315,8 +325,15 @@ public class RecruitManager implements Serializable {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
     
-        //commitment = user.getSchool();
-        listOfRecruits = recruitFacade.findRecruitsByCommitment("Virgina Tech");
+        commitment = user.getSchool();
+        listOfRecruits = recruitFacade.findRecruitsByCommitment(commitment);
+        System.out.println();
         return "RecruitBook";
+    }
+    
+    public String viewRecruit(int id)
+    {
+        currentRecruitID = recruitFacade.getRecruit(id);
+        return "RecruitProfile";
     }
 }
