@@ -1,22 +1,139 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>WiRecruit</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
     <h:body>
-        <h:outputText value="WiRecruit" style="font-size: 25px;" />
-        <br />
-        <h:link outcome="LogIn" value="Log In"/>
-        <br />
+        
+        <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
-    </h:body>
+        <!-- This page is constructed based on the siteTemplate -->
+        <ui:composition template="/template/siteTemplate.xhtml">
 
+            <!-- Create the content for this page below -->
+            <ui:define name="editableContent">
+                
+            <!--Main Content-->
+            <div class="splash-container">
+                <div class="splash">
+                    <h1 class="splash-head">JOIN WiRecruit.</h1>
+                    <p class="splash-subhead">
+                        REINVENTING RECRUITING.
+                    </p>
+                   <p>
+                        <a href="faces/CreateAccount.xhtml" class="pure-button pure-button-primary">Get Started</a>
+                    </p>
+                </div>
+            </div>
 
+            <!--Connect Content-->
+            <div class="content-wrapper">
+                <div class="content">
+                    <h2 class="content-head is-center">How It Works.</h2>
+                    <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
 
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    Sign Up
+                </h3>
+                <p>
+                    Create an account with us.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-th-large"></i>
+                    Select Your University
+                </h3>
+                <p>
+                    Link with the rest of your coaching staff.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-mobile"></i>
+                    Recruit
+                </h3>
+                <p>
+                    Add recruits to your database from any location.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-check-square-o"></i>
+                    Stay Up To Date
+                </h3>
+                <p>
+                    Any recruit that you add to the database if viewable by the rest of your staff.
+                </p>
+            </div>
+        </div>
+                </div>
+                
+                <!--Mission Content-->
+                <div class="ribbon l-box-lrg pure-g">
+                    <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
+                        <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruit.png"/>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+                        <h2 class="content-head content-head-ribbon">Our Mission</h2>
+                        <p>
+                            We at WiRecruit want to give you and your staff the best way possible to recruit for your university. 
+                          
+                        </p>
+                    </div>
+                </div>
+                
+        <div class="content">
+        <h2 class="content-head is-center">We'd love to hear from you.</h2>
 
+<!--        <div class="pure-g is-center">
+            <div class="l-box-lrg pure-g is-center">-->
+                <form class="pure-form pure-form-stacked">
+                    <div class="pure-g is-center">
+                        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                              <a href="https://www.facebook.com/">
+                                <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/02_facebook1.png" width="60" height="60" />
+                              </a>
+                        </div>
+                        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                             <a href="https://twitter.com/">
+                               <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter1.png" width="60" height="60" />
+                            </a>
+                        </div>
+                        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                               <a href="https://www.instagram.com/">
+                                <img title="Instagram" alt="RSS" src="https://socialmediawidgets.files.wordpress.com/2014/03/10_instagram.png" width="60" height="60" />
+                                    </a>
+                        </div>
+                        <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                                <a href="https://www.linkedin.com/">
+                                    <img title="LinkedIn" alt="LinkedIn" src="https://socialmediawidgets.files.wordpress.com/2014/03/07_linkedin1.png" width="60" height="60" />
+                                </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
+<!--            <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
+                <h4>Contact Us</h4>
+                <p>
+                    
+                </p>
+            </div>-->
+<!--        </div>
+
+            </div>-->
+
+            <div class="footer l-box is-center">
+                Copyright © 2016. WiRecruit.
+            </div>
+            </div>
+            </ui:define>
+        </ui:composition>
+     </h:body>
 </html>
 

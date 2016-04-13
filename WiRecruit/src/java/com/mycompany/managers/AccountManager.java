@@ -233,7 +233,7 @@ public class AccountManager implements Serializable {
     public String updateAccount() {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
-                User editUser = userFacade.getUser(user_id);
+            User editUser = userFacade.getUser(user_id);
             try {
                 editUser.setFirstName(this.selected.getFirstName());
                 editUser.setLastName(this.selected.getLastName());
