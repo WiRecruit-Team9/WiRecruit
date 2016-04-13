@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Julio Suriano Siu on 2016.04.10 
+Copyright © 2016 Julio Suriano Siu. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Recruit Book</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="globalStyles.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+         
+            <table border="1">
+                <!--<ui:repeat var="topping" value=""> -->
+                    <tr><td rowspan="3" s><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                            height="60px" width="60px"></h:graphicImage></td><td></td></tr>
+                    <tr><td>#{recruitManager.firstName} #{recruitManager.lastName}</td></tr>
+                    <tr><td>#{recruitManager.school}</td></tr>
+                    <tr><td>#{recruitManager.position}</td></tr>
+                    <h:link outcome="CreateRecruit" value="Add a Recruit" />
+                <!--</ui:repeat>-->
+
+            </table>
+        </h:form>
+        <h:link outcome="CreateRecruit" value="Add a Recruit" />
+        <br />
+        <h:link outcome="StaffProfile" value="Back" />
+        
+    </h:body>
+
+
+</html>
