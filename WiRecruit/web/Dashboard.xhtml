@@ -10,7 +10,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Recruit Book</title>
+        <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/jsfcrud.css"/>
         <h:outputStylesheet library="css" name="globalStyles.css"/>
@@ -21,28 +21,22 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <br />
                 <br />
-                <h2>Recruit Book</h2>
+                <h2>Dashboard</h2>
         <h:form>
             
             <table>
-                <ui:repeat var="recruit" value="#{recruitManager.listOfRecruits}">
-                    <tr><td rowspan="4" colspan="2"><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="recruits"
-                            height="60px" width="60px"></h:graphicImage></td><td></td></tr>
-                    <tr><td>#{recruit.firstName} #{recruit.lastName}</td></tr>
-                    <tr><td>#{recruit.school}</td></tr>
-                    <tr><td>#{recruit.position}</td></tr>
-                    <tr><td><h:link outcome="#{recruitManager.viewRecruit(recruit.id)}" value="View" /></td></tr>
+                <ui:repeat var="recruit" value="#{accountManager.feed}">
+                    <tr><td>#{recruit}</td></tr>
                     
                 </ui:repeat>
 
             </table>
+            <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
+        <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
         </h:form>
-        <h:link outcome="CreateRecruit" value="Add a Recruit" />
-        <br />
-        
-        
             </ui:define>
         </ui:composition>
+        
     </h:body>
 
 

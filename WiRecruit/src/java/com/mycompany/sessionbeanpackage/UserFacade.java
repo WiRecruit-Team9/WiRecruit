@@ -5,6 +5,7 @@
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,6 +49,19 @@ public class UserFacade extends AbstractFacade<User> {
         
         User user = em.find(User.class, id);
         em.remove(user);
+    }
+    
+    public List findUserByUniversity(String search){
+        if (em.createQuery("SELECT r FROM User r WHERE r.school = :commit")
+                .setParameter("commit", search)
+                .getResultList().isEmpty()) {
+            return null;
+        }
+        else {
+            return (List) (em.createQuery("SELECT r FROM User r WHERE r.school = :commit")
+                .setParameter("commit", search)
+                .getResultList());        
+        }
     }
     
 }

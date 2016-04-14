@@ -30,7 +30,7 @@ public class Constants {
     "What is your father's middle name?",
     "What is your most favorite pet's name?"};
     
-    public static final String[] SCHOOLS = {"Virginia Tech"};
+    public static final String[] SCHOOLS = {"Virginia Tech", "University of Virginia"};
 
     public static final int[] SKILL_LEVELS = {0, 1, 2, 3, 4, 5};
     

@@ -255,7 +255,7 @@ public class RecruitManager implements Serializable {
     public String createRecruit() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
-    
+        
         commitment = user.getSchool();
         if (statusMessage.isEmpty()) {
             try {
@@ -286,6 +286,9 @@ public class RecruitManager implements Serializable {
                 statusMessage = "Something went wrong while creating the recruit!";
                 return "";
             }
+            AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
+                + " " + firstName + " " + lastName + " to the recruit book");
+            
             return "RecruitBook";
         }
         return "";

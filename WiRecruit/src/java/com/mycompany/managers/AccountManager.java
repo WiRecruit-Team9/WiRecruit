@@ -9,6 +9,7 @@ import com.mycompany.entitypackage.User;
 import com.mycompany.sessionbeanpackage.UserPhotoFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,11 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
  
 @Named(value = "accountManager")
 @SessionScoped
@@ -47,6 +53,9 @@ public class AccountManager implements Serializable {
     private Map<String, Object> security_questions;
     private final String[] listOfSchools = Constants.SCHOOLS;
     private User selected;
+    private List<User> listOfStaff = null;
+   
+    private static ArrayList<String> feed = new ArrayList<String>();
     
     @EJB
     private UserFacade userFacade;
@@ -175,6 +184,16 @@ public class AccountManager implements Serializable {
         return security_questions;
     }
 
+    public List<User> getListOfStaff() {
+        return listOfStaff;
+    }
+
+    public void setListOfStaff(List<User> listOfStaff) {
+        this.listOfStaff = listOfStaff;
+    }
+
+    
+    
     public String[] getListOfSchools() {
         return listOfSchools;
     }  
@@ -343,5 +362,32 @@ public class AccountManager implements Serializable {
             return "defaultUserPhoto.png";
         }
         return photoList.get(0).getThumbnailName();
+    }
+    
+    public String getListOfStaffByUniversity()
+    {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User user = userFacade.find(user_id);
+    
+        school = user.getSchool();
+        listOfStaff = userFacade.findUserByUniversity(school);
+        System.out.println();
+        return "StaffBook";
+    }
+
+    public ArrayList<String> getFeed() {
+        return feed;
+    }
+
+    public void setFeed(ArrayList<String> feed) {
+        this.feed = feed;
+    }
+    
+    public static void appendFeed(String newFeed)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        
+        feed.add(0, newFeed + " at " + dateFormat.format(date));
     }
 }

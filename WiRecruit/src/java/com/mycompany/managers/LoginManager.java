@@ -53,7 +53,7 @@ public class LoginManager implements Serializable {
   }
 
   public String createUser() {
-    return "CreateAccount";
+    return "CreateAccount?faces-redirect=true";
   }
   
   public String resetPassword() {
@@ -97,7 +97,8 @@ public class LoginManager implements Serializable {
       if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
         errorMessage = "";
         initializeSessionMap(user);
-        return "StaffProfile";
+        AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " logged in");
+        return "Dashboard?faces-redirect=true";
       }
       errorMessage = "Invalid username or password!";
       return "";

@@ -33,32 +33,23 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br/>
                     <!-- Basic Info goes here -->
                     <h:panelGrid columns="2" cellpadding="6">
-                      <h:outputText value="First Name: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.firstName}" />                   
-                      
-                      <h:outputText value="Last Name: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.lastName}" />
-
                       <h:outputText value="Title: " />
                       <h:outputText value="#{profileViewManager.loggedInUser.title}" />
 
                       <h:outputText value="School: " />
                       <h:outputText value="#{profileViewManager.loggedInUser.school}" />
                       
-                      <h:outputText value="City: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.city}" />
-                      
-                      <h:outputText value="State: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.state}" />
-                      
-                      <h:outputText value="Zip Code: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.zipcode}" />       
+                      <h:outputText value="Address: " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.city} 
+                                    #{profileViewManager.loggedInUser.state} 
+                                    #{profileViewManager.loggedInUser.zipcode}" />    
 
                       <h:outputText value="Email " />
                       <h:outputText value="#{profileViewManager.loggedInUser.email}" />
                     </h:panelGrid>         
                 <br/>
-                <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Recruits Page" />
+                <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
+                <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
             </h:form> 
         </div>
             </ui:define>
