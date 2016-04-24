@@ -22,24 +22,66 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <br />
                 <h2>Recruit Book</h2>
-        <h:form>
-            
-            <table>
-                <ui:repeat var="recruit" value="#{recruitManager.listOfRecruits}">
-                    <tr><td rowspan="4" colspan="2"><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="recruits"
-                            height="60px" width="60px"></h:graphicImage></td><td></td></tr>
-                    <tr><td>#{recruit.firstName} #{recruit.lastName}</td></tr>
-                    <tr><td>#{recruit.school}</td></tr>
-                    <tr><td>#{recruit.position}</td></tr>
-                    <tr><td><h:link outcome="#{recruitManager.viewRecruit(recruit.id)}" value="View" /></td></tr>
-                    
-                </ui:repeat>
+            <h:form id="RecruitListForm">
+                    <p:panel header="#{bundle.ListRecruitTitle}">
+                        <p:dataTable id="datalist" value="#{recruitManager.items}" var="item"
+                                     selectionMode="single" selection="#{recruitManager.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
 
-            </table>
-        </h:form>
-        <h:link outcome="CreateRecruit" value="Add a Recruit" />
-        <br />
+                            <p:ajax event="rowSelect"   update="viewButton"/>
+                            <p:ajax event="rowUnselect" update="viewButton"/> 
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Profile Picture"/>
+                                </f:facet>
+                                <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                                                class="img-rounded col-md-3" height="50" width="50"></h:graphicImage>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecruitTitle_firstName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.firstName}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecruitTitle_lastName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lastName}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecruitTitle_position}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.position}" />                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecruitTitle_year}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.year}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecruitTitle_school}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.school}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" disabled="#{empty recruitManager.selected}"/>
+                                
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
         
+        <br />
+            
         
             </ui:define>
         </ui:composition>

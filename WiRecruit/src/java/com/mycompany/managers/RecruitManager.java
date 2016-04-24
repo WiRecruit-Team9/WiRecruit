@@ -7,6 +7,8 @@ package com.mycompany.managers;
 import com.mycompany.entitypackage.RecruitPhoto;
 import com.mycompany.entitypackage.Recruit;
 import com.mycompany.entitypackage.User;
+import com.mycompany.jsfpackage.util.JsfUtil;
+import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
@@ -16,6 +18,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -52,6 +57,7 @@ public class RecruitManager implements Serializable {
     private String commitment;
     private String notes;
     private Recruit currentRecruitID;
+    private Recruit selected;
 
     
     private String statusMessage = "";
@@ -63,13 +69,76 @@ public class RecruitManager implements Serializable {
     private List<Recruit> listOfRecruits = null;
     
     @EJB
+    private com.mycompany.sessionbeanpackage.RecruitFacade ejbFacade;
+    
+    @EJB
     private RecruitFacade recruitFacade;
+    
     
     @EJB
     private RecruitPhotoFacade recruitPhotoFacade;
     
     @EJB
     private UserFacade userFacade;
+    
+    public List<Recruit> getItems() {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User user = userFacade.find(user_id);
+        commitment = user.getSchool();
+        
+        if (listOfRecruits == null) {
+            listOfRecruits = getFacade().findRecruitsByCommitment(commitment);
+        }
+        return listOfRecruits;
+    }
+    
+    public Recruit getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Recruit selected) {
+        this.selected = selected;
+    }
+    
+    protected void initializeEmbeddableKey() {
+    }
+
+    public Recruit prepareCreate() {
+        selected = new Recruit();
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
+    public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RecruitCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            listOfRecruits = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void update() {
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RecruitUpdated"));
+    }
+
+    public void destroy() {
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RecruitDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            listOfRecruits = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public Recruit getRecuit(java.lang.Integer id) {
+        return getFacade().find(id);
+    }
+
+    public List<Recruit> getItemsAvailableSelectMany() {
+        return getFacade().findAll();
+    }
+
+    public List<Recruit> getItemsAvailableSelectOne() {
+        return getFacade().findAll();
+    }
     
     public Recruit getCurrentRecruitID() {
         return currentRecruitID;
@@ -251,6 +320,13 @@ public class RecruitManager implements Serializable {
         return listOfRecruits;
     }
     
+    protected void setEmbeddableKeys() {
+    }
+    
+    private RecruitFacade getFacade() {
+        return ejbFacade;
+    }
+
     
     public String createRecruit() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
@@ -330,7 +406,6 @@ public class RecruitManager implements Serializable {
     
         commitment = user.getSchool();
         listOfRecruits = recruitFacade.findRecruitsByCommitment(commitment);
-        System.out.println();
         return "RecruitBook";
     }
     
@@ -338,5 +413,33 @@ public class RecruitManager implements Serializable {
     {
         currentRecruitID = recruitFacade.getRecruit(id);
         return "RecruitProfile";
+    }
+
+    private void persist(PersistAction persistAction, String successMessage) {
+        if (selected != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selected);
+                } else {
+                    getFacade().remove(selected);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
     }
 }
