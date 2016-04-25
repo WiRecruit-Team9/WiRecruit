@@ -24,6 +24,46 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 
         <div align="center" style="width:50%; margin:0 auto;">
             <h:form class="form-signin">
+<h3>Interactive</h3>
+<p:steps activeIndex="0" styleClass="custom" readonly="false">
+    <p:menuitem value="Personal" url="#"/>
+    <p:menuitem value="School Info" url="#"/>
+    <p:menuitem value="Security" url="#"/>
+    <p:menuitem value="Confirmation" url="#"/>
+</p:steps>
+<br />
+ 
+<style type="text/css">
+.ui-steps .ui-steps-item {
+    width: 24%;
+}
+ 
+.ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+.ui-steps.custom {
+    margin-bottom: 30px;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+</style>
+                
+                
+                
                 <h2 class="form-signin-heading">New Account</h2>
                 <br/>
                 <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
