@@ -21,18 +21,33 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <br />
                 <br />
-                <h2>Staff Book</h2>
-        <h:form>
-            <table>
-                <ui:repeat var="staff" value="#{accountManager.listOfStaff}">
-                    <tr><td rowspan="4" colspan="4"><h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="recruits"
-                            height="60px" width="60px"></h:graphicImage></td><td></td></tr>
-                    <tr><td>#{staff.firstName} #{staff.lastName}</td></tr>
-                    <tr><td>#{staff.title}</td></tr>
-                    <tr><td>#{staff.email}</td></tr>
-                    
-                </ui:repeat>
-            </table>
+        <h:form> 
+            <p:dataScroller value="#{accountManager.listOfStaff}" var="staff" chunkSize="10">
+                <f:facet name="header">
+                    #{accountManager.school} Staff Book
+                </f:facet>
+
+                <f:facet name="loader">
+                    <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                    <p:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" height="60px" width="60px"/> 
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Name: " />
+                            <h:outputText value="#{staff.firstName} #{staff.lastName}" style="font-weight: bold"/>
+
+                            <h:outputText value="Title: " />
+                            <h:outputText value="#{staff.title}" style="font-weight: bold"/>
+
+                            <h:outputText value="Email: " />
+                            <h:outputText value="#{staff.email}" style="font-weight: bold"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
         </h:form>
             </ui:define>
         </ui:composition>
