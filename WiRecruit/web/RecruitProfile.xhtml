@@ -25,7 +25,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
             <h:form class="form-signin">
                 <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                           class="img-rounded col-md-3"></h:graphicImage>
-                    <h2> #{recruitManager.currentRecruitID.firstName} #{recruitManager.currentRecruitID.lastName} </h2>
+                    <h2> #{recruitManager.selected.firstName} #{recruitManager.selected.lastName} </h2>
                     <h:button value="Edit Profile"  outcome="EditAccount"/>
                     <h:button value="Change Photo"  outcome="EditPhoto"/>
                 <br/>
@@ -33,32 +33,32 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     <!-- Basic Info goes here -->
                     <h:panelGrid columns="2" cellpadding="6">
                       <h:outputText value="Position: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.position}" />
+                      <h:outputText value="#{recruitManager.selected.position}" />
 
                       <h:outputText value="Secondary Position: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.secondaryPosition}" />
+                      <h:outputText value="#{recruitManager.selected.secondaryPosition}" />
                       
                       <h:outputText value="Height: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.height}" />
+                      <h:outputText value="#{recruitManager.selected.height}" />
                       
                       <h:outputText value="School: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.school}" />
+                      <h:outputText value="#{recruitManager.selected.school}" />
                       
                       <h:outputText value="Address: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.address1} 
-                                    #{recruitManager.currentRecruitID.address2}, 
-                                    #{recruitManager.currentRecruitID.city} 
-                                    #{recruitManager.currentRecruitID.state} 
-                                    #{recruitManager.currentRecruitID.zipcode}" />
+                      <h:outputText value="#{recruitManager.selected.address1} 
+                                    #{recruitManager.selected.address2}, 
+                                    #{recruitManager.selected.city} 
+                                    #{recruitManager.selected.state} 
+                                    #{recruitManager.selected.zipcode}" />
                       
                       <h:outputText value="GPA: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.gpa}" />       
+                      <h:outputText value="#{recruitManager.selected.gpa}" />       
 
                       <h:outputText value="Email: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.email}" />
+                      <h:outputText value="#{recruitManager.selected.email}" />
                       
                       <h:outputText value="Notes: " />
-                      <h:outputText value="#{recruitManager.currentRecruitID.notes}" />
+                      <h:outputText value="#{recruitManager.selected.notes}" />
                     </h:panelGrid>         
                 <br/>
                 <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Back to Recruit Book" />

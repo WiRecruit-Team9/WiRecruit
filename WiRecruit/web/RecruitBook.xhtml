@@ -73,7 +73,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                 <h:outputText value="#{item.school}"/>
                             </p:column>
                             <f:facet name="footer">
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" disabled="#{empty recruitManager.selected}"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" action="#{recruitManager.addRecruit()}"/>
+                                <p:commandButton id="viewButton" action="#{recruitManager.viewRecruit()}" icon="ui-icon-search" value="#{bundle.View}" disabled="#{empty recruitManager.selected}"/>
                                 
                             </f:facet>
                         </p:dataTable>

@@ -409,11 +409,17 @@ public class RecruitManager implements Serializable {
         return "RecruitBook";
     }
     
-    public String viewRecruit(int id)
+    public String viewRecruit()
     {
-        currentRecruitID = recruitFacade.getRecruit(id);
         return "RecruitProfile";
     }
+    
+    public String addRecruit()
+    {
+        return "CreateRecruit";
+    }
+    
+     
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
