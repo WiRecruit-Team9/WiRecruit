@@ -56,7 +56,7 @@ public class AccountManager implements Serializable {
     private int zipcode;
     private int security_question;
     private String security_answer;
-    private String statusMessage;
+    private String statusMessage = "";
     
     private final String[] listOfStates = Constants.STATES;
     private Map<String, Object> security_questions;
@@ -433,4 +433,32 @@ public class AccountManager implements Serializable {
                 // ...
             }
     }
+    
+     private boolean skip;
+     
+    public boolean isSkip() {
+        return skip;
+    }
+ 
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+     
+    public String onFlowProcess(FlowEvent event) {
+        if(skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        }
+        else {
+            return event.getNewStep();
+        }
+    }
+    
+    public void save() {  
+        User user = new User();
+
+        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
 }

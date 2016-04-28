@@ -16,42 +16,40 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet library="css" name="globalStyles.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/siteTemplate.xhtml">
+        <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
                 <br />
-                <br />
-                <br />
-        <div align="center" style="width:50%; margin:0 auto;">
-            <h:form class="form-signin">
-                <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
-                          class="img-rounded col-md-3"></h:graphicImage>
-                    <h2> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h2>
-                    <h:button value="Edit Profile"  outcome="EditAccount"/>
-                    <h:button value="Change Photo"  outcome="EditPhoto"/>
-                    <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
-                <br/>
-                <br/>
-                    <!-- Basic Info goes here -->
-                    <h:panelGrid columns="2" cellpadding="6">
-                      <h:outputText value="Title: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.title}" />
+                <div align="center" style="width:50%; margin:0 auto;">
+                    <h:form class="form-signin">
+                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                                        class="img-rounded col-md-3"></h:graphicImage>
+                        <h2> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h2>
+                        <h:button value="Edit Profile"  outcome="EditAccount"/>
+                        <h:button value="Change Photo"  outcome="EditPhoto"/>
+                        <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
+                        <br/>
+                        <br/>
+                        <!-- Basic Info goes here -->
+                        <h:panelGrid columns="2" cellpadding="6">
+                            <h:outputText value="Title: " />
+                            <h:outputText value="#{profileViewManager.loggedInUser.title}" />
 
-                      <h:outputText value="School: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.school}" />
-                      
-                      <h:outputText value="Address: " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.city} 
-                                    #{profileViewManager.loggedInUser.state} 
-                                    #{profileViewManager.loggedInUser.zipcode}" />    
+                            <h:outputText value="School: " />
+                            <h:outputText value="#{profileViewManager.loggedInUser.school}" />
 
-                      <h:outputText value="Email " />
-                      <h:outputText value="#{profileViewManager.loggedInUser.email}" />
-                    </h:panelGrid>         
-                <br/>
-                <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
-                <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
-            </h:form> 
-        </div>
+                            <h:outputText value="Address: " />
+                            <h:outputText value="#{profileViewManager.loggedInUser.city} 
+                                          #{profileViewManager.loggedInUser.state} 
+                                          #{profileViewManager.loggedInUser.zipcode}" />    
+
+                            <h:outputText value="Email " />
+                            <h:outputText value="#{profileViewManager.loggedInUser.email}" />
+                        </h:panelGrid>         
+                        <br/>
+                        <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
+                        <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
+                    </h:form> 
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

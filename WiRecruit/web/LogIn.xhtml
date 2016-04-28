@@ -13,35 +13,34 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/replacementTemplate.xhtml">
+        <ui:composition template="/template/homepage/indexSiteTemplate.xhtml">
 
             <!-- Create the content for this page below -->
             <ui:define name="editableContent">
                 <br />
                 <br />
-                <br />
-        <div align="center">
-            <h:form class="form-signin">
                 <div align="center">
-                
-                <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+                    <h:form class="form-signin">
+                        <div align="center">
+                            <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
+                            <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
 
-                    <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
-                    <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
-                    
-                    <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
-                    <h:inputSecret class="form-control"  id="password" value="#{loginManager.password}"/>
-                
-                </h:panelGrid>
-                <br/>
-                    <h:commandButton id="login"  action="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"/>
-                    <h:commandButton id="create"  action="#{loginManager.createUser()}" value="Create" styleClass="buttonText"/>
-                    <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
+                                <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
+                                <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
+
+                                <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
+                                <h:inputSecret class="form-control"  id="password" value="#{loginManager.password}"/>
+
+                            </h:panelGrid>
+                            <br/>
+                            <h:commandButton id="login"  action="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"/>
+                            <h:commandButton id="create"  action="#{loginManager.createUser()}" value="Create" styleClass="buttonText"/>
+                            <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
+                        </div>
+                        <br/>
+                        <h:outputLabel value ="#{loginManager.errorMessage}" />  
+                    </h:form>
                 </div>
-                <br/>
-                <h:outputLabel value ="#{loginManager.errorMessage}" />  
-            </h:form>
-        </div>
             </ui:define>
         </ui:composition>
     </h:body>

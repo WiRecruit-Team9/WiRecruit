@@ -29,6 +29,10 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
  
 @Named(value = "recruitManager")
 @SessionScoped
@@ -58,6 +62,8 @@ public class RecruitManager implements Serializable {
     private String notes;
     private Recruit currentRecruitID;
     private Recruit selected;
+    private MapModel simpleModel = new DefaultMapModel();
+    private LatLng coord = new LatLng(36.879466, 30.667648);
 
     
     private String statusMessage = "";
@@ -81,6 +87,11 @@ public class RecruitManager implements Serializable {
     @EJB
     private UserFacade userFacade;
     
+    public RecruitManager()
+    {
+        simpleModel.addOverlay(new Marker(coord, "school", "High School"));
+    }
+    
     public List<Recruit> getItems() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
@@ -90,6 +101,22 @@ public class RecruitManager implements Serializable {
             listOfRecruits = getFacade().findRecruitsByCommitment(commitment);
         }
         return listOfRecruits;
+    }
+
+    public MapModel getSimpleModel() {
+        return simpleModel;
+    }
+
+    public void setSimpleModel(MapModel simpleModel) {
+        this.simpleModel = simpleModel;
+    }
+
+    public LatLng getCoord() {
+        return coord;
+    }
+
+    public void setCoord(LatLng coord) {
+        this.coord = coord;
     }
     
     public Recruit getSelected() {

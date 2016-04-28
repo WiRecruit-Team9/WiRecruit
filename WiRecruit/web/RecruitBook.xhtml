@@ -16,11 +16,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet library="css" name="globalStyles.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/siteTemplate.xhtml">
+        <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
                 <h2>Recruit Book</h2>
-            <h:form id="RecruitListForm">
-                    <p:panel header="#{bundle.ListRecruitTitle}">
+                <h:form id="RecruitListForm">
+                    <p:panel header="#{accountManager.school}'s Recruits" style="background:#34495e">
                         <p:dataTable id="datalist" value="#{recruitManager.items}" var="item"
                                      selectionMode="single" selection="#{recruitManager.selected}"
                                      paginator="true"
@@ -75,7 +75,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
-                </h:form>                    
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>
