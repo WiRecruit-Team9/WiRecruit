@@ -18,25 +18,21 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <br />
-                <br />
-                <br />
                 <h2>Dashboard</h2>
-        <h:form>
-            
-            <table>
-                <ui:repeat var="recruit" value="#{accountManager.feed}">
-                    <tr><td>#{recruit}</td></tr>
-                    
-                </ui:repeat>
+                <h:form>
+                    <table>
+                        <ui:repeat var="recruit" value="#{accountManager.feed}">
+                            <tr><td>#{recruit}</td></tr>
 
-            </table>
-            <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
-        <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
-        </h:form>
+                        </ui:repeat>
+
+                    </table>
+                    <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
+                    <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
+                </h:form>
             </ui:define>
         </ui:composition>
-        
+
     </h:body>
 
 
