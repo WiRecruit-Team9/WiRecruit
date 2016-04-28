@@ -15,145 +15,145 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/replacementTemplate.xhtml">
+        <ui:composition template="/template/homepage/indexSiteTemplate.xhtml">
 
             <!-- Create the content for this page below -->
             <ui:define name="editableContent">
                 <br />
                 <br />
-                
-        <div align="center" style="width:50%; margin:0 auto;">
-            <h:form class="form-signin">
- <h2 class="form-signin-heading">New Account</h2>
-                                
-    <p:growl id="growl" sticky="true" showDetail="true"/> 
-    <p:messages id="msgs" />
-    
-    <p:wizard flowListener="#{accountManager.onFlowProcess}">
-        <p:tab id="personal" title="Personal">
-            <p:panel header="Personal Details">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="First Name: *" />
-                    <p:inputText value="#{accountManager.firstName}" required="true" label="Firstname"/>
-                    
-                    <h:outputText value="Last Name: *" />
-                    <p:inputText value="#{accountManager.lastName}" required="true" label="Lastname"/>
- 
-                     <h:outputText value="City: " />
-                    <p:inputText value="#{accountManager.city}" />
-                    
-                     <h:outputText value="State: " />
-                     <h:selectOneMenu id="state" value="#{accountManager.state}" required="true">
-                        <f:selectItems value="#{accountManager.listOfStates}" var="state"
-                                       itemLabel="#{state}" itemValue="#{state}" />
-                    </h:selectOneMenu>
-                    
-                     <h:outputText value="Zipcode: " />
-                     <p:inputText value="#{accountManager.zipcode}" />
-                    <h:outputText value="Skip to last: " />
-                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="address" title="School Information">
-            <p:panel header="School Details">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Coaching Title: " />
-                    <p:inputText value="#{accountManager.title}" />
- 
-                    <h:outputText value="School: " />
-                    <h:selectOneMenu id="school" value="#{accountManager.school}">
-                        <f:selectItems value="#{accountManager.listOfSchools}" var="school"
-                                       itemLabel="#{school}" itemValue="#{school}" />
-                    </h:selectOneMenu> 
- 
-                    <h:outputText value="Skip to last: " />
-                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="contact" title="Account Information">
-            <p:panel header="Account Information">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Email: *" />
-                    <p:inputText value="#{accountManager.email}" required="true" label="Email"/>
- 
-                    <h:outputText value="Username: " />
-                    <p:inputText value="#{accountManager.username}"/>
- 
-                    <h:outputText value="Password: " />
-                    <p:password id="feedback" feedback="true" value="#{accountManager.password}"/>
-                    
-                    <h:outputText value="Confirm Password: " />
-                    <h:inputSecret id="confirmPassword" 
-                                required="true" label="Confirm Password">
-                    </h:inputSecret>
-                    
-                    <p:outputLabel for="security_ques" value="Security Question" />
-                    <h:selectOneMenu id="security_ques" value="#{accountManager.security_question}" required="true">
-                        <f:selectItems value="#{accountManager.security_questions}"/>
-                    </h:selectOneMenu>
-                  
-                    <p:outputLabel for="security_ans" value="Answer" />
-                    <h:inputText id="security_ans" value="#{accountManager.security_answer}" 
-                                 required="true" label="city">
-                        <f:validateLength minimum="4" />
-                    </h:inputText>
-                    
 
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="confirm" title="Confirmation">
-            <p:panel header="Confirmation">
-                <h:panelGrid id="confirmation" columns="1" columnClasses="grid">
-                    <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Firstname:             " />
-                        <h:outputText value="#{accountManager.firstName}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Lastname:             " />
-                        <h:outputText value="#{accountManager.lastName}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="City:             " />
-                        <h:outputText value="#{accountManager.city}" styleClass="outputLabel"/>
-                        
-                        <h:outputText value="State:             " />
-                        <h:outputText value="#{accountManager.state}" styleClass="outputLabel"/>
-                        
-                        <h:outputText value="Zipcode:             " />
-                        <h:outputText value="#{accountManager.zipcode}" styleClass="outputLabel"/>
-                        
-                          <h:outputText value="Title:             " />
-                        <h:outputText value="#{accountManager.title}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="School:             " />
-                        <h:outputText value="#{accountManager.school}" styleClass="outputLabel"/>
-                        
-                        <h:outputText value="Email:             " />
-                        <h:outputText value="#{accountManager.email}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Username:             " />
-                        <h:outputText value="#{accountManager.username}" styleClass="outputLabel"/>                      
+                <div align="center" style="width:50%; margin:0 auto;">
+                    <h:form class="form-signin">
+                        <h2 class="form-signin-heading">New Account</h2>
 
-                    </h:panelGrid>
-                </h:panelGrid>
-                <h:form>
-                <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
-                 <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                             action="#{accountManager.createAccount()}" value="Submit" />   
-                 <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" /></h:form>
-            </p:panel>
-        </p:tab>
-    </p:wizard>
-      
-            </h:form>
-        </div>
+                        <p:growl id="growl" sticky="true" showDetail="true"/> 
+                        <p:messages id="msgs" />
+
+                        <p:wizard flowListener="#{accountManager.onFlowProcess}">
+                            <p:tab id="personal" title="Personal">
+                                <p:panel header="Personal Details">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="First Name: *" />
+                                        <p:inputText value="#{accountManager.firstName}" required="true" label="Firstname"/>
+
+                                        <h:outputText value="Last Name: *" />
+                                        <p:inputText value="#{accountManager.lastName}" required="true" label="Lastname"/>
+
+                                        <h:outputText value="City: " />
+                                        <p:inputText value="#{accountManager.city}" />
+
+                                        <h:outputText value="State: " />
+                                        <h:selectOneMenu id="state" value="#{accountManager.state}" required="true">
+                                            <f:selectItems value="#{accountManager.listOfStates}" var="state"
+                                                           itemLabel="#{state}" itemValue="#{state}" />
+                                        </h:selectOneMenu>
+
+                                        <h:outputText value="Zipcode: " />
+                                        <p:inputText value="#{accountManager.zipcode}" />
+                                        <h:outputText value="Skip to last: " />
+                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="address" title="School Information">
+                                <p:panel header="School Details">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Coaching Title: " />
+                                        <p:inputText value="#{accountManager.title}" />
+
+                                        <h:outputText value="School: " />
+                                        <h:selectOneMenu id="school" value="#{accountManager.school}">
+                                            <f:selectItems value="#{accountManager.listOfSchools}" var="school"
+                                                           itemLabel="#{school}" itemValue="#{school}" />
+                                        </h:selectOneMenu> 
+
+                                        <h:outputText value="Skip to last: " />
+                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="contact" title="Account Information">
+                                <p:panel header="Account Information">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Email: *" />
+                                        <p:inputText value="#{accountManager.email}" required="true" label="Email"/>
+
+                                        <h:outputText value="Username: " />
+                                        <p:inputText value="#{accountManager.username}"/>
+
+                                        <h:outputText value="Password: " />
+                                        <p:password id="feedback" feedback="true" value="#{accountManager.password}"/>
+
+                                        <h:outputText value="Confirm Password: " />
+                                        <h:inputSecret id="confirmPassword" 
+                                                       required="true" label="Confirm Password">
+                                        </h:inputSecret>
+
+                                        <p:outputLabel for="security_ques" value="Security Question" />
+                                        <h:selectOneMenu id="security_ques" value="#{accountManager.security_question}" required="true">
+                                            <f:selectItems value="#{accountManager.security_questions}"/>
+                                        </h:selectOneMenu>
+
+                                        <p:outputLabel for="security_ans" value="Answer" />
+                                        <h:inputText id="security_ans" value="#{accountManager.security_answer}" 
+                                                     required="true" label="city">
+                                            <f:validateLength minimum="4" />
+                                        </h:inputText>
+
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="confirm" title="Confirmation">
+                                <p:panel header="Confirmation">
+                                    <h:panelGrid id="confirmation" columns="1" columnClasses="grid">
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="Firstname:             " />
+                                            <h:outputText value="#{accountManager.firstName}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Lastname:             " />
+                                            <h:outputText value="#{accountManager.lastName}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="City:             " />
+                                            <h:outputText value="#{accountManager.city}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="State:             " />
+                                            <h:outputText value="#{accountManager.state}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Zipcode:             " />
+                                            <h:outputText value="#{accountManager.zipcode}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Title:             " />
+                                            <h:outputText value="#{accountManager.title}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="School:             " />
+                                            <h:outputText value="#{accountManager.school}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Email:             " />
+                                            <h:outputText value="#{accountManager.email}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Username:             " />
+                                            <h:outputText value="#{accountManager.username}" styleClass="outputLabel"/>                      
+
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <h:form>
+                                        <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
+                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                                         action="#{accountManager.createAccount()}" value="Submit" />   
+                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" /></h:form>
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
+
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

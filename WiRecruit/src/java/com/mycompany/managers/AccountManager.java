@@ -49,7 +49,7 @@ public class AccountManager implements Serializable {
     private int zipcode;
     private int security_question;
     private String security_answer;
-    private String statusMessage;
+    private String statusMessage = "";
     
     private final String[] listOfStates = Constants.STATES;
     private Map<String, Object> security_questions;
