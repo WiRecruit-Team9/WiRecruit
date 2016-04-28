@@ -302,6 +302,12 @@ a.pure-button-primary {
 .ui-menubar  {
     background: #6FBEF3;
     border: 1px solid #6FBEF3 !important;
-    color: #ffffff !important;
+    color: #34495e !important;
     font-weight: bolder !important;
+}
+
+.ui-menuItem {
+    background: #6FBEF3;
+    border: 1px solid #6FBEF3 !important;
+    color: #34495e !important;
 }

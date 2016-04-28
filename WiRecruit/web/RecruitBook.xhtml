@@ -20,7 +20,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
             <ui:define name="editableContent">
                 <h2>Recruit Book</h2>
                 <h:form id="RecruitListForm">
-                    <p:panel header="#{bundle.ListRecruitTitle}">
+                    <p:panel header="#{accountManager.school}'s Recruits" style="background:#34495e">
                         <p:dataTable id="datalist" value="#{recruitManager.items}" var="item"
                                      selectionMode="single" selection="#{recruitManager.selected}"
                                      paginator="true"

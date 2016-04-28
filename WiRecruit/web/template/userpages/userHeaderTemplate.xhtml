@@ -19,8 +19,10 @@
         <ui:composition>
             <div class="header">
                 <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                    <a class="pure-menu-heading" href="">Wicruit</a>
+                    <h:link id="cancel" class="pure-menu-heading" outcome="Dashboard.xhtml" value="WiRecruit" style="text-decoration: none; color: #ffffff"/>
                     <ul class="pure-menu-list">
+                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                                        class="img-rounded col-md-3" height="30" width="30" style="position:relative"></h:graphicImage>
                         <li class="pure-menu-item "><h:link outcome="StaffProfile.xhtml" class="pure-menu-link">My Profile</h:link></li>
                         <li class="pure-menu-item"><h:link outcome="index.xhtml" class="pure-menu-link">Log Out</h:link></li>
                     </ul>
@@ -29,9 +31,9 @@
                 <br/>
                 <h:form>
                     <p:menubar class="ui-menubar">
-                        <p:menuitem value ="DashBoard" outcome="Dashboard.xhtml"></p:menuitem>
-                        <p:menuitem value ="Recruit Book" outcome="RecruitBook.xhtml"></p:menuitem>
-                        <p:menuitem value ="Staff" outcome="StaffBook.xhtml"></p:menuitem>
+                        <p:menuitem value ="DashBoard" outcome="Dashboard.xhtml" class="ui-menuItem"></p:menuitem>
+                        <p:menuitem value ="Recruit Book" outcome="RecruitBook.xhtml" class="ui-menuItem"></p:menuitem>
+                        <p:menuitem value ="Staff" outcome="StaffBook.xhtml" class="ui-menuItem"></p:menuitem>
                     </p:menubar>
                 </h:form>
             </div>

@@ -10,7 +10,7 @@ package com.mycompany.managers;
  */
 public class Constants {
     
-    public static final String ROOT_DIRECTORY = "/Users/Chen/FileStorageLocation/";
+    public static final String ROOT_DIRECTORY = "/Users/ftyyeung/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 
