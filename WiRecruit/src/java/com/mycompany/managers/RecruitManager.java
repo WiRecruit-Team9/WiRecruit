@@ -365,7 +365,7 @@ public class RecruitManager implements Serializable {
             AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
                 + " " + firstName + " " + lastName + " to the recruit book");
             
-            return "RecruitBook";
+            return "RecruitBook?faces-redirect=true";
         }
         return "";
     }
@@ -378,7 +378,7 @@ public class RecruitManager implements Serializable {
                 statusMessage = "Something went wrong while editing the recruit!";
                 return "";
             }
-            return "RecruitProfile";
+            return "RecruitProfile?faces-redirect=true";
         }
         return "";
     }
@@ -406,17 +406,17 @@ public class RecruitManager implements Serializable {
     
         commitment = user.getSchool();
         listOfRecruits = recruitFacade.findRecruitsByCommitment(commitment);
-        return "RecruitBook";
+        return "RecruitBook?faces-redirect=true";
     }
     
     public String viewRecruit()
     {
-        return "RecruitProfile";
+        return "RecruitProfile?faces-redirect=true";
     }
     
     public String addRecruit()
     {
-        return "CreateRecruit";
+        return "CreateRecruit?faces-redirect=true";
     }
     
      

@@ -9,6 +9,7 @@ import com.mycompany.entitypackage.User;
 import com.mycompany.sessionbeanpackage.UserPhotoFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,6 +27,14 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
  
 @Named(value = "accountManager")
 @SessionScoped
@@ -54,6 +63,7 @@ public class AccountManager implements Serializable {
     private final String[] listOfSchools = Constants.SCHOOLS;
     private User selected;
     private List<User> listOfStaff = null;
+    private User loggedOnUser;
    
     private static ArrayList<String> feed = new ArrayList<String>();
     
@@ -237,7 +247,8 @@ public class AccountManager implements Serializable {
                 user.setSecurityQuestion(security_question);
                 user.setSecurityAnswer(security_answer);
                 
-                userFacade.create(user);                
+                userFacade.create(user); 
+                
             } catch (EJBException e) {
                 username = "";
                 statusMessage = "Something went wrong while creating your account!";
@@ -389,5 +400,37 @@ public class AccountManager implements Serializable {
         Date date = new Date();
         
         feed.add(0, newFeed + " at " + dateFormat.format(date));
+        System.out.println("Work work work work work");
+    }
+    
+    public void sendEmail() throws UnsupportedEncodingException
+    {
+        String body = "welcome to Wicruit";
+        String host = "smtp.gmail.com";
+        String user = "wicruit@gmail.com";
+        String pass = "testaccforwicruit";
+        Properties props = new Properties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", user);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        Session session = Session.getDefaultInstance(props, null);
+        
+        try {
+                Message msg = new MimeMessage(session);
+                msg.setFrom(new InternetAddress("wicruit@gmail.com", "Wicruit"));
+                msg.addRecipient(Message.RecipientType.TO,
+                        new InternetAddress(loggedOnUser.getEmail(), loggedOnUser.getFirstName()));
+                msg.setSubject("Someone just added a new recruit!");
+                msg.setText(body);
+                Transport.send(msg, user, pass);
+
+            } catch (AddressException e) {
+                // ...
+            } catch (MessagingException e) {
+                // ...
+            }
     }
 }

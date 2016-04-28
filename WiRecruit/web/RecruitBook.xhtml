@@ -18,9 +18,6 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/siteTemplate.xhtml">
             <ui:define name="editableContent">
-                <br />
-                <br />
-                <br />
                 <h2>Recruit Book</h2>
             <h:form id="RecruitListForm">
                     <p:panel header="#{bundle.ListRecruitTitle}">
@@ -75,15 +72,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" action="#{recruitManager.addRecruit()}"/>
                                 <p:commandButton id="viewButton" action="#{recruitManager.viewRecruit()}" icon="ui-icon-search" value="#{bundle.View}" disabled="#{empty recruitManager.selected}"/>
-                                
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
-                </h:form>
-        
-        <br />
-            
-        
+                </h:form>                    
             </ui:define>
         </ui:composition>
     </h:body>
