@@ -4,6 +4,19 @@
     box-sizing: border-box;
 }
 
+html, body {
+    background-image: url(./images/NSLinenBackgroundPattern.png); 
+
+    /* Stretch the background image to cover the entire screen */
+    -webkit-background-size: cover; /* For WebKit */
+    -moz-background-size: cover;    /* For Mozilla */
+    -o-background-size: cover;      /* For Opera */
+    background-size: auto;         /* Generic */
+    background-repeat: repeat;   /* Do not repeat the image */
+    width: 100%;                    /* Set page width horizontally 100% */
+    height: 100%;                   /* Set page height vertically 100% */
+}
+
 /*
  * -- BASE STYLES --
  * Most of these are inherited from Base, but I want to change a few.

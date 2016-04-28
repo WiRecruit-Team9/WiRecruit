@@ -26,6 +26,8 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.faces.application.FacesMessage;
+import org.primefaces.event.FlowEvent;
  
 @Named(value = "accountManager")
 @SessionScoped
@@ -390,4 +392,32 @@ public class AccountManager implements Serializable {
         
         feed.add(0, newFeed + " at " + dateFormat.format(date));
     }
+    
+     private boolean skip;
+     
+    public boolean isSkip() {
+        return skip;
+    }
+ 
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+     
+    public String onFlowProcess(FlowEvent event) {
+        if(skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        }
+        else {
+            return event.getNewStep();
+        }
+    }
+    
+    public void save() {  
+        User user = new User();
+
+        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
 }
