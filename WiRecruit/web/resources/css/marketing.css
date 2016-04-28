@@ -233,7 +233,7 @@ a.pure-button-primary {
     background: #111;
     width:100%;
     height: 60px;
-    position:relative;
+    position:fixed;
     bottom:0;
     left:0;
 }
@@ -297,4 +297,11 @@ a.pure-button-primary {
     .splash-head {
         font-size: 300%;
     }
+}
+
+.ui-menubar  {
+    background: #6FBEF3;
+    border: 1px solid #6FBEF3 !important;
+    color: #ffffff !important;
+    font-weight: bolder !important;
 }
