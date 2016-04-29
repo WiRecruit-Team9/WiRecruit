@@ -10,162 +10,196 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Create Recruit</title>
+        <title>Create Account</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/userpages/replacementTemplate.xhtml">
+        <ui:composition template="/template/homepage/indexSiteTemplate.xhtml">
 
             <!-- Create the content for this page below -->
             <ui:define name="editableContent">
                 <br />
                 <br />
                 
-        <div align="center" style="width:50%; margin:0 auto;">
-            <h:form class="form-signin">
-                <h2 class="form-signin-heading">New Recruit</h2>
-                <br/>
-                <p:panel id="panel" 
-                         style="width: 400px; border: 0px solid white">
-                <p:messages id="msgs" />
+                <div align="center" style="width:50%; margin:0 auto;">
+                    <h:form class="form-signin">
+                        <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
+                        <h2 class="form-signin-heading">New Account</h2>
 
-                            <h:panelGrid columns="3" cellpadding="5">
-                                <p:outputLabel for="firstName" value="First Name" />
-                                <h:inputText id="firstName" value="#{recruitManager.firstName}" 
-                                             required="true" label="First Name">
-                                    <f:validateLength minimum="2" />
-                                </h:inputText>
-                                <p:message for="firstName" display="icon" />                   
+                        <p:growl id="growl" sticky="true" showDetail="true"/> 
+                        <p:messages id="msgs" />
 
-                                <p:outputLabel for="lastName" value="Last Name" />
-                                <h:inputText id="lastName" value="#{recruitManager.lastName}" 
-                                             required="true" label="Last Name">
-                                    <f:validateLength minimum="2" />
-                                </h:inputText>
-                                <p:message for="lastName" display="icon" />
+                        <p:wizard flowListener="#{recruitManager.onFlowProcess}">
+                            <p:tab id="personal" title="Personal">
+                                <p:panel header="Personal Details">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="First Name: *" />
+                                        <p:inputText value="#{recruitManager.firstName}" required="true" label="Firstname"/>
 
-                                <p:outputLabel for="email" value="Email:" />
-                                <h:inputText id="email" value="#{recruitManager.email}" 
-                                             label="Email" required="true">
-                                    <f:validateLength minimum="2" />
-                                    <f:validator validatorId="emailValidator" /> 
-                                </h:inputText>
-                                <p:message for="email" display="icon" />
+                                        <h:outputText value="Last Name: *" />
+                                        <p:inputText value="#{recruitManager.lastName}" required="true" label="Lastname"/>
 
-                                <p:outputLabel for="phone" value="Phone" />
-                                <h:inputText id="phone" value="#{recruitManager.phone}" 
-                                             required="true" label="phone">
-                                    <f:validateLength/>
-                                </h:inputText>
-                                <p:message for="phone" display="icon" />
+                                        <h:outputText value="Email: " />
+                                        <p:inputText value="#{recruitManager.email}" required="true"/>
+                                        
+                                        <h:outputText value="Phone Number: " />
+                                        <p:inputText value="#{recruitManager.phone}" required="true"/>
+                                        
+                                        <h:outputText value="Skip to last: " />
+                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
 
-                                <p:outputLabel for="address1" value="Address Line 1" />
-                                <h:inputText id="address1" value="#{recruitManager.address1}" 
-                                             required="true" label="address1">
-                                    <f:validateLength minimum="5" />
-                                </h:inputText>
-                                <p:message for="address1" display="icon" />
+                            <p:tab id="address" title="School Information">
+                                <p:panel header="School Details">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="School: " />
+                                        <p:inputText value="#{recruitManager.school}" required="true"/>
+                                        
+                                        <h:outputText value="Address: " />
+                                        <p:inputText value="#{recruitManager.address1}" required="true"/>
+                                        
+                                        <h:outputText value="Address 2: " />
+                                        <p:inputText value="#{recruitManager.address2}"/>
+ 
+                                        <h:outputText value="City: " />
+                                        <p:inputText value="#{recruitManager.city}" />
 
-                                <p:outputLabel for="address2" value="Address Line 2" />
-                                <h:inputText id="address2" value="#{recruitManager.address2}" 
-                                             label="address2" />
-                                <p:message for="address2" display="icon" />
+                                        <h:outputText value="State: " />
+                                        <h:selectOneMenu id="state" value="#{recruitManager.state}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfStates}" var="state"
+                                                           itemLabel="#{state}" itemValue="#{state}" />
+                                        </h:selectOneMenu>
 
-                                <p:outputLabel for="city" value="City" />
-                                <h:inputText id="city" value="#{recruitManager.city}" 
-                                             required="true" label="city">
-                                    <f:validateLength minimum="5" />
-                                </h:inputText>
-                                <p:message for="city" display="icon" />                    
+                                        <h:outputText value="Zipcode: " />
+                                        <p:inputText value="#{recruitManager.zipcode}" />
+                                        
+                                        <h:outputText value="GPA: " />
+                                        <p:inputText id="gpa" value="#{recruitManager.gpa}" 
+                                                     required="true" label="gpa">
+                                            <f:validateLength minimum="2" maximum="4" />
+                                        </p:inputText>
+                              
+                                        <h:outputText value="Year: " />
+                                        <h:selectOneMenu id="year" value="#{recruitManager.year}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="year"
+                                                           itemLabel="#{year}" itemValue="#{year}" />
+                                        </h:selectOneMenu>
 
-                                <p:outputLabel for="state" value="State" />
-                                <h:selectOneMenu id="state" value="#{recruitManager.state}" required="true">
-                                    <f:selectItems value="#{recruitManager.listOfStates}" var="state"
-                                                   itemLabel="#{state}" itemValue="#{state}" />
-                                </h:selectOneMenu>
-                                <p:message for="state" display="icon" />
+                                        <h:outputText value="Skip to last: " />
+                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
 
-                                <p:outputLabel for="zipcode" value="Zip Code" />
-                                <h:inputText id="zipcode" value="#{recruitManager.zipcode}" 
-                                             required="true" label="Zip Code">
-                                    <f:validateLength minimum="5" maximum="5"/>
-                                </h:inputText>
-                                <p:message for="zipcode" display="icon" />                                       
+                            <p:tab id="contact" title="Baseball Skills">
+                                <p:panel header="Baseball Skills">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Height (in): " />
+                                        <p:inputText value="#{recruitManager.height}" required="true"/>
+                                        
+                                        <h:outputText value="Weight (lbs) " />
+                                        <p:inputText value="#{recruitManager.weight}" required="true"/>
+                                      
+                                        <h:outputText value="Position: " />
+                                        <h:selectOneMenu id="position" value="#{recruitManager.position}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfPositions}" var="state"
+                                                           itemLabel="#{position}" itemValue="#{position}" />
+                                        </h:selectOneMenu>
+                                        
+                                        <h:outputText value="Secondary Position: " />
+                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.state}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
+                                                           itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
+                                        </h:selectOneMenu>
+                                         
+                                        <h:outputText value="Skill Level: " />
+                                        <h:selectOneMenu id="skillLevel" value="#{recruitManager.skillLevel}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfSkillLevels}" var="skillLevel"
+                                                           itemLabel="#{skillLevel}" itemValue="#{skillLevel}" />
+                                        </h:selectOneMenu>
+                                        
+                                        <h:outputText value="Commitment: " />
+                                        <p:inputText value="#{recruitManager.commitment}" required="true"/>
+                                        
+                                        <h:outputText value="Notes: " />
+                                        <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
+                                                         required="false" label="notes" rows="10" cols="30">
+                                        </h:inputTextarea>
 
-                                <p:outputLabel for="school" value="School" />
-                                <h:inputText id="school" value="#{recruitManager.school}" 
-                                             required="true" label="school">
-                                    <f:validateLength minimum="4" />
-                                </h:inputText>
-                                <p:message for="school" display="icon" />  
 
-                                <p:outputLabel for="year" value="Year" />
-                                <h:inputText id="year" value="#{recruitManager.year}" 
-                                             required="true" label="year">
-                                    <f:validateLength minimum="1" maximum="2" />
-                                </h:inputText>
-                                <p:message for="year" display="icon" /> 
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
 
-                                <p:outputLabel for="gpa" value="GPA" />
-                                <h:inputText id="gpa" value="#{recruitManager.gpa}" 
-                                             required="true" label="gpa">
-                                    <f:validateLength minimum="2" maximum="4" />
-                                </h:inputText>
-                                <p:message for="gpa" display="icon" /> 
+                            <p:tab id="confirm" title="Confirmation">
+                                <p:panel header="Confirmation">
+                                    <h:panelGrid id="confirmation" columns="1" columnClasses="grid">
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="First Name:             " />
+                                            <h:outputText value="#{recruitManager.firstName}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="position" value="Position" />
-                                <h:selectOneMenu id="position" value="#{recruitManager.position}" required="true">
-                                    <f:selectItems value="#{recruitManager.listOfPositions}" var="position"
-                                                   itemLabel="#{position}" itemValue="#{position}" />
-                                </h:selectOneMenu>
-                                <p:message for="position" display="icon" /> 
+                                            <h:outputText value="Last Name:             " />
+                                            <h:outputText value="#{recruitManager.lastName}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Email:             " />
+                                            <h:outputText value="#{recruitManager.email}" styleClass="outputLabel"/>
+                                                                                      
+                                            <h:outputText value="Phone:              " />
+                                            <h:outputText value="#{recruitManager.phone}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="School:             " />
+                                            <h:outputText value="#{recruitManager.school}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="secondaryPosition" value="Secondary Position" />
-                                <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.secondaryPosition}" required="false">
-                                    <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
-                                                   itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
-                                </h:selectOneMenu>
-                                <p:message for="secondaryPosition" display="icon" /> 
+                                            <h:outputText value="City:             " />
+                                            <h:outputText value="#{recruitManager.city}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="skillLevel" value="Skill Level" />
-                                <h:selectOneMenu id="skillLevel" value="#{recruitManager.skillLevel}" required="true">
-                                    <f:selectItems value="#{recruitManager.listOfSkillLevels}" var="skillLevel"
-                                                   itemLabel="#{skillLevel}" itemValue="#{skillLevel}" />
-                                </h:selectOneMenu>
-                                <p:message for="skillLevel" display="icon" /> 
+                                            <h:outputText value="State:             " />
+                                            <h:outputText value="#{recruitManager.state}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="height" value="Height in Inches: " />
-                                <h:inputText id="height" value="#{recruitManager.height}" 
-                                             required="true" label="height">
-                                    <f:validateLongRange minimum="36" maximum="96" />
-                                </h:inputText>
-                                <p:message for="height" display="icon" />
+                                            <h:outputText value="Zipcode:             " />
+                                            <h:outputText value="#{recruitManager.zipcode}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="weight" value="Weight in Pounds: " />
-                                <h:inputText id="weight" value="#{recruitManager.weight}" 
-                                             required="true" label="weight">
-                                    <f:validateLongRange minimum="50" maximum="400" />
-                                </h:inputText>
-                                <p:message for="weight" display="icon" />
+                                            <h:outputText value="GPA:             " />
+                                            <h:outputText value="#{recruitManager.gpa}" styleClass="outputLabel"/>
 
-                                <p:outputLabel for="notes" value="Notes" />
-                                <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
-                                                 required="false" label="notes" rows="10" cols="30">
-                                </h:inputTextarea>
-                                <p:message for="notes" display="icon" /> 
+                                            <h:outputText value="Year:             " />
+                                            <h:outputText value="#{recruitManager.year}" styleClass="outputLabel"/>
 
-                            </h:panelGrid>
-                        </p:panel>
-                        <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
-                        <br/>
-                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                         action="#{recruitManager.createRecruit()}" value="Submit" />   
-                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
+                                            <h:outputText value="Position:             " />
+                                            <h:outputText value="#{recruitManager.position}" styleClass="outputLabel"/> 
+                                            
+                                            <h:outputText value="Secondary Position:             " />
+                                            <h:outputText value="#{recruitManager.school}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Skill Level             " />
+                                            <h:outputText value="#{recruitManager.skillLevel}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Commitment:             " />
+                                            <h:outputText value="#{recruitManager.commitment}" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Notes:             " />
+                                            <h:outputText value="#{recruitManager.notes}" styleClass="outputLabel"/>
+
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <h:form>
+                                        <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
+                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                                         action="#{recruitManager.createRecruit()}" value="Submit" />   
+                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" /></h:form>
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
+
                     </h:form>
                 </div>
             </ui:define>
-
         </ui:composition>
     </h:body>
 
