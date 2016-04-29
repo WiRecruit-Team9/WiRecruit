@@ -28,6 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -35,6 +36,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.primefaces.event.FlowEvent;
  
 @Named(value = "accountManager")
 @SessionScoped
@@ -62,9 +64,7 @@ public class AccountManager implements Serializable {
     private Map<String, Object> security_questions;
     private final String[] listOfSchools = Constants.SCHOOLS;
     private User selected;
-    private List<User> listOfStaff = null;
-    private User loggedOnUser;
-   
+    private List<User> listOfStaff = null;   
     private static ArrayList<String> feed = new ArrayList<String>();
     
     @EJB
@@ -220,7 +220,7 @@ public class AccountManager implements Serializable {
         this.selected = selected;
     }
     
-    public String createAccount() {
+    public String createAccount() throws UnsupportedEncodingException {
         
         // Check to see if a user already exists with the username given.
         User aUser = userFacade.findByUsername(username);
@@ -255,12 +255,13 @@ public class AccountManager implements Serializable {
                 return "";
             }
             initializeSessionMap();
-            return "StaffProfile";
+            sendEmail();
+            return "StaffProfile?faces-redirect=true";
         }
         return "";
     }
     
-    public String updateAccount() {
+    public String updateAccount() throws UnsupportedEncodingException {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
             User editUser = userFacade.getUser(user_id);
@@ -280,7 +281,7 @@ public class AccountManager implements Serializable {
                 statusMessage = "Something went wrong while editing your profile!";
                 return "";
             }
-            return "StaffProfile";
+            return "StaffProfile?faces-redirect=true";
         }
         return "";
     }
@@ -405,7 +406,9 @@ public class AccountManager implements Serializable {
     
     public void sendEmail() throws UnsupportedEncodingException
     {
-        String body = "welcome to Wicruit";
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User currentUser = userFacade.find(user_id);
+        String body = message(currentUser);
         String host = "smtp.gmail.com";
         String user = "wicruit@gmail.com";
         String pass = "testaccforwicruit";
@@ -422,8 +425,8 @@ public class AccountManager implements Serializable {
                 Message msg = new MimeMessage(session);
                 msg.setFrom(new InternetAddress("wicruit@gmail.com", "Wicruit"));
                 msg.addRecipient(Message.RecipientType.TO,
-                        new InternetAddress(loggedOnUser.getEmail(), loggedOnUser.getFirstName()));
-                msg.setSubject("Someone just added a new recruit!");
+                        new InternetAddress(currentUser.getEmail(), currentUser.getFirstName()));
+                msg.setSubject("Welcome To Wicruit!");
                 msg.setText(body);
                 Transport.send(msg, user, pass);
 
@@ -460,5 +463,14 @@ public class AccountManager implements Serializable {
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
+    public String message(User newUser)
+    {
+        return "Congratulations "+ newUser.getFirstName()+ "!\n\n"
+                + "Your account have been successfully created!\n" 
+                + "Your account name is: "+ newUser.getUsername() +"\n\n" 
+                + "You can now have all the information about your recruits in one place. No more scrammbling around looking for information on your recruit or losing vital information \n\n"
+                + "Thank you for choosing us, \n"
+                + "Wicruit Support Team";               
+    }
 }

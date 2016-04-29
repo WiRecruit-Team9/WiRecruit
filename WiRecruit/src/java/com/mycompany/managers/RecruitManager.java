@@ -14,10 +14,12 @@ import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
 import com.mycompany.managers.ProfileViewManager;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +31,13 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -64,7 +73,8 @@ public class RecruitManager implements Serializable {
     private Recruit selected;
     private MapModel simpleModel = new DefaultMapModel();
     private LatLng coord = new LatLng(36.879466, 30.667648);
-
+    private List<String> listOfEmails = null;
+    private String userSchool;
     
     private String statusMessage = "";
     
@@ -355,7 +365,7 @@ public class RecruitManager implements Serializable {
     }
 
     
-    public String createRecruit() {
+    public String createRecruit() throws UnsupportedEncodingException {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
         
@@ -391,7 +401,7 @@ public class RecruitManager implements Serializable {
             }
             AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
                 + " " + firstName + " " + lastName + " to the recruit book");
-            
+            sendEmail();
             return "RecruitBook?faces-redirect=true";
         }
         return "";
@@ -474,5 +484,45 @@ public class RecruitManager implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+    
+    public void sendEmail() throws UnsupportedEncodingException
+    {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User currentUser = userFacade.find(user_id);
+        userSchool = currentUser.getState();
+        listOfEmails = userFacade.findUserByUniversity(userSchool);
+        String body = message(currentUser);
+        String host = "smtp.gmail.com";
+        String user = "wicruit@gmail.com";
+        String pass = "testaccforwicruit";
+        Properties props = new Properties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", user);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        Session session = Session.getDefaultInstance(props, null);
+        
+        try {
+                Message msg = new MimeMessage(session);
+                msg.setFrom(new InternetAddress("wicruit@gmail.com", "Wicruit"));
+                msg.addRecipient(Message.RecipientType.TO,
+                        new InternetAddress(currentUser.getEmail(), currentUser.getFirstName()));
+                msg.setSubject("A new Recruit was added!!");
+                msg.setText(body);
+                Transport.send(msg, user, pass);
+
+            } catch (AddressException e) {
+                // ...
+            } catch (MessagingException e) {
+                // ...
+            }
+    }
+    
+    public String message(User user)
+    {
+        return user.getFirstName()+" "+user.getLastName()+ " just added a new Recruit to the Recruit Book!";              
     }
 }
