@@ -24,11 +24,13 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -68,6 +70,7 @@ public class RecruitManager implements Serializable {
     
     private String statusMessage = "";
     
+    private final int[] listOfSchoolYear = Constants.SCHOOLYEAR;
     private final String[] listOfStates = Constants.STATES;
     private final int[] listOfSkillLevels = Constants.SKILL_LEVELS;
     private final String[] listOfPositions = Constants.POSITIONS;
@@ -335,6 +338,10 @@ public class RecruitManager implements Serializable {
         return listOfStates;
     }
     
+    public int[] getListOfSchoolYear() {
+        return listOfSchoolYear;
+    }
+    
     public int[] getListOfSkillLevels() {
         return listOfSkillLevels;
     }
@@ -475,4 +482,34 @@ public class RecruitManager implements Serializable {
             }
         }
     }
+    
+    
+    
+    private boolean skip;
+     
+    public boolean isSkip() {
+        return skip;
+    }
+ 
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+     
+    public String onFlowProcess(FlowEvent event) {
+        if(skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        }
+        else {
+            return event.getNewStep();
+        }
+    }
+    
+    public void save() {  
+        User user = new User();
+
+        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
 }

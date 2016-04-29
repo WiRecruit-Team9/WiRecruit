@@ -6,11 +6,11 @@ package com.mycompany.managers;
 
 /**
  *
- * @author jsuriano
+ * @author s
  */
 public class Constants {
     
-    public static final String ROOT_DIRECTORY = "/Users/ftyyeung/FileStorageLocation/";
+    public static final String ROOT_DIRECTORY = "/Users/andrewmogg/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 
@@ -30,7 +30,13 @@ public class Constants {
     "What is your father's middle name?",
     "What is your most favorite pet's name?"};
     
-    public static final String[] SCHOOLS = {"Virginia Tech", "University of Virginia"};
+    public static final int[] SCHOOLYEAR = {1, 2, 3, 4};
+    
+    public static final String[] SCHOOLS = {"Boston College", "Clemson", "Duke", "Florida State", "Georgia Tech",
+        "Louisville", "Miami", "North Carolina", "North Carolina State", "Notre Dame",  "Pittsburgh", "Syracuase",
+        "Virginia Tech", "University of Virginia", "Wake Forest"};
+    
+    public static final String[] TITLES = {"Head Coach", "Pitching Coach", "Hitting Coach", "Recruiting Coordinator"};
 
     public static final int[] SKILL_LEVELS = {0, 1, 2, 3, 4, 5};
     
