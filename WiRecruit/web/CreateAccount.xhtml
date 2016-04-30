@@ -63,7 +63,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     <p:messages />
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="Coaching Title: " />
-                                        <p:inputText value="#{accountManager.title}" />
+                                        <h:selectOneMenu id="title" value="#{accountManager.title}">
+                                            <f:selectItems value="#{accountManager.listOfTitles}" var="title"
+                                                           itemLabel="#{title}" itemValue="#{title}" />
+                                        </h:selectOneMenu> 
 
                                         <h:outputText value="School: " />
                                         <h:selectOneMenu id="school" value="#{accountManager.school}">

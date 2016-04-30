@@ -1,3 +1,12 @@
+/*
+==================
+IMPORTS
+==================  
+*/
+@import url(//fonts.googleapis.com/css?family=Rosario:400,700);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -29,8 +38,12 @@ body {
 
 h1,
 h2,
-h3,
-h4,
+h3, h4 {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: .5em;
+  color: #34495e;
+}
 h5,
 h6,
 label {
@@ -312,3 +325,34 @@ a.pure-button-primary {
     border: 1px solid #6FBEF3 !important;
     color: #34495e !important;
 }
+
+/*
+
+h3 {
+  font-size: 3em;
+  text-align: right;
+  letter-spacing: 0.25em;
+}
+
+h4 {
+  font-size: 2em;
+  color: #34495e; 
+}*/
+
+
+/*
+==================
+LAYOUT
+==================  
+*/
+article[role="profile"] h4 {
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+article[role="profile"] h4:hover {
+  letter-spacing: .25em;
+  color: #34495e;
+}
+

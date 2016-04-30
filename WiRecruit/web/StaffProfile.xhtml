@@ -23,7 +23,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     <h:form class="form-signin">
                         <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
-                        <h2> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h2>
+                                        <article role="profile">
+                                            <h4> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h4></article>
                         <h:button value="Edit Profile"  outcome="EditAccount"/>
                         <h:button value="Change Photo"  outcome="EditPhoto"/>
                         <h:commandButton value="Log Out" action="#{accountManager.logout()}" />

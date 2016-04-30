@@ -63,6 +63,7 @@ public class AccountManager implements Serializable {
     private final String[] listOfStates = Constants.STATES;
     private Map<String, Object> security_questions;
     private final String[] listOfSchools = Constants.SCHOOLS;
+    private final String[] listOfTitles = Constants.TITLES;
     private User selected;
     private List<User> listOfStaff = null;   
     private static ArrayList<String> feed = new ArrayList<String>();
@@ -182,6 +183,10 @@ public class AccountManager implements Serializable {
     
     public String[] getListOfStates() {
         return listOfStates;
+    }
+    
+    public String[] getListOfTitles() {
+        return listOfTitles;
     }
     
     public Map<String, Object> getSecurity_questions() {
