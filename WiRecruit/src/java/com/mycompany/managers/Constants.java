@@ -30,8 +30,9 @@ public class Constants {
     "What is your father's middle name?",
     "What is your most favorite pet's name?"};
     
-    public static final int[] SCHOOLYEAR = {1, 2, 3, 4};
-    
+    public static final String[] SCHOOLYEAR = {"2016", "2017", "2018", "2019", "2020", "2021", "2022"
+    , "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"};
+   
     public static final String[] SCHOOLS = {"Boston College", "Clemson", "Duke", "Florida State", "Georgia Tech",
         "Louisville", "Miami", "North Carolina", "North Carolina State", "Notre Dame",  "Pittsburgh", "Syracuase",
         "Virginia Tech", "University of Virginia", "Wake Forest"};

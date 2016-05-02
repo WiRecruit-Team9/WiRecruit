@@ -81,7 +81,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <f:validateLength minimum="2" maximum="4" />
                                         </p:inputText>
                               
-                                        <h:outputText value="Year: " />
+                                        <h:outputText value="Grad Year: " />
                                         <h:selectOneMenu id="year" value="#{recruitManager.year}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="year"
                                                            itemLabel="#{year}" itemValue="#{year}" />
@@ -121,7 +121,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:selectOneMenu>
                                         
                                         <h:outputText value="Recruited Year " />
-                                        <p:inputText value="#{recruitManager.recruitedYear}"/>
+                                        <h:selectOneMenu id="recruitedYear" value="#{recruitManager.recruitedYear}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="recruitedYear"
+                                                           itemLabel="#{recruitedYear}" itemValue="#{recruitedYear}" />
+                                        </h:selectOneMenu>
                                         
                                         <h:outputText value="Notes: " />
                                         <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
