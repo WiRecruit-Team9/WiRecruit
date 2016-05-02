@@ -4,7 +4,7 @@
  */
 package com.mycompany.sessionbeanpackage;
 
-import com.mycompany.entitypackage.UserPhoto;
+import com.mycompany.entitypackage.Group1;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author ftyyeung
  */
 @Stateless
-public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
+public class Group1Facade extends AbstractFacade<Group1> {
 
     @PersistenceContext(unitName = "WiRecruitPU")
     private EntityManager em;
@@ -24,8 +24,8 @@ public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
         return em;
     }
 
-    public UserPhotoFacade() {
-        super(UserPhoto.class);
+    public Group1Facade() {
+        super(Group1.class);
     }
     
 }

@@ -7,6 +7,7 @@ package com.mycompany.entitypackage;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findBySecurityAnswer", query = "SELECT u FROM User u WHERE u.securityAnswer = :securityAnswer"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
 public class User implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<GroupUser> groupUserCollection;
+    @OneToMany(mappedBy = "userId")
+    private Collection<Event> eventCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -283,6 +289,24 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entitypackage.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<GroupUser> getGroupUserCollection() {
+        return groupUserCollection;
+    }
+
+    public void setGroupUserCollection(Collection<GroupUser> groupUserCollection) {
+        this.groupUserCollection = groupUserCollection;
+    }
+
+    @XmlTransient
+    public Collection<Event> getEventCollection() {
+        return eventCollection;
+    }
+
+    public void setEventCollection(Collection<Event> eventCollection) {
+        this.eventCollection = eventCollection;
     }
     
 }

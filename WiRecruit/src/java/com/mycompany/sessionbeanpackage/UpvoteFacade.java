@@ -1,6 +1,6 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
- * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
+ * Created by Franki Yeung on 2016.05.02  * 
+ * Copyright © 2016 Franki Yeung. All rights reserved. * 
  */
 package com.mycompany.sessionbeanpackage;
 
@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author jsuriano
+ * @author ftyyeung
  */
 @Stateless
 public class UpvoteFacade extends AbstractFacade<Upvote> {

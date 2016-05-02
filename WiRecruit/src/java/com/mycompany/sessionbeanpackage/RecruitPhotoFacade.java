@@ -1,18 +1,17 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.06  * 
- * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
+ * Created by Franki Yeung on 2016.05.02  * 
+ * Copyright © 2016 Franki Yeung. All rights reserved. * 
  */
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.RecruitPhoto;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author jsuriano
+ * @author ftyyeung
  */
 @Stateless
 public class RecruitPhotoFacade extends AbstractFacade<RecruitPhoto> {
@@ -29,9 +28,4 @@ public class RecruitPhotoFacade extends AbstractFacade<RecruitPhoto> {
         super(RecruitPhoto.class);
     }
     
-    public List<RecruitPhoto> findPhotosByRecruitID(Integer recruitID) {
-        return (List<RecruitPhoto>) em.createNamedQuery("RecruitPhoto.findPhotosByRecruitId")
-                .setParameter("recruitId", recruitID)
-                .getResultList();
-    }
 }

@@ -60,10 +60,10 @@ public class RecruitManager implements Serializable {
     private String city;
     private String state;
     private int zipcode;
-    private int year;
+    private String year;
     private float gpa;
     private String email;
-    private long phone;
+    private String phone;
     private int skillLevel;
     private String position;
     private String secondaryPosition;
@@ -253,11 +253,11 @@ public class RecruitManager implements Serializable {
         this.zipcode = zipcode;
     }
     
-    public int getYear() {
+    public String getYear() {
         return year;
     }
     
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year =year;
     }
     
@@ -277,11 +277,11 @@ public class RecruitManager implements Serializable {
         this.email = email;
     }
     
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
     
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     
@@ -401,6 +401,7 @@ public class RecruitManager implements Serializable {
                 recruit.setWeight(weight);
                 recruit.setYear(year);
                 recruit.setNotes(notes);
+                
                 
                 recruitFacade.create(recruit);                
             } catch (EJBException e) {

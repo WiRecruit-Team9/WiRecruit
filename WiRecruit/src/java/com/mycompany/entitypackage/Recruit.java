@@ -1,11 +1,13 @@
 /*
- * Created by Julio Suriano Siu on 2016.04.13  * 
- * Copyright © 2016 Julio Suriano Siu. All rights reserved. * 
+ * Created by Franki Yeung on 2016.05.02  * 
+ * Copyright © 2016 Franki Yeung. All rights reserved. * 
  */
 package com.mycompany.entitypackage;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,14 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author jsuriano
+ * @author ftyyeung
  */
 @Entity
 @Table(name = "Recruit")
@@ -38,6 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Recruit.findByState", query = "SELECT r FROM Recruit r WHERE r.state = :state"),
     @NamedQuery(name = "Recruit.findByZipcode", query = "SELECT r FROM Recruit r WHERE r.zipcode = :zipcode"),
     @NamedQuery(name = "Recruit.findByYear", query = "SELECT r FROM Recruit r WHERE r.year = :year"),
+    @NamedQuery(name = "Recruit.findByRecruitedYear", query = "SELECT r FROM Recruit r WHERE r.recruitedYear = :recruitedYear"),
     @NamedQuery(name = "Recruit.findByHeight", query = "SELECT r FROM Recruit r WHERE r.height = :height"),
     @NamedQuery(name = "Recruit.findByWeight", query = "SELECT r FROM Recruit r WHERE r.weight = :weight"),
     @NamedQuery(name = "Recruit.findByGpa", query = "SELECT r FROM Recruit r WHERE r.gpa = :gpa"),
@@ -94,8 +99,14 @@ public class Recruit implements Serializable {
     private int zipcode;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "year")
-    private int year;
+    private String year;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "recruitedYear")
+    private String recruitedYear;
     @Basic(optional = false)
     @NotNull
     @Column(name = "height")
@@ -108,14 +119,16 @@ public class Recruit implements Serializable {
     @NotNull
     @Column(name = "gpa")
     private float gpa;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "phone")
-    private long phone;
+    private String phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
@@ -137,6 +150,14 @@ public class Recruit implements Serializable {
     @Size(max = 65535)
     @Column(name = "notes")
     private String notes;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruitId")
+    private Collection<GroupRecruit> groupRecruitCollection;
+    @OneToMany(mappedBy = "recruitId")
+    private Collection<RecruitPhoto> recruitPhotoCollection;
+    @OneToMany(mappedBy = "recruitId")
+    private Collection<Upvote> upvoteCollection;
+    @OneToMany(mappedBy = "recruitId")
+    private Collection<Event> eventCollection;
 
     public Recruit() {
     }
@@ -145,7 +166,7 @@ public class Recruit implements Serializable {
         this.id = id;
     }
 
-    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, int year, int height, int weight, float gpa, long phone, String email, int skillLevel, String position, String secondaryPosition) {
+    public Recruit(Integer id, String firstName, String lastName, String school, String address1, String city, String state, int zipcode, String year, String recruitedYear, int height, int weight, float gpa, String phone, String email, int skillLevel, String position) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -155,6 +176,7 @@ public class Recruit implements Serializable {
         this.state = state;
         this.zipcode = zipcode;
         this.year = year;
+        this.recruitedYear = recruitedYear;
         this.height = height;
         this.weight = weight;
         this.gpa = gpa;
@@ -162,7 +184,6 @@ public class Recruit implements Serializable {
         this.email = email;
         this.skillLevel = skillLevel;
         this.position = position;
-        this.secondaryPosition = secondaryPosition;
     }
 
     public Integer getId() {
@@ -237,12 +258,20 @@ public class Recruit implements Serializable {
         this.zipcode = zipcode;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getRecruitedYear() {
+        return recruitedYear;
+    }
+
+    public void setRecruitedYear(String recruitedYear) {
+        this.recruitedYear = recruitedYear;
     }
 
     public int getHeight() {
@@ -269,11 +298,11 @@ public class Recruit implements Serializable {
         this.gpa = gpa;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -323,6 +352,42 @@ public class Recruit implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @XmlTransient
+    public Collection<GroupRecruit> getGroupRecruitCollection() {
+        return groupRecruitCollection;
+    }
+
+    public void setGroupRecruitCollection(Collection<GroupRecruit> groupRecruitCollection) {
+        this.groupRecruitCollection = groupRecruitCollection;
+    }
+
+    @XmlTransient
+    public Collection<RecruitPhoto> getRecruitPhotoCollection() {
+        return recruitPhotoCollection;
+    }
+
+    public void setRecruitPhotoCollection(Collection<RecruitPhoto> recruitPhotoCollection) {
+        this.recruitPhotoCollection = recruitPhotoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Upvote> getUpvoteCollection() {
+        return upvoteCollection;
+    }
+
+    public void setUpvoteCollection(Collection<Upvote> upvoteCollection) {
+        this.upvoteCollection = upvoteCollection;
+    }
+
+    @XmlTransient
+    public Collection<Event> getEventCollection() {
+        return eventCollection;
+    }
+
+    public void setEventCollection(Collection<Event> eventCollection) {
+        this.eventCollection = eventCollection;
     }
 
     @Override
