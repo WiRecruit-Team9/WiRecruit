@@ -153,12 +153,6 @@ public class RecruitManager implements Serializable {
     
     protected void initializeEmbeddableKey() {
     }
-
-    public Recruit prepareCreate() {
-        selected = new Recruit();
-        initializeEmbeddableKey();
-        return selected;
-    }
     
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RecruitCreated"));
@@ -424,7 +418,16 @@ public class RecruitManager implements Serializable {
                 + " " + firstName + " " + lastName + " to the recruit book");
             sendEmail();
             
-            firstName = lastName = email = phone = school = city = state = address1 = 
+            reset();
+            
+            return getListOfRecruitsByCommitment();
+        }
+        return "";
+    }
+    
+    public void reset()
+    {
+        firstName = lastName = email = phone = school = city = state = address1 = 
                     position = secondaryPosition = address2 = notes = year = "";
             
             commitment = "";
@@ -432,10 +435,6 @@ public class RecruitManager implements Serializable {
             zipcode = skillLevel = height = weight = 0;
             gpa = 0;
             recruitedYear = "";
-            
-            return getListOfRecruitsByCommitment();
-        }
-        return "";
     }
     
     public String updateRecruit() {
