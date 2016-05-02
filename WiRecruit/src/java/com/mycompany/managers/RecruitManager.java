@@ -85,7 +85,7 @@ public class RecruitManager implements Serializable {
     
     private String statusMessage = "";
     
-    private final int[] listOfSchoolYear = Constants.SCHOOLYEAR;
+    private final String[] listOfSchoolYear = Constants.SCHOOLYEAR;
     private final String[] listOfStates = Constants.STATES;
     private final int[] listOfSkillLevels = Constants.SKILL_LEVELS;
     private final String[] listOfPositions = Constants.POSITIONS;
@@ -164,12 +164,6 @@ public class RecruitManager implements Serializable {
     }
     
     protected void initializeEmbeddableKey() {
-    }
-
-    public Recruit prepareCreate() {
-        selected = new Recruit();
-        initializeEmbeddableKey();
-        return selected;
     }
     
     public void create() {
@@ -372,7 +366,7 @@ public class RecruitManager implements Serializable {
         return listOfStates;
     }
     
-    public int[] getListOfSchoolYear() {
+    public String[] getListOfSchoolYear() {
         return listOfSchoolYear;
     }
     
@@ -451,7 +445,16 @@ public class RecruitManager implements Serializable {
            
             sendEmail();
             
-            firstName = lastName = email = phone = school = city = state = address1 = 
+            reset();
+            
+            return getListOfRecruitsByCommitment();
+        }
+        return "";
+    }
+    
+    public void reset()
+    {
+        firstName = lastName = email = phone = school = city = state = address1 = 
                     position = secondaryPosition = address2 = notes = year = "";
             
             commitment = "";
@@ -459,23 +462,6 @@ public class RecruitManager implements Serializable {
             zipcode = skillLevel = height = weight = 0;
             gpa = 0;
             recruitedYear = "";
-            
-            return getListOfRecruitsByCommitment();
-        }
-        return "";
-    }
-    
-    public String updateRecruit() {
-        if (statusMessage.isEmpty()) {
-            try {
-                recruitFacade.edit(selected);
-            } catch (EJBException e) {
-                statusMessage = "Something went wrong while editing the recruit!";
-                return "";
-            }
-            return getListOfRecruitsByCommitment();
-        }
-        return "";
     }
     
     public String deleteRecruit() {
@@ -611,5 +597,122 @@ public class RecruitManager implements Serializable {
         FacesMessage msg = new FacesMessage("Successful", getFirstName() + " added to the database");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
+    public String getSelectedPosition() {
+        return selected.getPosition();
+    }
+    
+    public void setSelectedPosition(String position) {
+        selected.setPosition(position);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedSecondaryPosition() {
+        return selected.getSecondaryPosition();
+    }
+    
+    public void setSelectedSecondaryPosition(String secondaryPosition) {
+        selected.setSecondaryPosition(secondaryPosition);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedHeight() {
+        return selected.getHeight();
+    }
+    
+    public void setSelectedHeight(int height) {
+        selected.setHeight(height);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedWeight() {
+        return selected.getWeight();
+    }
+    
+    public void setSelectedWeight(int weight) {
+        selected.setWeight(weight);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedSchool() {
+        return selected.getSchool();
+    }
+    
+    public void setSelectedSchool(String school) {
+        selected.setSchool(school);
+        recruitFacade.edit(selected);
+    }
+    
+    public float getSelectedGpa(){
+        return selected.getGpa();
+    }
+    
+    public void setSelectedGpa(float gpa) {
+        selected.setGpa(gpa);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedEmail() {
+        return selected.getEmail();
+    }
+    
+    public void setSelectedEmail(String email) {
+        selected.setEmail(email);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedNotes() {
+        return selected.getNotes();
+    }
+    
+    public void setSelectedNotes(String notes) {
+        selected.setNotes(notes);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedAddress1() {
+        return selected.getAddress1();
+    }
+    
+    public void setSelectedAddress1(String address1) {
+        selected.setAddress1(address1);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedAddress2() {
+        return selected.getAddress2();
+    }
+    
+    public void setSelectedAddress2(String address2) {
+        selected.setAddress2(address2);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedCity() {
+        return selected.getCity();
+    }
+    
+    public void setSelectedCity(String city) {
+        selected.setCity(city);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedState() {
+        return selected.getState();
+    }
+    
+    public void setSelectedState(String state) {
+        selected.setState(state);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedZipcode() {
+        return selected.getZipcode();
+    }
+    
+    public void setSelectedZipcode(int zipcode) {
+        selected.setZipcode(zipcode);
+        recruitFacade.edit(selected);
+    }
+    
 }
