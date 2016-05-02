@@ -6,12 +6,16 @@ package com.mycompany.managers;
 
 import com.mycompany.entitypackage.RecruitPhoto;
 import com.mycompany.entitypackage.Recruit;
+import com.mycompany.entitypackage.Event;
 import com.mycompany.entitypackage.User;
 import com.mycompany.jsfpackage.util.JsfUtil;
 import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
+import com.mycompany.sessionbeanpackage.Group1Facade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
+import com.mycompany.sessionbeanpackage.EventFacade;
+import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import com.mycompany.managers.ProfileViewManager;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -94,12 +98,20 @@ public class RecruitManager implements Serializable {
     @EJB
     private RecruitFacade recruitFacade;
     
+    @EJB
+    private EventFacade eventFacade;
     
     @EJB
     private RecruitPhotoFacade recruitPhotoFacade;
     
     @EJB
     private UserFacade userFacade;
+    
+    @EJB
+    private Group1Facade groupFacade;
+    
+    @EJB
+    private GroupUserFacade groupUserFacade;
     
     public RecruitManager()
     {
@@ -415,13 +427,28 @@ public class RecruitManager implements Serializable {
                 recruit.setNotes(notes);
                 
                 
-                recruitFacade.create(recruit);                
+                recruitFacade.create(recruit);   
+                selected = recruit;
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the recruit!";
                 return "";
+            }   
+            
+            try {
+                
+                Event event = new Event();
+                event.setDescription("created a new recruit");
+                event.setRecruitId(selected);
+                event.setUserId(user);
+                event.setGroupId(groupUserFacade.selectGroupFromUser(user).getGroupId());
+                event.setType(0);
+                
+                eventFacade.create(event);               
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the event!";
+                return getListOfRecruitsByCommitment();
             }
-            AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
-                + " " + firstName + " " + lastName + " to the recruit book");
+           
             sendEmail();
             
             firstName = lastName = email = phone = school = city = state = address1 = 
@@ -446,7 +473,7 @@ public class RecruitManager implements Serializable {
                 statusMessage = "Something went wrong while editing the recruit!";
                 return "";
             }
-            return "RecruitProfile?faces-redirect=true";
+            return getListOfRecruitsByCommitment();
         }
         return "";
     }
