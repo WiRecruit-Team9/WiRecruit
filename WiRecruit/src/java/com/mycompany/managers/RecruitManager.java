@@ -455,16 +455,13 @@ public class RecruitManager implements Serializable {
         return "";
     }
     
-    public String userPhoto() {
-        /*String user_name = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("username");
-        Recruit recruit = recruitFacade.findByUsername(user_name);
-        List<RecruitPhoto> photoList = recruitPhotoFacade.findPhotosByRecruitID(user.getId());
+    public String recruitPhoto(int id) {
+        List<RecruitPhoto> photoList = recruitPhotoFacade.findPhotosByRecruitID(id);
         if (photoList.isEmpty()) {
             return "defaultUserPhoto.png";
         }
-        return photoList.get(0).getThumbnailName();*/
-        return "";
+        return photoList.get(0).getThumbnailName();
+        //return "";
     }
     
     public String getListOfRecruitsByCommitment()

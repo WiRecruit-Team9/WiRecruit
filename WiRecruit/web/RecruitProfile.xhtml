@@ -25,11 +25,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
-                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                        <h:graphicImage value="FileStorageLocation/#{recruitManager.recruitPhoto(recruitManager.selected.id)}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
                         <h2> #{recruitManager.selected.firstName} #{recruitManager.selected.lastName} </h2>
                         <h:button value="Edit Profile"  outcome="EditAccount"/>
-                        <h:button value="Change Photo"  outcome="EditPhoto"/>
+                        <h:button value="Change Photo"  outcome="RecruitEditPhoto"/>
                         <br/>
                         <br/>
                         <!-- Basic Info goes here -->
