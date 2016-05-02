@@ -81,7 +81,7 @@ public class RecruitManager implements Serializable {
     
     private String statusMessage = "";
     
-    private final int[] listOfSchoolYear = Constants.SCHOOLYEAR;
+    private final String[] listOfSchoolYear = Constants.SCHOOLYEAR;
     private final String[] listOfStates = Constants.STATES;
     private final int[] listOfSkillLevels = Constants.SKILL_LEVELS;
     private final String[] listOfPositions = Constants.POSITIONS;
@@ -360,7 +360,7 @@ public class RecruitManager implements Serializable {
         return listOfStates;
     }
     
-    public int[] getListOfSchoolYear() {
+    public String[] getListOfSchoolYear() {
         return listOfSchoolYear;
     }
     
