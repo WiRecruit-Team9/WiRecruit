@@ -22,7 +22,6 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
-
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -59,7 +58,6 @@ public class AccountManager implements Serializable {
     private int security_question;
     private String security_answer;
     private String statusMessage = "";
-    
     private final String[] listOfStates = Constants.STATES;
     private Map<String, Object> security_questions;
     private final String[] listOfSchools = Constants.SCHOOLS;
@@ -157,7 +155,7 @@ public class AccountManager implements Serializable {
         this.zipcode = zipcode;
     }
     
-     public int getSecurity_question() {
+    public int getSecurity_question() {
         return security_question;
     }
 
@@ -487,5 +485,23 @@ public class AccountManager implements Serializable {
                 + "You can now have all the information about your recruits in one place. No more scrammbling around looking for information on your recruit or losing vital information \n\n"
                 + "Thank you for choosing us, \n"
                 + "Wicruit Support Team";               
+    }
+    
+    public String cancel() {
+        firstName = "";
+        lastName = "";
+        email = "";
+        username = "";
+        password = "";
+        title = "";
+        school = "";
+        city = "";
+        state = "";
+        zipcode = 0;
+        security_question = 0;
+        security_answer = "";
+        statusMessage = "";
+        
+        return "index";
     }
 }

@@ -44,6 +44,8 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
+import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.model.map.GeocodeResult;
  
 @Named(value = "recruitManager")
 @SessionScoped
@@ -77,6 +79,7 @@ public class RecruitManager implements Serializable {
     private LatLng coord = new LatLng(36.879466, 30.667648);
     private List<String> listOfEmails = null;
     private String userSchool;
+    private String centerGeocode;
     
     private String statusMessage = "";
     
@@ -372,6 +375,13 @@ public class RecruitManager implements Serializable {
         return ejbFacade;
     }
 
+    public String getCenterGeocode() {
+        return centerGeocode;
+    }
+
+    public void setCenterGeocode(String centerGeocode) {
+        this.centerGeocode = centerGeocode;
+    }
     
     public String createRecruit() throws UnsupportedEncodingException {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
@@ -401,7 +411,6 @@ public class RecruitManager implements Serializable {
                 recruit.setWeight(weight);
                 recruit.setYear(year);
                 recruit.setNotes(notes);
-                
                 
                 recruitFacade.create(recruit);                
             } catch (EJBException e) {
@@ -563,4 +572,12 @@ public class RecruitManager implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
+         
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            centerGeocode = center.getLat() + "," + center.getLng();
+        }
+    }
 }

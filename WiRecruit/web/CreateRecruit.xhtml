@@ -111,7 +111,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:selectOneMenu>
                                         
                                         <h:outputText value="Secondary Position: " />
-                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.state}">
+                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.secondaryPosition}">
                                             <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
                                                            itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
                                         </h:selectOneMenu>
@@ -138,6 +138,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:tab id="confirm" title="Confirmation">
                                 <p:panel header="Confirmation">
                                     <h:panelGrid id="confirmation" columns="1" columnClasses="grid">
+                                        
                                         <h:panelGrid columns="2" columnClasses="label, value">
                                             <h:outputText value="First Name:             " />
                                             <h:outputText value="#{recruitManager.firstName}" styleClass="outputLabel"/>
@@ -152,16 +153,22 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <h:outputText value="#{recruitManager.phone}" styleClass="outputLabel"/>
                                             
                                             <h:outputText value="School:             " />
-                                            <h:outputText value="#{recruitManager.school}" styleClass="outputLabel"/>
+                                            <h:outputText id="confirmSchool" value="#{recruitManager.school}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Address 1:             " />
+                                            <h:outputText value="#{recruitManager.address1}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Address 2:             " />
+                                            <h:outputText value="#{recruitManager.address2}" styleClass="outputLabel"/>
 
                                             <h:outputText value="City:             " />
-                                            <h:outputText value="#{recruitManager.city}" styleClass="outputLabel"/>
+                                            <h:outputText id="confirmCity" value="#{recruitManager.city}" styleClass="outputLabel"/>
 
                                             <h:outputText value="State:             " />
-                                            <h:outputText value="#{recruitManager.state}" styleClass="outputLabel"/>
+                                            <h:outputText id="confirmState" value="#{recruitManager.state}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Zipcode:             " />
-                                            <h:outputText value="#{recruitManager.zipcode}" styleClass="outputLabel"/>
+                                            <h:outputText id="confirmZip" value="#{recruitManager.zipcode}" styleClass="outputLabel"/>
 
                                             <h:outputText value="GPA:             " />
                                             <h:outputText value="#{recruitManager.gpa}" styleClass="outputLabel"/>
@@ -173,7 +180,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <h:outputText value="#{recruitManager.position}" styleClass="outputLabel"/> 
                                             
                                             <h:outputText value="Secondary Position:             " />
-                                            <h:outputText value="#{recruitManager.school}" styleClass="outputLabel"/>
+                                            <h:outputText value="#{recruitManager.secondaryPosition}" styleClass="outputLabel"/>
                                             
                                             <h:outputText value="Skill Level             " />
                                             <h:outputText value="#{recruitManager.skillLevel}" styleClass="outputLabel"/>
@@ -188,8 +195,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     </h:panelGrid>
                                         <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
                                         
-                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit"
-                                                         action="#{recruitManager.createRecruit()}" value="Submit"/>   
+                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                                        action="#{recruitManager.createRecruit()}" value="Submit"/>
                                         <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
                                 </p:panel>
                             </p:tab>

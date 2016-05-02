@@ -18,6 +18,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet library="css" name="globalStyles.css"/>
     </h:head>
     <h:body>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                PF('geoMap').geocode(document.getElementById('ajaxSchool').value + document.getElementById('city').value + 
+                        document.getElementById('state').value + document.getElementById('zip').value);
+            });
+        </script>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
                 <br />
@@ -61,7 +67,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             </p:inplace>
 
                             <h:outputText value="Address: " />
-                            <h:outputText value="#{recruitManager.selected.address1} 
+                            <h:outputText id="address" value="#{recruitManager.selected.address1} 
                                           #{recruitManager.selected.address2}, 
                                           #{recruitManager.selected.city} 
                                           #{recruitManager.selected.state} 
@@ -85,7 +91,9 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <br/>
                         <f:view contentType="text/html">
                             <h1>Google Map</h1>
-                            <p:gmap center="36.879466, 30.667648" zoom="15" type="HYBRID" style="width:600px;height:400px" model="#{recruitManager.simpleModel}"/>
+                            <p:gmap widgetVar="geoMap" center="#{recruitManager.centerGeocode}" zoom="15" type="HYBRID" style="width:600px;height:400px" model="#{recruitManager.simpleModel}">
+                                <p:ajax event="geocode" listener="#{recruitManager.onGeocode}" update="@this" />
+                            </p:gmap>
                         </f:view>
                         <br/>
                         <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Back to Recruit Book" />

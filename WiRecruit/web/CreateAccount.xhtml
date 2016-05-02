@@ -58,42 +58,23 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                 </p:panel>
                             </p:tab>
 
-                            <p:tab id="address" title="School Information">
-                                <p:panel header="School Details">
-                                    <p:messages />
-                                    <h:panelGrid columns="2" columnClasses="label, value">
-                                        <h:outputText value="Coaching Title: " />
-                                        <h:selectOneMenu id="title" value="#{accountManager.title}">
-                                            <f:selectItems value="#{accountManager.listOfTitles}" var="title"
-                                                           itemLabel="#{title}" itemValue="#{title}" />
-                                        </h:selectOneMenu> 
-
-                                        <h:outputText value="School: " />
-                                        <h:selectOneMenu id="school" value="#{accountManager.school}">
-                                            <f:selectItems value="#{accountManager.listOfSchools}" var="school"
-                                                           itemLabel="#{school}" itemValue="#{school}" />
-                                        </h:selectOneMenu> 
-
-                                        <h:outputText value="Skip to last: " />
-                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                                    </h:panelGrid>
-                                </p:panel>
-                            </p:tab>
-
                             <p:tab id="contact" title="Account Information">
                                 <p:panel header="Account Information">
                                     <p:messages />
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="Email: *" />
-                                        <p:inputText value="#{accountManager.email}" required="true" label="Email"/>
+                                        <p:inputText value="#{accountManager.email}" 
+                                                     required="true" label="Email"/>
 
-                                        <h:outputText value="Username: " />
-                                        <p:inputText value="#{accountManager.username}"/>
+                                        <h:outputText value="Username: *" />
+                                        <p:inputText value="#{accountManager.username}" 
+                                                     required="true" label="Username"/>
 
-                                        <h:outputText value="Password: " />
-                                        <p:password id="feedback" feedback="true" value="#{accountManager.password}"/>
+                                        <h:outputText value="Password: *" />
+                                        <p:password id="feedback" feedback="true" value="#{accountManager.password}" 
+                                                    required="true" label="Password"/>
 
-                                        <h:outputText value="Confirm Password: " />
+                                        <h:outputText value="Confirm Password: *" />
                                         <h:inputSecret id="confirmPassword" 
                                                        required="true" label="Confirm Password">
                                         </h:inputSecret>
@@ -105,7 +86,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                         <p:outputLabel for="security_ans" value="Answer" />
                                         <h:inputText id="security_ans" value="#{accountManager.security_answer}" 
-                                                     required="true" label="city">
+                                                     required="true" label="Secuirty Answer">
                                             <f:validateLength minimum="4" />
                                         </h:inputText>
 
@@ -154,7 +135,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         <br />
                                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
                                                          action="#{accountManager.createAccount()}" value="Submit"/>
-                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" />
+                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="#{accountManager.cancel()}" value="Cancel" />
                                     <!--</h:form>-->
                                 </p:panel>
                             </p:tab>
