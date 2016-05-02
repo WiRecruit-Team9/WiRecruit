@@ -4,10 +4,13 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entitypackage.Event;
 import com.mycompany.entitypackage.UserPhoto;
 import com.mycompany.entitypackage.User;
 import com.mycompany.sessionbeanpackage.UserPhotoFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
+import com.mycompany.sessionbeanpackage.EventFacade;
+import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -67,12 +70,19 @@ public class AccountManager implements Serializable {
     private User selected;
     private List<User> listOfStaff = null;   
     private static ArrayList<String> feed = new ArrayList<String>();
+    private List<Event> eventFeed = null;
     
     @EJB
     private UserFacade userFacade;
     
     @EJB
     private UserPhotoFacade userPhotoFacade;
+    
+    @EJB
+    private EventFacade eventFacade;
+    
+    @EJB
+    private GroupUserFacade groupUserFacade;
     
     public AccountManager() {
     }
@@ -187,6 +197,14 @@ public class AccountManager implements Serializable {
     
     public String[] getListOfTitles() {
         return listOfTitles;
+    }
+
+    public List<Event> getEventFeed() {
+        return eventFeed;
+    }
+
+    public void setEventFeed(List<Event> eventFeed) {
+        this.eventFeed = eventFeed;
     }
     
     public Map<String, Object> getSecurity_questions() {
@@ -415,8 +433,17 @@ public class AccountManager implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         
-        feed.add(0, newFeed + " at " + dateFormat.format(date));
+        //feed.add(0, newFeed + " at " + dateFormat.format(date));
         System.out.println("Work work work work work");
+    }
+    
+    public String updateFeed() {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User user = userFacade.find(user_id);
+        
+        eventFeed = eventFacade.findEventsByGroup(groupUserFacade.selectGroupFromUser(user).getGroupId());
+        
+        return "Dashboard?faces-redirect=true";
     }
     
     public void sendEmail() throws UnsupportedEncodingException
