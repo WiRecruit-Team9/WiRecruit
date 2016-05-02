@@ -5,6 +5,7 @@
 package com.mycompany.managers;
 
 import com.mycompany.entitypackage.User;
+import com.mycompany.sessionbeanpackage.UserFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -28,7 +29,7 @@ public class ProfileViewManager implements Serializable {
    * this instance variable a reference to the @Stateless session bean UserFacade.
    */  
   @EJB
-  private com.mycompany.sessionbeanpackage.UserFacade userFacade;
+  private UserFacade userFacade;
 
   public ProfileViewManager() {
 
@@ -55,5 +56,55 @@ public class ProfileViewManager implements Serializable {
   public void setUser(User user) {
     this.user = user;
   }
-
+  
+  public String getTitle() {
+        return getLoggedInUser().getTitle();
+    }
+    
+    public void setTitle(String title) {
+        User u = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+        u.setTitle(title);
+        userFacade.edit(u);
+    }
+    
+    public String getSchool() {
+        return getLoggedInUser().getSchool();
+    }
+    
+    public void setSchool(String school) {
+        User u = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+        u.setSchool(school);
+        userFacade.edit(u);
+    }
+    
+    public String getCity() {
+        return getLoggedInUser().getCity();
+    }
+    
+    public void setCity(String city) {
+        User u = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+        u.setCity(city);
+        userFacade.edit(u);
+    }
+    
+    public String getState() {
+        return getLoggedInUser().getState();
+    }
+    
+    public void setState(String state) {
+        User u = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+        u.setState(state);
+        userFacade.edit(u);
+    }
+    
+    public int getZipcode() {
+        return getLoggedInUser().getZipcode();
+    }
+    
+    public void setZipcode(int zipcode) {
+        User u = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+        u.setZipcode(zipcode);
+        userFacade.edit(u);
+    }
+  
 }
