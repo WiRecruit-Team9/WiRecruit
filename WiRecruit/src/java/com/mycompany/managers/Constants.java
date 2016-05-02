@@ -36,7 +36,7 @@ public class Constants {
         "Louisville", "Miami", "North Carolina", "North Carolina State", "Notre Dame",  "Pittsburgh", "Syracuase",
         "Virginia Tech", "University of Virginia", "Wake Forest"};
     
-    public static final String[] TITLES = {"Head Coach", "Pitching Coach", "Hitting Coach", "Recruiting Coordinator"};
+    public static final String[] TITLES = {"Head Coach", "Pitching Coach", "Hitting Coach", "Recruiter"};
 
     public static final int[] SKILL_LEVELS = {0, 1, 2, 3, 4, 5};
     

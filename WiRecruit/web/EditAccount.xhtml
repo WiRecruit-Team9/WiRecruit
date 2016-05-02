@@ -44,10 +44,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <p:message for="lastName" display="icon" />
  
                         <p:outputLabel for="title" value="Title" />
-                        <h:inputText id="title" value="#{accountManager.selected.title}" 
-                                     required="true" label="title">
-                            <f:validateLength minimum="5" />
-                        </h:inputText>
+                         <h:selectOneMenu id="title" value="#{accountManager.title}">
+                                            <f:selectItems value="#{accountManager.listOfTitles}" var="title"
+                                                           itemLabel="#{title}" itemValue="#{title}" />
+                                        </h:selectOneMenu> 
                         <p:message for="title" display="icon" />
 
                         <p:outputLabel for="city" value="City" />

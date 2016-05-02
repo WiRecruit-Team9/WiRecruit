@@ -25,7 +25,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
                         <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
-                        <h2 class="form-signin-heading">New Account</h2>
+                        <h2 class="form-signin-heading">New Recruit</h2>
 
                         <p:growl id="growl" sticky="true" showDetail="true"/> 
                         <p:messages id="msgs" />
@@ -190,7 +190,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     </h:panelGrid>
                                     <h:form>
                                         <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
-                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                        
+                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit"
                                                          action="#{recruitManager.createRecruit()}" value="Submit" />   
                                         <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" /></h:form>
                                 </p:panel>

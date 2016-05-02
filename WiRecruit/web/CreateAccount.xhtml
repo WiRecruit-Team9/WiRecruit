@@ -148,6 +148,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:panelGrid>
                                     </h:panelGrid>
                                     <h:form>
+<!--                                        <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar">
+                                            <h:outputText value="#{accountManager.firstName} #{accountManager.firstName} added to #{accountManager.s}Staff book!" 
+                                                          style="font-size:36px;"/>
+                                        </p:notificationBar>-->
                                         <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
                                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
                                                          action="#{accountManager.createAccount()}" value="Submit" />   
