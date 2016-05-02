@@ -160,12 +160,13 @@ public class RecruitManager implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RecruitUpdated"));
     }
 
-    public void destroy() {
+    public String destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RecruitDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             listOfRecruits = null;    // Invalidate list of items to trigger re-query.
         }
+        return "RecruitBook?faces-redirect=true"; 
     }
     
     public Recruit getRecuit(java.lang.Integer id) {
