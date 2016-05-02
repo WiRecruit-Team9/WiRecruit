@@ -34,6 +34,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.mail.Message;
@@ -446,7 +447,7 @@ public class RecruitManager implements Serializable {
             sendEmail();
             
             reset();
-            
+                        
             return getListOfRecruitsByCommitment();
         }
         return "";
@@ -588,11 +589,13 @@ public class RecruitManager implements Serializable {
         }
     }
     
-    public void save() {  
-        User user = new User();
-
-        FacesMessage msg = new FacesMessage("Successful", getFirstName() + " added to the database");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage(getFirstName() + getLastName() + "has been added to the Recruit Book");
+    }
+     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public String getSelectedPosition() {
