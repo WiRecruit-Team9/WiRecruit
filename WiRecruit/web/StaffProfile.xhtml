@@ -8,7 +8,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,21 +19,19 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <br />
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
-                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                        
+                         <article role="profile">
+                            <h5> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h5>
+                         </article>
+                        <p:panelGrid columns="2">
+                        <f:facet name="header">
+                             <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
-                                        <article role="profile">
-                                            <h4> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h4></article>
-                        <h:button value="Edit Profile"  outcome="EditAccount"/>
-                        <h:button value="Change Photo"  outcome="EditPhoto"/>
-                        <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
-                        <br/>
-                        <br/>
-                        <!-- Basic Info goes here -->
-                        <h:panelGrid columns="2" cellpadding="6">
-                            <h:outputText value="Title: " />
+                        </f:facet>
+
+                         <h:outputText value="Title: " />
                             <h:outputText value="#{profileViewManager.loggedInUser.title}" />
 
                             <h:outputText value="School: " />
@@ -45,10 +44,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                             <h:outputText value="Email " />
                             <h:outputText value="#{profileViewManager.loggedInUser.email}" />
-                        </h:panelGrid>         
-                        <br/>
-                        <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
-                        <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
+                    </p:panelGrid>               
+                        <h:button value="Edit Profile"  outcome="EditAccount"/>
+                        <h:button value="Change Photo"  outcome="EditPhoto"/>
+                        <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
                     </h:form> 
                 </div>
             </ui:define>
