@@ -47,8 +47,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         <h:outputText value="Phone Number: " />
                                         <p:inputText value="#{recruitManager.phone}" required="true"/>
                                         
-                                        <h:outputText value="Skip to last: " />
-                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                        
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -67,7 +66,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         <p:inputText value="#{recruitManager.address2}"/>
  
                                         <h:outputText value="City: " />
-                                        <p:inputText value="#{recruitManager.city}" />
+                                        <p:inputText value="#{recruitManager.city}" required="true"/>
 
                                         <h:outputText value="State: " />
                                         <h:selectOneMenu id="state" value="#{recruitManager.state}" required="true">
@@ -90,8 +89,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{year}" itemValue="#{year}" />
                                         </h:selectOneMenu>
 
-                                        <h:outputText value="Skip to last: " />
-                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                        
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -108,12 +106,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                       
                                         <h:outputText value="Position: " />
                                         <h:selectOneMenu id="position" value="#{recruitManager.position}" required="true">
-                                            <f:selectItems value="#{recruitManager.listOfPositions}" var="state"
+                                            <f:selectItems value="#{recruitManager.listOfPositions}" var="position"
                                                            itemLabel="#{position}" itemValue="#{position}" />
                                         </h:selectOneMenu>
                                         
                                         <h:outputText value="Secondary Position: " />
-                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.state}" required="true">
+                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.state}">
                                             <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
                                                            itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
                                         </h:selectOneMenu>
@@ -125,7 +123,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:selectOneMenu>
                                         
                                         <h:outputText value="Commitment: " />
-                                        <p:inputText value="#{recruitManager.commitment}" required="true"/>
+                                        <p:inputText value="#{recruitManager.commitment}"/>
                                         
                                         <h:outputText value="Notes: " />
                                         <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
@@ -191,7 +189,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
                                         
                                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit"
-                                                         action="#{recruitManager.createRecruit()}" value="Submit" />   
+                                                         action="#{recruitManager.createRecruit()}" value="Submit"/>   
                                         <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
                                 </p:panel>
                             </p:tab>

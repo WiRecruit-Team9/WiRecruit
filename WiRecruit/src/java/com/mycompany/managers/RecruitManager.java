@@ -410,7 +410,7 @@ public class RecruitManager implements Serializable {
             AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
                 + " " + firstName + " " + lastName + " to the recruit book");
             sendEmail();
-            return "RecruitBook?faces-redirect=true";
+            return getListOfRecruitsByCommitment();
         }
         return "";
     }
@@ -558,7 +558,7 @@ public class RecruitManager implements Serializable {
     public void save() {  
         User user = new User();
 
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
+        FacesMessage msg = new FacesMessage("Successful", getFirstName() + " added to the database");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

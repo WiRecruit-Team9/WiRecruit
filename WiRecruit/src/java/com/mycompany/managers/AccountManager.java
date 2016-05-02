@@ -261,6 +261,7 @@ public class AccountManager implements Serializable {
             }
             initializeSessionMap();
             sendEmail();
+            save();
             return "StaffProfile?faces-redirect=true";
         }
         return "";
@@ -374,6 +375,15 @@ public class AccountManager implements Serializable {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
         User user = userFacade.findByUsername(user_name);
+        List<UserPhoto> photoList = userPhotoFacade.findPhotosByUserID(user.getId());
+        if (photoList.isEmpty()) {
+            return "defaultUserPhoto.png";
+        }
+        return photoList.get(0).getThumbnailName();
+    }
+    
+    public String findPhoto(String userNamePhoto) {
+        User user = userFacade.findByUsername(userNamePhoto);
         List<UserPhoto> photoList = userPhotoFacade.findPhotosByUserID(user.getId());
         if (photoList.isEmpty()) {
             return "defaultUserPhoto.png";
