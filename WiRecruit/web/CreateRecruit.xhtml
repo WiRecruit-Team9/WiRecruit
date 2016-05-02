@@ -188,12 +188,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                    <h:form>
                                         <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
                                         
                                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit"
                                                          action="#{recruitManager.createRecruit()}" value="Submit" />   
-                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" /></h:form>
+                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
                                 </p:panel>
                             </p:tab>
                         </p:wizard>
