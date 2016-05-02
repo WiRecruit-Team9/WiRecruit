@@ -55,6 +55,9 @@ public class Event implements Serializable {
     private User userId;
     @JoinColumn(name = "recruit_id", referencedColumnName = "id")
     @ManyToOne
+    private Group1 groupId;
+    @JoinColumn(name = "recruit_id", referencedColumnName = "id")
+    @ManyToOne
     private Recruit recruitId;
 
     public Event() {
@@ -108,6 +111,14 @@ public class Event implements Serializable {
 
     public void setRecruitId(Recruit recruitId) {
         this.recruitId = recruitId;
+    }
+
+    public Group1 getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Group1 groupId) {
+        this.groupId = groupId;
     }
 
     @Override

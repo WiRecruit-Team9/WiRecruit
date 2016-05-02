@@ -86,7 +86,6 @@ CREATE TABLE `GroupRecruit`
     PRIMARY KEY (id),
     recruit_id INT NOT NULL,
     group_id INT NOT NULL,
-    admin boolean,
     FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
 );
@@ -125,9 +124,11 @@ CREATE TABLE `Event`
     id INT NOT NULL AUTO_INCREMENT,
     description text NOT NULL,
     type INT NOt NULL,
-    user_id INT,
-    recruit_id INT,
+    user_id INT NOT NULL,
+    recruit_id INT NOT NULL,
+    group_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES `User`(id) ON DELETE CASCADE,
-    FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE
+    FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
 );
