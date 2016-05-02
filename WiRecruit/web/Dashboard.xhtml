@@ -20,13 +20,21 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
             <ui:define name="editableContent">
                 <h2>Dashboard</h2>
                 <h:form>
-                    <table>
-                        <ui:repeat var="recruit" value="#{accountManager.feed}">
-                            <tr><td>#{recruit}</td></tr>
+                    <p:dataScroller value="#{accountManager.feed}" var="car" chunkSize="10">
+                        <f:facet name="header">
+                            Scroll Down to Load More Events
+                        </f:facet>
 
-                        </ui:repeat>
+                        <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
 
-                    </table>
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:link outcome="#{car}" value="#{car}" />
+
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                    </p:dataScroller>
                     <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
                     <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
                 </h:form>
