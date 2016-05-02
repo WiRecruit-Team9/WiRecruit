@@ -53,7 +53,7 @@ public class Event implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-    @JoinColumn(name = "recruit_id", referencedColumnName = "id")
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
     private Group1 groupId;
     @JoinColumn(name = "recruit_id", referencedColumnName = "id")
