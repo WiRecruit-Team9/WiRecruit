@@ -25,11 +25,13 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
-                        <h:graphicImage value="FileStorageLocation/#{recruitManager.recruitPhoto(recruitManager.selected.id)}" id="profilePic"
+                        <h:link outcome="RecruitEditPhoto">
+                            <h:graphicImage value="FileStorageLocation/#{recruitManager.recruitPhoto(recruitManager.selected.id)}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
+                        </h:link> 
                         <h2> #{recruitManager.selected.firstName} #{recruitManager.selected.lastName} </h2>
-                        <h:button value="Edit Profile"  outcome="EditAccount"/>
-                        <h:button value="Change Photo"  outcome="RecruitEditPhoto"/>
+                        <a class="pure-button" href="mailto:#{recruitManager.selectedEmail}?Subject=Hello%20from%20#{accountManager.school}%20Coaching%20Staff">Contact Recruit</a>
+                        <a class="pure-button" href="RecruitEditPhoto.xhtml">Edit Photo </a>
                         <br/>
                         <br/>
                         <h:button value="Upvote"  outcome=""/>
@@ -105,7 +107,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:inplace id="ajaxEmail" editor="true">
                                 <p:inputText value="#{recruitManager.selectedEmail}" required="true" label="text" />
                             </p:inplace>
-
+                                
                             <h:outputText value="Notes: " />
                             <p:inplace id="ajaxNotes" editor="true">
                                 <p:inputText value="#{recruitManager.selectedNotes}" required="true" label="text" />
