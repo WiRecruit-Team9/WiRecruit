@@ -63,6 +63,7 @@ public class RecruitManager implements Serializable {
     private String year;
     private float gpa;
     private String email;
+    private String recruitedYear;
     private String phone;
     private int skillLevel;
     private String position;
@@ -123,6 +124,16 @@ public class RecruitManager implements Serializable {
     public void setSimpleModel(MapModel simpleModel) {
         this.simpleModel = simpleModel;
     }
+
+    public String getRecruitedYear() {
+        return recruitedYear;
+    }
+
+    public void setRecruitedYear(String recruitedYear) {
+        this.recruitedYear = recruitedYear;
+    }
+    
+    
 
     public LatLng getCoord() {
         return coord;
@@ -394,6 +405,7 @@ public class RecruitManager implements Serializable {
                 recruit.setAddress2(address2);
                 recruit.setPosition(position);
                 recruit.setSecondaryPosition(secondaryPosition);
+                recruit.setRecruitedYear(recruitedYear);
                 recruit.setSkillLevel(skillLevel);
                 recruit.setGpa(gpa);
                 recruit.setCommitment(commitment);
@@ -411,6 +423,16 @@ public class RecruitManager implements Serializable {
             AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
                 + " " + firstName + " " + lastName + " to the recruit book");
             sendEmail();
+            
+            firstName = lastName = email = phone = school = city = state = address1 = 
+                    position = secondaryPosition = address2 = notes = year = "";
+            
+            commitment = "";
+            
+            zipcode = skillLevel = height = weight = 0;
+            gpa = 0;
+            recruitedYear = "";
+            
             return getListOfRecruitsByCommitment();
         }
         return "";
@@ -419,7 +441,7 @@ public class RecruitManager implements Serializable {
     public String updateRecruit() {
         if (statusMessage.isEmpty()) {
             try {
-                
+                recruitFacade.edit(selected);
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while editing the recruit!";
                 return "";

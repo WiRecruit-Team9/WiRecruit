@@ -109,7 +109,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:selectOneMenu>
                                         
                                         <h:outputText value="Secondary Position: " />
-                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.state}">
+                                        <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.secondaryPosition}">
                                             <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
                                                            itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
                                         </h:selectOneMenu>
@@ -120,8 +120,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{skillLevel}" itemValue="#{skillLevel}" />
                                         </h:selectOneMenu>
                                         
-                                        <h:outputText value="Commitment: " />
-                                        <p:inputText value="#{recruitManager.commitment}"/>
+                                        <h:outputText value="Recruited Year " />
+                                        <p:inputText value="#{recruitManager.recruitedYear}"/>
                                         
                                         <h:outputText value="Notes: " />
                                         <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
@@ -176,8 +176,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <h:outputText value="Skill Level             " />
                                             <h:outputText value="#{recruitManager.skillLevel}" styleClass="outputLabel"/>
                                             
-                                            <h:outputText value="Commitment:             " />
-                                            <h:outputText value="#{recruitManager.commitment}" styleClass="outputLabel"/>
+                                            <h:outputText value="Recruited Year:             " />
+                                            <h:outputText value="#{recruitManager.recruitedYear}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Notes:             " />
                                             <h:outputText value="#{recruitManager.notes}" styleClass="outputLabel"/>

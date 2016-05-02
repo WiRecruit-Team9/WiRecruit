@@ -67,12 +67,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <f:selectItems value="#{accountManager.listOfTitles}" var="title"
                                                            itemLabel="#{title}" itemValue="#{title}" />
                                         </h:selectOneMenu> 
-
-                                        <h:outputText value="School: " />
-                                        <h:selectOneMenu id="school" value="#{accountManager.school}">
-                                            <f:selectItems value="#{accountManager.listOfSchools}" var="school"
-                                                           itemLabel="#{school}" itemValue="#{school}" />
-                                        </h:selectOneMenu> 
+                                        
+                                        <h:outputText value="Enter Group Password: " />
+                                        <p:inputText value="#{accountManager.zipcode}" />
+                                        <h:outputText value="" />
+                                        <h:button class="btn btn-lg btn-danger" id="createGroup" outcome="index" value="Create a Group" />
 
                                         <h:outputText value="Skip to last: " />
                                         <h:selectBooleanCheckbox value="#{userWizard.skip}" />
