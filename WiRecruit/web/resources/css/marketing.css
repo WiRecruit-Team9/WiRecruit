@@ -44,7 +44,11 @@ h3, h4 {
   margin-bottom: .5em;
   color: #34495e;
 }
-h5,
+h5 {text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: .5em;
+  color: #34495e;
+  font-size: 3em;}
 h6,
 label {
     color: #34495e;
@@ -360,13 +364,13 @@ h4 {
 LAYOUT
 ==================  
 */
-article[role="profile"] h4 {
+article[role="profile"] h5 {
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-article[role="profile"] h4:hover {
+article[role="profile"] h5:hover {
   letter-spacing: .25em;
   color: #34495e;
 }

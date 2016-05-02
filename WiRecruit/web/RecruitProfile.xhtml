@@ -31,18 +31,23 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
-                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                        <h:link outcome="RecruitEditPhoto">
+                            <h:graphicImage value="FileStorageLocation/#{recruitManager.recruitPhoto(recruitManager.selected.id)}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
+                        </h:link> 
                         <h2> #{recruitManager.selected.firstName} #{recruitManager.selected.lastName} </h2>
-                        <h:button value="Edit Profile"  outcome="EditAccount"/>
-                        <h:button value="Change Photo"  outcome="EditPhoto"/>
+                        <a class="pure-button" href="mailto:#{recruitManager.selectedEmail}?Subject=Hello%20from%20#{accountManager.school}%20Coaching%20Staff">Contact Recruit</a>
+                        <a class="pure-button" href="RecruitEditPhoto.xhtml">Edit Photo </a>
                         <br/>
                         <br/>
+                        <h:button value="Upvote"  outcome=""/>
+                        
+                        <h:button value="Downvote"  outcome=""/>
                         <!-- Basic Info goes here -->
                         <h:panelGrid columns="2" cellpadding="6">
                             <h:outputText value="Position: " />
                             <p:inplace id="ajaxPosition" editor="true" effectSpeed="fast" event="click">
-                                <h:selectOneMenu id="position" value="#{recruitManager.selected.position}" required="true">
+                                <h:selectOneMenu id="position" value="#{recruitManager.selectedPosition}" required="true">
                                     <f:selectItems value="#{recruitManager.listOfPositions}" var="position"
                                                    itemLabel="#{position}" itemValue="#{position}" />
                                 </h:selectOneMenu>
@@ -50,7 +55,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                             <h:outputText value="Secondary Position: " />
                             <p:inplace id="event" label="#{recruitManager.selected.secondaryPosition}" editor="true" effectSpeed="fast" event="click">
-                                <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.selected.secondaryPosition}" required="false">
+                                <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.selectedSecondaryPosition}" required="false">
                                     <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
                                                    itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
                                 </h:selectOneMenu>
@@ -58,34 +63,60 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                             <h:outputText value="Height: " />
                             <p:inplace id="ajaxHeight" editor="true">
-                                <p:inputText value="#{recruitManager.selected.height}" required="true" label="text" />
+                                <p:inputText value="#{recruitManager.selectedHeight}" required="true" label="text" />
+                            </p:inplace>
+                            
+                            <h:outputText value="Weight: " />
+                            <p:inplace id="ajaxWeight" editor="true">
+                                <p:inputText value="#{recruitManager.selectedWeight}" required="true" label="text" />
                             </p:inplace>
 
                             <h:outputText value="School: " />
                             <p:inplace id="ajaxSchool" editor="true">
-                                <p:inputText value="#{recruitManager.selected.school}" required="true" label="text" />
+                                <p:inputText value="#{recruitManager.selectedSchool}" required="true" label="text" />
                             </p:inplace>
 
-                            <h:outputText value="Address: " />
-                            <h:outputText id="address" value="#{recruitManager.selected.address1} 
-                                          #{recruitManager.selected.address2}, 
-                                          #{recruitManager.selected.city} 
-                                          #{recruitManager.selected.state} 
-                                          #{recruitManager.selected.zipcode}" />
+                            <h:outputText value="Address 1: " />
+                            <p:inplace id="ajaxAddress1" editor="true">
+                                <p:inputText value="#{recruitManager.selectedAddress1}" required="true" label="text" />
+                            </p:inplace>
+                            
+                            <h:outputText value="Address 2: " />
+                            <p:inplace id="ajaxAddress2" editor="true">
+                                <p:inputText value="#{recruitManager.selectedAddress2}" required="true" label="text" />
+                            </p:inplace>
+                            
+                            <h:outputText value="City: " />
+                            <p:inplace id="ajaxCity" editor="true">
+                                <p:inputText value="#{recruitManager.selectedCity}" required="true" label="text" />
+                            </p:inplace>
+                            
+                            <h:outputText value="State: " />
+                            <p:inplace id="ajaxState" editor="true" effectSpeed="fast" event="click">
+                                <h:selectOneMenu id="state" value="#{recruitManager.selectedState}" required="true">
+                                    <f:selectItems value="#{recruitManager.listOfStates}" var="state"
+                                                   itemLabel="#{state}" itemValue="#{state}" />
+                                </h:selectOneMenu>
+                            </p:inplace>
+                            
+                            <h:outputText value="Zipcode: " />
+                            <p:inplace id="ajaxZipcode" editor="true">
+                                <p:inputText value="#{recruitManager.selectedZipcode}" required="true" label="text" />
+                            </p:inplace>
 
                             <h:outputText value="GPA: " />
                             <p:inplace id="ajaxGPA" editor="true">
-                                <p:inputText value="#{recruitManager.selected.gpa}" required="true" label="text" />
+                                <p:inputText value="#{recruitManager.selectedGpa}" required="true" label="text" />
                             </p:inplace>  
 
                             <h:outputText value="Email: " />
                             <p:inplace id="ajaxEmail" editor="true">
-                                <p:inputText value="#{recruitManager.selected.email}" required="true" label="text" />
+                                <p:inputText value="#{recruitManager.selectedEmail}" required="true" label="text" />
                             </p:inplace>
-
+                                
                             <h:outputText value="Notes: " />
                             <p:inplace id="ajaxNotes" editor="true">
-                                <p:inputText value="#{recruitManager.selected.notes}" required="true" label="text" />
+                                <p:inputText value="#{recruitManager.selectedNotes}" required="true" label="text" />
                             </p:inplace>
                         </h:panelGrid>         
                         <br/>

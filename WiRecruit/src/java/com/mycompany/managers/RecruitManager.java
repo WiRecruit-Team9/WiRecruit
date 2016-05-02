@@ -6,12 +6,16 @@ package com.mycompany.managers;
 
 import com.mycompany.entitypackage.RecruitPhoto;
 import com.mycompany.entitypackage.Recruit;
+import com.mycompany.entitypackage.Event;
 import com.mycompany.entitypackage.User;
 import com.mycompany.jsfpackage.util.JsfUtil;
 import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
+import com.mycompany.sessionbeanpackage.Group1Facade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
+import com.mycompany.sessionbeanpackage.EventFacade;
+import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import com.mycompany.managers.ProfileViewManager;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -30,6 +34,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.mail.Message;
@@ -65,6 +70,7 @@ public class RecruitManager implements Serializable {
     private String year;
     private float gpa;
     private String email;
+    private String recruitedYear;
     private String phone;
     private int skillLevel;
     private String position;
@@ -83,7 +89,7 @@ public class RecruitManager implements Serializable {
     
     private String statusMessage = "";
     
-    private final int[] listOfSchoolYear = Constants.SCHOOLYEAR;
+    private final String[] listOfSchoolYear = Constants.SCHOOLYEAR;
     private final String[] listOfStates = Constants.STATES;
     private final int[] listOfSkillLevels = Constants.SKILL_LEVELS;
     private final String[] listOfPositions = Constants.POSITIONS;
@@ -96,12 +102,20 @@ public class RecruitManager implements Serializable {
     @EJB
     private RecruitFacade recruitFacade;
     
+    @EJB
+    private EventFacade eventFacade;
     
     @EJB
     private RecruitPhotoFacade recruitPhotoFacade;
     
     @EJB
     private UserFacade userFacade;
+    
+    @EJB
+    private Group1Facade groupFacade;
+    
+    @EJB
+    private GroupUserFacade groupUserFacade;
     
     public RecruitManager()
     {
@@ -127,6 +141,16 @@ public class RecruitManager implements Serializable {
         this.simpleModel = simpleModel;
     }
 
+    public String getRecruitedYear() {
+        return recruitedYear;
+    }
+
+    public void setRecruitedYear(String recruitedYear) {
+        this.recruitedYear = recruitedYear;
+    }
+    
+    
+
     public LatLng getCoord() {
         return coord;
     }
@@ -144,12 +168,6 @@ public class RecruitManager implements Serializable {
     }
     
     protected void initializeEmbeddableKey() {
-    }
-
-    public Recruit prepareCreate() {
-        selected = new Recruit();
-        initializeEmbeddableKey();
-        return selected;
     }
     
     public void create() {
@@ -352,7 +370,7 @@ public class RecruitManager implements Serializable {
         return listOfStates;
     }
     
-    public int[] getListOfSchoolYear() {
+    public String[] getListOfSchoolYear() {
         return listOfSchoolYear;
     }
     
@@ -404,6 +422,7 @@ public class RecruitManager implements Serializable {
                 recruit.setAddress2(address2);
                 recruit.setPosition(position);
                 recruit.setSecondaryPosition(secondaryPosition);
+                recruit.setRecruitedYear(recruitedYear);
                 recruit.setSkillLevel(skillLevel);
                 recruit.setGpa(gpa);
                 recruit.setCommitment(commitment);
@@ -412,46 +431,60 @@ public class RecruitManager implements Serializable {
                 recruit.setYear(year);
                 recruit.setNotes(notes);
                 
-                recruitFacade.create(recruit);                
+                recruitFacade.create(recruit);   
+                selected = recruit;
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the recruit!";
                 return "";
+            }   
+            
+            try {
+                
+                Event event = new Event();
+                event.setDescription("created a new recruit");
+                event.setRecruitId(selected);
+                event.setUserId(user);
+                event.setGroupId(groupUserFacade.selectGroupFromUser(user).getGroupId());
+                event.setType(0);
+                
+                eventFacade.create(event);               
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the event!";
+                return getListOfRecruitsByCommitment();
             }
-            AccountManager.appendFeed(user.getFirstName() + " " + user.getLastName() + " added "
-                + " " + firstName + " " + lastName + " to the recruit book");
+           
             sendEmail();
+            
+            reset();
+                        
             return getListOfRecruitsByCommitment();
         }
         return "";
     }
     
-    public String updateRecruit() {
-        if (statusMessage.isEmpty()) {
-            try {
-                
-            } catch (EJBException e) {
-                statusMessage = "Something went wrong while editing the recruit!";
-                return "";
-            }
-            return "RecruitProfile?faces-redirect=true";
-        }
-        return "";
+    public void reset()
+    {
+        firstName = lastName = email = phone = school = city = state = address1 = 
+                    position = secondaryPosition = address2 = notes = year = "";
+            
+            commitment = "";
+            
+            zipcode = skillLevel = height = weight = 0;
+            gpa = 0;
+            recruitedYear = "";
     }
     
     public String deleteRecruit() {
         return "";
     }
     
-    public String userPhoto() {
-        /*String user_name = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("username");
-        Recruit recruit = recruitFacade.findByUsername(user_name);
-        List<RecruitPhoto> photoList = recruitPhotoFacade.findPhotosByRecruitID(user.getId());
+    public String recruitPhoto(int id) {
+        List<RecruitPhoto> photoList = recruitPhotoFacade.findPhotosByRecruitID(id);
         if (photoList.isEmpty()) {
             return "defaultUserPhoto.png";
         }
-        return photoList.get(0).getThumbnailName();*/
-        return "";
+        return photoList.get(0).getThumbnailName();
+        //return "";
     }
     
     public String getListOfRecruitsByCommitment()
@@ -565,12 +598,132 @@ public class RecruitManager implements Serializable {
         }
     }
     
-    public void save() {  
-        User user = new User();
-
-        FacesMessage msg = new FacesMessage("Successful", getFirstName() + " added to the database");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage(getFirstName() + getLastName() + "has been added to the Recruit Book");
     }
+     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public String getSelectedPosition() {
+        return selected.getPosition();
+    }
+    
+    public void setSelectedPosition(String position) {
+        selected.setPosition(position);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedSecondaryPosition() {
+        return selected.getSecondaryPosition();
+    }
+    
+    public void setSelectedSecondaryPosition(String secondaryPosition) {
+        selected.setSecondaryPosition(secondaryPosition);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedHeight() {
+        return selected.getHeight();
+    }
+    
+    public void setSelectedHeight(int height) {
+        selected.setHeight(height);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedWeight() {
+        return selected.getWeight();
+    }
+    
+    public void setSelectedWeight(int weight) {
+        selected.setWeight(weight);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedSchool() {
+        return selected.getSchool();
+    }
+    
+    public void setSelectedSchool(String school) {
+        selected.setSchool(school);
+        recruitFacade.edit(selected);
+    }
+    
+    public float getSelectedGpa(){
+        return selected.getGpa();
+    }
+    
+    public void setSelectedGpa(float gpa) {
+        selected.setGpa(gpa);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedEmail() {
+        return selected.getEmail();
+    }
+    
+    public void setSelectedEmail(String email) {
+        selected.setEmail(email);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedNotes() {
+        return selected.getNotes();
+    }
+    
+    public void setSelectedNotes(String notes) {
+        selected.setNotes(notes);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedAddress1() {
+        return selected.getAddress1();
+    }
+    
+    public void setSelectedAddress1(String address1) {
+        selected.setAddress1(address1);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedAddress2() {
+        return selected.getAddress2();
+    }
+    
+    public void setSelectedAddress2(String address2) {
+        selected.setAddress2(address2);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedCity() {
+        return selected.getCity();
+    }
+    
+    public void setSelectedCity(String city) {
+        selected.setCity(city);
+        recruitFacade.edit(selected);
+    }
+    
+    public String getSelectedState() {
+        return selected.getState();
+    }
+    
+    public void setSelectedState(String state) {
+        selected.setState(state);
+        recruitFacade.edit(selected);
+    }
+    
+    public int getSelectedZipcode() {
+        return selected.getZipcode();
+    }
+    
+    public void setSelectedZipcode(int zipcode) {
+        selected.setZipcode(zipcode);
+        recruitFacade.edit(selected);
+    }
+    
 
     public void onGeocode(GeocodeEvent event) {
         List<GeocodeResult> results = event.getResults();

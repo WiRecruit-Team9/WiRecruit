@@ -28,4 +28,16 @@ public class Group1Facade extends AbstractFacade<Group1> {
         super(Group1.class);
     }
     
+    public Group1 findGroupByPasscode(int search){
+        if (em.createQuery("SELECT g FROM Group1 g WHERE g.passcode = :pass")
+                .setParameter("pass", search)
+                .getResultList().isEmpty()) {
+            return null;
+        }
+        else {
+            return (Group1)(em.createQuery("SELECT g FROM Group1 g WHERE g.passcode = :pass")
+                .setParameter("pass", search)
+                .getResultList()).get(0);        
+        }
+    }
 }

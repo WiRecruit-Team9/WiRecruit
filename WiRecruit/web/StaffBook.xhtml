@@ -29,7 +29,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         </f:facet>
 
                         <h:panelGrid columns="2" style="width:50%" columnClasses="logo,detail">
-                            <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(staff.username)}" height="60px" width="60px"/> 
+                            <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(staff.username)}" class="img-rounded col-md-3" height="60px" width="60px"/> 
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
@@ -40,7 +40,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     <h:outputText value="#{staff.title}" style="font-weight: bold"/>
 
                                     <h:outputText value="Email:" />
-                                    <h:outputText value="#{staff.email}" style="font-weight: bold"/>
+                                    <a href="mailto:#{staff.email}">#{staff.email}</a>
                                 </h:panelGrid>
                             </p:outputPanel>
                             

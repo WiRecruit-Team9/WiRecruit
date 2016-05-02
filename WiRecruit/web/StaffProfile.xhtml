@@ -8,7 +8,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,37 +19,53 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <br />
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
-                        <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                        
+                         <article role="profile">
+                            <h5> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h5>
+                         </article>
+                        <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <h:link outcome="EditPhoto">
+                                <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                                         class="img-rounded col-md-3"></h:graphicImage>
-                                        <article role="profile">
-                                            <h4> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h4></article>
-                        <h:button value="Edit Profile"  outcome="EditAccount"/>
-                        <h:button value="Change Photo"  outcome="EditPhoto"/>
+                            </h:link>
+                        </f:facet>
+
+                        <h:outputText value="Title: " />
+                        <p:inplace id="ajaxTitle" editor="true" effectSpeed="fast" event="click">
+                            <h:selectOneMenu id="title" value="#{profileViewManager.title}" required="true">
+                                <f:selectItems value="#{accountManager.listOfTitles}" var="title"
+                                                   itemLabel="#{title}" itemValue="#{title}" />
+                                </h:selectOneMenu>
+                            </p:inplace>
+                        
+                        <h:outputText value="School: " />
+                        <h:outputText value="#{profileViewManager.loggedInUser.school}" />
+                            
+                        <h:outputText value="City: " />
+                        <p:inplace id="ajaxCity" editor="true">
+                            <p:inputText value="#{profileViewManager.city}" required="true" label="text" />
+                        </p:inplace>
+                            
+                        <h:outputText value="State: " />
+                        <p:inplace id="ajaxState" editor="true" effectSpeed="fast" event="click">
+                            <h:selectOneMenu id="state" value="#{profileViewManager.state}" required="true">
+                                <f:selectItems value="#{accountManager.listOfStates}" var="state"
+                                               itemLabel="#{state}" itemValue="#{state}" />
+                            </h:selectOneMenu>
+                        </p:inplace>
+                            
+                        <h:outputText value="Zipcode: " />
+                        <p:inplace id="ajaxZipcode" editor="true">
+                            <p:inputText value="#{profileViewManager.zipcode}" required="true" label="text" />
+                        </p:inplace>
+                            
+                        <h:outputText value="Email: " />
+                        <h:outputText value="#{profileViewManager.loggedInUser.email}" />
+                    </p:panelGrid>               
                         <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
-                        <br/>
-                        <br/>
-                        <!-- Basic Info goes here -->
-                        <h:panelGrid columns="2" cellpadding="6">
-                            <h:outputText value="Title: " />
-                            <h:outputText value="#{profileViewManager.loggedInUser.title}" />
-
-                            <h:outputText value="School: " />
-                            <h:outputText value="#{profileViewManager.loggedInUser.school}" />
-
-                            <h:outputText value="Address: " />
-                            <h:outputText value="#{profileViewManager.loggedInUser.city} 
-                                          #{profileViewManager.loggedInUser.state} 
-                                          #{profileViewManager.loggedInUser.zipcode}" />    
-
-                            <h:outputText value="Email " />
-                            <h:outputText value="#{profileViewManager.loggedInUser.email}" />
-                        </h:panelGrid>         
-                        <br/>
-                        <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
-                        <h:link outcome="#{accountManager.getListOfStaffByUniversity()}" value="" />
                     </h:form> 
                 </div>
             </ui:define>

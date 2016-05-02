@@ -5,6 +5,8 @@
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.Event;
+import com.mycompany.entitypackage.Group1;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,19 @@ public class EventFacade extends AbstractFacade<Event> {
 
     public EventFacade() {
         super(Event.class);
+    }
+    
+    public List<Event> findEventsByGroup(Group1 searchGroup){
+        if (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID")
+                .setParameter("groupID", searchGroup)
+                .getResultList().isEmpty()) {
+            return null;
+        }
+        else {
+            return (List<Event>) (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID")
+                .setParameter("groupID", searchGroup)
+                .getResultList());        
+        }
     }
     
 }

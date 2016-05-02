@@ -15,12 +15,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="/template/homepage/indexSiteTemplate.xhtml">
+        <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
 
             <!-- Create the content for this page below -->
             <ui:define name="editableContent">
-                <br />
-                <br />
                 
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
@@ -83,7 +81,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <f:validateLength minimum="2" maximum="4" />
                                         </p:inputText>
                               
-                                        <h:outputText value="Year: " />
+                                        <h:outputText value="Grad Year: " />
                                         <h:selectOneMenu id="year" value="#{recruitManager.year}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="year"
                                                            itemLabel="#{year}" itemValue="#{year}" />
@@ -122,8 +120,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{skillLevel}" itemValue="#{skillLevel}" />
                                         </h:selectOneMenu>
                                         
-                                        <h:outputText value="Commitment: " />
-                                        <p:inputText value="#{recruitManager.commitment}"/>
+                                        <h:outputText value="Recruited Year " />
+                                        <h:selectOneMenu id="recruitedYear" value="#{recruitManager.recruitedYear}" required="true">
+                                            <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="recruitedYear"
+                                                           itemLabel="#{recruitedYear}" itemValue="#{recruitedYear}" />
+                                        </h:selectOneMenu>
                                         
                                         <h:outputText value="Notes: " />
                                         <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
@@ -185,8 +186,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                             <h:outputText value="Skill Level             " />
                                             <h:outputText value="#{recruitManager.skillLevel}" styleClass="outputLabel"/>
                                             
-                                            <h:outputText value="Commitment:             " />
-                                            <h:outputText value="#{recruitManager.commitment}" styleClass="outputLabel"/>
+                                            <h:outputText value="Recruited Year:             " />
+                                            <h:outputText value="#{recruitManager.recruitedYear}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Notes:             " />
                                             <h:outputText value="#{recruitManager.notes}" styleClass="outputLabel"/>
