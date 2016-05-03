@@ -4,6 +4,7 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entitypackage.Comment;
 import com.mycompany.entitypackage.RecruitPhoto;
 import com.mycompany.entitypackage.Recruit;
 import com.mycompany.entitypackage.Event;
@@ -11,6 +12,7 @@ import com.mycompany.entitypackage.Upvote;
 import com.mycompany.entitypackage.User;
 import com.mycompany.jsfpackage.util.JsfUtil;
 import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
+import com.mycompany.sessionbeanpackage.CommentFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
 import com.mycompany.sessionbeanpackage.Group1Facade;
@@ -20,7 +22,6 @@ import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -87,8 +88,9 @@ public class RecruitManager implements Serializable {
     private String searchedRecruitName;
     private String weather;
     private int selectedNumLikes = 0;
-    
+    private String like = "Like";
     private String statusMessage = "";
+    private String text;
     
     private final String[] listOfSchoolYear = Constants.SCHOOLYEAR;
     private final String[] listOfStates = Constants.STATES;
@@ -97,6 +99,7 @@ public class RecruitManager implements Serializable {
     
     private List<Recruit> listOfRecruits = null;
     private List<Recruit> matchedRecruits = new ArrayList();
+    private List<Comment> comments = new ArrayList();
     
     @EJB
     private com.mycompany.sessionbeanpackage.RecruitFacade ejbFacade;
@@ -112,6 +115,8 @@ public class RecruitManager implements Serializable {
     private Group1Facade groupFacade;
     @EJB
     private GroupUserFacade groupUserFacade;
+    @EJB
+    private CommentFacade commentFacade;
     
     @EJB
     private UpvoteFacade upvoteFacade;
@@ -426,6 +431,30 @@ public class RecruitManager implements Serializable {
     public void setWeather(String weather) {
         this.weather = weather;
     }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public List<Comment> getComments() {
+        return commentFacade.getAllCommentsForRecruit(selected.getId());
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
     
     public String createRecruit() throws UnsupportedEncodingException {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
@@ -701,6 +730,10 @@ public class RecruitManager implements Serializable {
     }
     
     public void setSelectedNotes(String notes) {
+        if (notes.trim().isEmpty()) {
+            notes = "               ";
+        }
+        
         selected.setNotes(notes);
         recruitFacade.edit(selected);
     }
@@ -719,6 +752,10 @@ public class RecruitManager implements Serializable {
     }
     
     public void setSelectedAddress2(String address2) {
+        if (address2.trim().isEmpty()) {
+            address2 = "               ";
+        }
+        
         selected.setAddress2(address2);
         recruitFacade.edit(selected);
     }
@@ -800,11 +837,12 @@ public class RecruitManager implements Serializable {
                 setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
             else
                 setSelectedNumLikes(0);
+            
+            like = "Like";
         }
         else
         {
             try {
-                
                 Upvote upvote = new Upvote();
                 upvote.setRecruitId(selected);
                 upvote.setUserId(currentUser);
@@ -812,9 +850,32 @@ public class RecruitManager implements Serializable {
                 upvoteFacade.create(upvote);  
                 
                 setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
+                
+                like = "Unlike";
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the Upvote!";
             }
+        }
+    }
+    
+    public void submitComment() {
+        String cleanedText = text.replace("&nbsp;","");
+        cleanedText = cleanedText.replace("<div>","");
+        cleanedText = cleanedText.replace("<br>","");
+        cleanedText = cleanedText.replace("</div>","");
+        cleanedText = cleanedText.replace("<span class=\"Apple-tab-span\" style=\"white-space:pre\">	</span>", "");
+        if (!cleanedText.trim().isEmpty()) {
+            int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+            User currentUser = userFacade.find(user_id);
+
+            Comment comment = new Comment();
+            comment.setCommentText(text);
+            comment.setRecruitId(selected);
+            comment.setUserId(currentUser);
+            
+            commentFacade.create(comment);
+
+            text = "";
         }
     }
 }

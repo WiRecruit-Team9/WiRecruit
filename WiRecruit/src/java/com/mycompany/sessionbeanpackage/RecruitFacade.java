@@ -56,7 +56,8 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
         List<Recruit> recruits = new ArrayList<>();
         
         if (name.trim().length() != 0) {
-            recruits = em.createQuery("SELECT r FROM Recruit r WHERE r.firstName LIKE '%" + name + "%'", Recruit.class)
+            recruits = em.createQuery("SELECT r FROM Recruit r WHERE r.firstName LIKE '%" + name + "%' "
+                    + "OR r.lastName LIKE '%" + name + "%'", Recruit.class)
                 .getResultList();
         }
 
