@@ -786,6 +786,8 @@ public class RecruitManager implements Serializable {
     
     public void loadWeather() {
         RequestContext.getCurrentInstance().execute("loadWeather()");
+    }
+    
     public void likeUnlike()
     {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
