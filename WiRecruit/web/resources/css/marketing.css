@@ -14,8 +14,8 @@ IMPORTS
 }
 
 html, body {
-    background-image: url(./images/NSLinenBackgroundPattern.png); 
-
+    /*background-image: url(./images/NSLinenBackgroundPattern.png); */
+    background-color: #2d3e50;
     /* Stretch the background image to cover the entire screen */
     -webkit-background-size: cover; /* For WebKit */
     -moz-background-size: cover;    /* For Mozilla */
@@ -325,7 +325,8 @@ a.pure-button-primary {
     padding-left: 0 !important;
     padding-bottom: 0 !important;
     padding-top: 0 !important;
-    border-left: 1px #ddd solid !important
+    border-left: 1px #ddd solid !important;
+    border-bottom: 1px #34495e solid !important
 }
 
 .ui-menuItem {
@@ -418,4 +419,20 @@ ul, menu, dir {
     right: 0;
     top: 0;
     padding: 10px;
+}
+
+div.box {
+  margin-left: 10%;
+  margin-right: 10%;
+  background-image: url(./images/NSLinenBackgroundPattern.png); 
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  overflow: auto;
+  height: 100%;
+  padding-bottom: 53px;
 }

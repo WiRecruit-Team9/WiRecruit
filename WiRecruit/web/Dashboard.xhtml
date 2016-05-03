@@ -18,8 +18,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <h2>Dashboard</h2>
                 <h:form>
+                    <h2>Dashboard</h2>
                     <p:dataScroller value="#{accountManager.eventFeed}" var="event" chunkSize="10">
                         <f:facet name="header">
                             Recent Activity For #{accountManager.school} Recruiting
