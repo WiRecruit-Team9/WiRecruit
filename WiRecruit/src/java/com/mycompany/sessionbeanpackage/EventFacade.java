@@ -31,13 +31,15 @@ public class EventFacade extends AbstractFacade<Event> {
     }
     
     public List<Event> findEventsByGroup(Group1 searchGroup){
-        if (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID")
+        if (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID "
+                + "ORDER BY e.id DESC")
                 .setParameter("groupID", searchGroup)
                 .getResultList().isEmpty()) {
             return null;
         }
         else {
-            return (List<Event>) (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID")
+            return (List<Event>) (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID "
+                + "ORDER BY e.id DESC")
                 .setParameter("groupID", searchGroup)
                 .getResultList());        
         }

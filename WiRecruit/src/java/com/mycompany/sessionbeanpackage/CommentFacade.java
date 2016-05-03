@@ -5,6 +5,7 @@
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.Comment;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,8 @@ public class CommentFacade extends AbstractFacade<Comment> {
         super(Comment.class);
     }
     
+    public List<Comment> getAllCommentsForRecruit(int id) {
+        return em.createQuery("SELECT c FROM Comment c WHERE c.recruitId.id = :id").
+                setParameter("id", id).getResultList();
+    }
 }

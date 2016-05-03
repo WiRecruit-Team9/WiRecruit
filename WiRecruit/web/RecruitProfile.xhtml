@@ -36,9 +36,9 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <a class="pure-button" href="RecruitEditPhoto.xhtml">Edit Photo </a>
                         <br/>
                         <br/>
-                        <h:outputText id="result" value="#{recruitManager.selectedNumLikes}"/>
-                        <p:commandButton action="#{recruitManager.likeUnlike()}" value="Like">
-                        </p:commandButton>
+                        <h:outputText id="result" value="#{recruitManager.selectedNumLikes} Likes" style="padding-right: 5px"/>
+                        <p:commandButton id="likeButton" value="#{recruitManager.like}" 
+                                         actionListener="#{recruitManager.likeUnlike()}" update="result, likeButton"/>
                         <!-- Basic Info goes here -->
                         <h:panelGrid columns="2" cellpadding="6">
                             <h:outputText value="Position: " />
@@ -114,8 +114,19 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:inplace id="ajaxNotes" editor="true">
                                 <p:inputText value="#{recruitManager.selectedNotes}" required="true" label="text" />
                             </p:inplace>
-                        </h:panelGrid>    
+                        </h:panelGrid>
+                        <h3>Comments</h3>
+                        <p:dataScroller id="comments" value="#{recruitManager.comments}" var="comment" style="text-align: left">
+                            <h:outputText value=" #{comment.commentText}" escape="false"/>
+                        </p:dataScroller>
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{recruitManager.text}" width="600"
+                                  style="padding-top: 10px"/>
+                        <h:panelGrid columns="2" style="margin-top: 10px">
+                            <p:commandButton value="Submit" actionListener="#{recruitManager.submitComment()}" icon="ui-icon-disk" update="comments"/>
+                            <p:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
+                        </h:panelGrid>
                     </h:form> 
+                    
                     <h:form prependId="false">
                         <p:remoteCommand name="onload" action="#{recruitManager.onLoad()}" autoRun="true"/>
                         <h3>Map and Weather</h3>
@@ -127,7 +138,6 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <br/>
                         <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Back to Recruit Book" />
                     </h:form>
-
                 </div>
             </ui:define>
         </ui:composition>
