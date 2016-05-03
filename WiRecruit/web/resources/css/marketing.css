@@ -251,7 +251,7 @@ a.pure-button-primary {
     background: #111;
     width:100%;
     height: 45px;
-    position:fixed;
+    position:relative;
     bottom:0;
     left:0;
     
@@ -422,9 +422,18 @@ ul, menu, dir {
 }
 
 div.box {
+  background-color:#34495e;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  overflow: auto;
+  height: 100%;
+}
+
+div.userbox {
   margin-left: 10%;
   margin-right: 10%;
-  background-color:#ddd;
+  background-image: url(./images/NSLinenBackgroundPattern.png);
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
@@ -434,5 +443,4 @@ div.box {
   padding-top: 1%;
   overflow: auto;
   height: 100%;
-  padding-bottom: 53px;
 }

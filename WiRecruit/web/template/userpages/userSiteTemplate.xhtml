@@ -47,7 +47,12 @@
     </h:head>
 
     <h:body>
-        <div id="page">
+        <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="/template/userpages/userHeaderTemplate.xhtml" />
+                </ui:insert>
+            </div>
+        <div id="page" class="box">
             
             <!-- The Site Template page layout design consists of three components:
                 1. Header Component (Typically is the same for the entire site)
@@ -63,11 +68,6 @@
             Changes made in the header component will show up automatically with all pages created 
             based on this siteTemplate for the entire site, achieving great maintainability.
             -->
-            <div id="header">
-                <ui:insert name="header" >
-                    <ui:include src="/template/userpages/userHeaderTemplate.xhtml" />
-                </ui:insert>
-            </div>
 
             <!--
             
@@ -87,7 +87,7 @@
             by using <ui:define name="editableContent">. If the page content is not defined,
             contentTemplate's content will be used as default. 
             -->
-            <div id="editableContent" class="box">
+            <div id="editableContent" class="userbox">
                 <ui:insert name="editableContent" >
                     <ui:include src="/template/userpages/userContentTemplate.xhtml" />
                 </ui:insert>
@@ -101,12 +101,12 @@
             Changes made in the footer component will show up automatically with all pages created 
             based on this siteTemplate for the entire site, achieving great maintainability.
             -->
-            <div id="footer">
+            
+        </div>
+        <div id="footer">
                 <ui:insert name="footer" >
                     <ui:include src="/template/userpages/userFooterTemplate.xhtml" />
                 </ui:insert>
             </div>
-            
-        </div>
     </h:body>
 </html>
