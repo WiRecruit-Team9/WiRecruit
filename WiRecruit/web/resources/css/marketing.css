@@ -14,8 +14,8 @@ IMPORTS
 }
 
 html, body {
-    /*background-image: url(./images/NSLinenBackgroundPattern.png); */
-    background-color: #2d3e50;
+    background-image: url(./images/NSLinenBackgroundPattern.png); 
+
     /* Stretch the background image to cover the entire screen */
     -webkit-background-size: cover; /* For WebKit */
     -moz-background-size: cover;    /* For Mozilla */
@@ -424,7 +424,7 @@ ul, menu, dir {
 div.box {
   margin-left: 10%;
   margin-right: 10%;
-  background-image: url(./images/NSLinenBackgroundPattern.png); 
+  background-color:#ddd;
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;

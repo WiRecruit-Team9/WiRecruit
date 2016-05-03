@@ -10,7 +10,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Staff Book</title>
+        <title>List of Staffs</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/jsfcrud.css"/>
         <h:outputStylesheet library="css" name="globalStyles.css"/>
@@ -18,10 +18,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
+                <h2>Staff Book</h2>
                 <h:form> 
                     <p:dataScroller value="#{accountManager.listOfStaff}" var="staff" chunkSize="10" mode="inline">
                         <f:facet name="header">
-                            Staff Book
+                            List of Staffs
                         </f:facet>
 
                         <f:facet name="loader">
