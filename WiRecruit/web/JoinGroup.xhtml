@@ -28,6 +28,8 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <h:outputText value="Group Passcode: " />
                             <p:inputText value="#{accountManager.joinPasscode}" required="true" label="passcode"/>
                         </h:panelGrid>
+                        <h:outputLabel id="error" value="#{accountManager.joinStatusMessage}"  />
+                        <br/>
                         <p:commandButton 
                             action="#{accountManager.joinGroup()}" value="Join Group"/>
                         <p>
