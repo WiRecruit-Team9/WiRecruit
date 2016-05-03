@@ -22,7 +22,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     <h2>Dashboard</h2>
                     <p:dataScroller value="#{accountManager.eventFeed}" var="event" chunkSize="10">
                         <f:facet name="header">
-                            Recent Activity For #{accountManager.school} Recruiting
+                            Recent Activities of #{accountManager.updateGroupTitle()}
                         </f:facet>
                         
                         <f:facet name="loader">

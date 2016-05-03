@@ -79,6 +79,7 @@ public class AccountManager implements Serializable {
     private String joinPasscode;
     private String createGroupTitle;
     private int createGroupPasscode;
+    private String currentGroupTitle;
 
     @EJB
     private UserFacade userFacade;
@@ -136,6 +137,14 @@ public class AccountManager implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCurrentGroupTitle() {
+        return currentGroupTitle;
+    }
+
+    public void setCurrentGroupTitle(String currentGroupTitle) {
+        this.currentGroupTitle = currentGroupTitle;
     }
 
     public String getJoinStatusMessage() {
@@ -619,6 +628,11 @@ public class AccountManager implements Serializable {
                 + "You can now have all the information about your recruits in one place. No more scrammbling around looking for information on your recruit or losing vital information \n\n"
                 + "Thank you for choosing us, \n"
                 + "Wicruit Support Team";
+    }
+    
+    public String updateGroupTitle(){
+        currentGroupTitle = groupFacade.findGroupByPasscode(Integer.parseInt(school)).getTitle();
+        return currentGroupTitle;
     }
 
     public String cancel() {
