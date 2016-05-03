@@ -5,12 +5,15 @@
 package com.mycompany.managers;
 
 import com.mycompany.entitypackage.Event;
+import com.mycompany.entitypackage.Group1;
+import com.mycompany.entitypackage.GroupUser;
 import com.mycompany.entitypackage.UserPhoto;
 import com.mycompany.entitypackage.User;
 import com.mycompany.sessionbeanpackage.UserPhotoFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.GroupUserFacade;
+import com.mycompany.sessionbeanpackage.Group1Facade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -39,7 +42,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.primefaces.event.FlowEvent;
- 
+import java.util.Random;
+
 @Named(value = "accountManager")
 @SessionScoped
 /**
@@ -47,7 +51,7 @@ import org.primefaces.event.FlowEvent;
  * @author jsuriano
  */
 public class AccountManager implements Serializable {
-    
+
     private String firstName;
     private String lastName;
     private String email;
@@ -66,33 +70,42 @@ public class AccountManager implements Serializable {
     private final String[] listOfSchools = Constants.SCHOOLS;
     private final String[] listOfTitles = Constants.TITLES;
     private User selected;
-    private List<User> listOfStaff = null;   
+    private List<User> listOfStaff = null;
     private static ArrayList<String> feed = new ArrayList<String>();
     private List<Event> eventFeed = null;
-    
+
+    private boolean groupExist = false;
+    private String joinStatusMessage;
+    private String joinPasscode;
+    private String createGroupTitle;
+    private int createGroupPasscode;
+
     @EJB
     private UserFacade userFacade;
-    
+
     @EJB
     private UserPhotoFacade userPhotoFacade;
-    
+
     @EJB
     private EventFacade eventFacade;
-    
+
     @EJB
     private GroupUserFacade groupUserFacade;
-    
+
+    @EJB
+    private Group1Facade groupFacade;
+
     public AccountManager() {
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
-    
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
@@ -100,71 +113,79 @@ public class AccountManager implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public String getJoinStatusMessage() {
+        return joinStatusMessage;
+    }
+
+    public void setJoinStatusMessage(String joinStatusMessage) {
+        this.joinStatusMessage = joinStatusMessage;
+    }
+
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getSchool() {
         return school;
     }
-    
+
     public void setSchool(String school) {
         this.school = school;
     }
-    
+
     public String getCity() {
         return city;
     }
-    
+
     public void setCity(String city) {
         this.city = city;
     }
-    
+
     public String getState() {
         return state;
     }
-    
+
     public void setState(String state) {
         this.state = state;
     }
-    
+
     public int getZipcode() {
         return zipcode;
     }
-    
+
     public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
     }
-    
+
     public int getSecurity_question() {
         return security_question;
     }
@@ -172,15 +193,15 @@ public class AccountManager implements Serializable {
     public void setSecurity_question(int security_question) {
         this.security_question = security_question;
     }
-    
+
     public String getSecurity_answer() {
         return security_answer;
     }
-    
+
     public void setSecurity_answer(String security_answer) {
         this.security_answer = security_answer;
     }
-    
+
     public String getStatusMessage() {
         return statusMessage;
     }
@@ -188,11 +209,11 @@ public class AccountManager implements Serializable {
     public void setStatusMessage(String statusMessage) {
         this.statusMessage = statusMessage;
     }
-    
+
     public String[] getListOfStates() {
         return listOfStates;
     }
-    
+
     public String[] getListOfTitles() {
         return listOfTitles;
     }
@@ -204,7 +225,7 @@ public class AccountManager implements Serializable {
     public void setEventFeed(List<Event> eventFeed) {
         this.eventFeed = eventFeed;
     }
-    
+
     public Map<String, Object> getSecurity_questions() {
         if (security_questions == null) {
             security_questions = new LinkedHashMap<>();
@@ -223,16 +244,14 @@ public class AccountManager implements Serializable {
         this.listOfStaff = listOfStaff;
     }
 
-    
-    
     public String[] getListOfSchools() {
         return listOfSchools;
-    }  
-    
+    }
+
     public User getSelected() {
         if (selected == null) {
             selected = userFacade.find(FacesContext.getCurrentInstance().
-                getExternalContext().getSessionMap().get("user_id"));
+                    getExternalContext().getSessionMap().get("user_id"));
         }
         return selected;
     }
@@ -240,12 +259,44 @@ public class AccountManager implements Serializable {
     public void setSelected(User selected) {
         this.selected = selected;
     }
-    
+
+    public boolean isGroupExist() {
+        return groupExist;
+    }
+
+    public void setGroupExist(boolean groupExist) {
+        this.groupExist = groupExist;
+    }
+
+    public String getJoinPasscode() {
+        return joinPasscode;
+    }
+
+    public void setJoinPasscode(String joinPasscode) {
+        this.joinPasscode = joinPasscode;
+    }
+
+    public String getCreateGroupTitle() {
+        return createGroupTitle;
+    }
+
+    public void setCreateGroupTitle(String createGroupTitle) {
+        this.createGroupTitle = createGroupTitle;
+    }
+
+    public int getCreateGroupPasscode() {
+        return createGroupPasscode;
+    }
+
+    public void setCreateGroupPasscode(int createGroupPasscode) {
+        this.createGroupPasscode = createGroupPasscode;
+    }
+
     public String createAccount() throws UnsupportedEncodingException {
-        
+
         // Check to see if a user already exists with the username given.
         User aUser = userFacade.findByUsername(username);
-        
+
         if (aUser != null) {
             username = "";
             statusMessage = "Username already exists! Please select a different one!";
@@ -253,27 +304,79 @@ public class AccountManager implements Serializable {
         }
 
         if (statusMessage.isEmpty()) {
+            
             try {
                 User user = new User();
                 user.setFirstName(firstName);
-                user.setLastName(lastName);  
+                user.setLastName(lastName);
                 user.setEmail(email);
-                user.setUsername(username);                
+                user.setUsername(username);
                 user.setPassword(password);
                 user.setTitle(title);
-                user.setSchool(school);
+                if (!groupExist)
+                {
+                    user.setSchool(Integer.toString(createGroupPasscode));
+                }
+                else
+                {
+                    user.setSchool(joinPasscode);
+                }
                 user.setCity(city);
                 user.setState(state);
                 user.setZipcode(zipcode);
                 user.setSecurityQuestion(security_question);
                 user.setSecurityAnswer(security_answer);
-                
-                userFacade.create(user); 
-                
+
+                userFacade.create(user);
+
             } catch (EJBException e) {
+                username = "";
                 statusMessage = "Something went wrong while creating your account!";
                 return "";
             }
+
+            if (!groupExist) {
+                try {
+                    Group1 group = new Group1();
+                    group.setPasscode(createGroupPasscode);
+                    group.setTitle(createGroupTitle);
+
+                    groupFacade.create(group);
+
+                } catch (EJBException e) {
+                    username = "";
+                    statusMessage = "Something went wrong while creating your group!";
+                    return "";
+                }
+                try{
+                    GroupUser relation = new GroupUser();
+                    relation.setGroupId(groupFacade.findGroupByPasscode(this.createGroupPasscode));
+                    relation.setUserId(userFacade.findByUsername(username));
+                    
+                    groupUserFacade.create(relation);
+                    
+                }catch (EJBException e) {
+                    username = "";
+                    statusMessage = "Something went wrong while creating your groupUser!";
+                    return "";
+                }
+            }
+            else
+            {
+                try{
+                    GroupUser relation = new GroupUser();
+                    relation.setGroupId(groupFacade.findGroupByPasscode(Integer.parseInt(joinPasscode)));
+                    relation.setUserId(userFacade.findByUsername(username));
+                    
+                    groupUserFacade.create(relation);
+                    
+                }catch (EJBException e) {
+                    username = "";
+                    statusMessage = "Something went wrong while creating your groupUser!";
+                    return "";
+                }
+            }
+
             initializeSessionMap();
             sendEmail();
             save();
@@ -281,7 +384,7 @@ public class AccountManager implements Serializable {
         }
         return "";
     }
-    
+
     public String updateAccount() throws UnsupportedEncodingException {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
@@ -294,8 +397,8 @@ public class AccountManager implements Serializable {
                 editUser.setTitle(this.selected.getTitle());
                 editUser.setCity(this.selected.getCity());
                 editUser.setState(this.selected.getState());
-                editUser.setZipcode(this.selected.getZipcode());               
-                
+                editUser.setZipcode(this.selected.getZipcode());
+
                 userFacade.edit(editUser);
             } catch (EJBException e) {
                 username = "";
@@ -306,24 +409,24 @@ public class AccountManager implements Serializable {
         }
         return "";
     }
-    
+
     public String deleteAccount() {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
             try {
                 userFacade.deleteUser(user_id);
-                                
+
             } catch (EJBException e) {
                 username = "";
                 statusMessage = "Something went wrong while deleting your account!";
                 return "";
             }
-            
+
             return "/index.xhtml?faces-redirect=true";
         }
         return "";
     }
-    
+
     public void validateInformation(ComponentSystemEvent event) {
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -348,9 +451,9 @@ public class AccountManager implements Serializable {
             statusMessage = "Passwords must match!";
         } else {
             statusMessage = "";
-        }   
+        }
     }
-    
+
     public void initializeSessionMap() {
         User user = userFacade.findByUsername(getUsername());
         FacesContext.getCurrentInstance().getExternalContext().
@@ -366,13 +469,11 @@ public class AccountManager implements Serializable {
         if (verifyPassword.isEmpty()) {
             statusMessage = "";
             return false;
+        } else if (verifyPassword.equals(password)) {
+            return true;
         } else {
-            if (verifyPassword.equals(password)) {
-                return true;
-            } else {
-                statusMessage = "Invalid password entered!";
-                return false;
-            }
+            statusMessage = "Invalid password entered!";
+            return false;
         }
     }
 
@@ -381,11 +482,11 @@ public class AccountManager implements Serializable {
         firstName = lastName = email = username = password = statusMessage = "";
         title = school = city = state = security_answer = "";
         zipcode = security_question = 0;
-        
+
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
     }
-     
+
     public String userPhoto() {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
@@ -396,7 +497,7 @@ public class AccountManager implements Serializable {
         }
         return photoList.get(0).getThumbnailName();
     }
-    
+
     public String findPhoto(String userNamePhoto) {
         User user = userFacade.findByUsername(userNamePhoto);
         List<UserPhoto> photoList = userPhotoFacade.findPhotosByUserID(user.getId());
@@ -405,46 +506,27 @@ public class AccountManager implements Serializable {
         }
         return photoList.get(0).getThumbnailName();
     }
-    
-    public String getListOfStaffByUniversity()
-    {
+
+    public String getListOfStaffByUniversity() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
-    
+
         school = user.getSchool();
         listOfStaff = userFacade.findUserByUniversity(school);
         System.out.println();
         return "StaffBook";
     }
 
-    public ArrayList<String> getFeed() {
-        return feed;
-    }
-
-    public void setFeed(ArrayList<String> feed) {
-        this.feed = feed;
-    }
-    
-    public static void appendFeed(String newFeed)
-    {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        
-        //feed.add(0, newFeed + " at " + dateFormat.format(date));
-        System.out.println("Work work work work work");
-    }
-    
     public String updateFeed() {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User user = userFacade.find(user_id);
-        
+
         eventFeed = eventFacade.findEventsByGroup(groupUserFacade.selectGroupFromUser(user).getGroupId());
-        
+
         return "Dashboard?faces-redirect=true";
     }
-    
-    public void sendEmail() throws UnsupportedEncodingException
-    {
+
+    public void sendEmail() throws UnsupportedEncodingException {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User currentUser = userFacade.find(user_id);
         String body = message(currentUser);
@@ -459,75 +541,102 @@ public class AccountManager implements Serializable {
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         Session session = Session.getDefaultInstance(props, null);
-        
-        try {
-                Message msg = new MimeMessage(session);
-                msg.setFrom(new InternetAddress("wicruit@gmail.com", "Wicruit"));
-                msg.addRecipient(Message.RecipientType.TO,
-                        new InternetAddress(currentUser.getEmail(), currentUser.getFirstName()));
-                msg.setSubject("Welcome To Wicruit!");
-                msg.setText(body);
-                Transport.send(msg, user, pass);
 
-            } catch (AddressException e) {
-                // ...
-            } catch (MessagingException e) {
-                // ...
-            }
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("wicruit@gmail.com", "Wicruit"));
+            msg.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(currentUser.getEmail(), currentUser.getFirstName()));
+            msg.setSubject("Welcome To Wicruit!");
+            msg.setText(body);
+            Transport.send(msg, user, pass);
+
+        } catch (AddressException e) {
+            // ...
+        } catch (MessagingException e) {
+            // ...
+        }
+    }
+
+    public String createGroup() {
+        Random gen = new Random();
+        this.groupExist = false;
+        //check if group exists
+        this.createGroupPasscode = gen.nextInt(9000) + 1000;
+
+        
+        while (groupFacade.findGroupByPasscode(this.createGroupPasscode) != null) {
+            this.createGroupPasscode = gen.nextInt(9000) + 1000;
+        }
+
+        return "CreateAccount?faces-redirect=true";
     }
     
-     private boolean skip;
-     
+    public String joinGroup() {
+        groupExist = true;
+        if (groupFacade.findGroupByPasscode(Integer.parseInt(joinPasscode)) != null)
+        {
+            joinStatusMessage = "";
+            return "CreateAccount?faces-redirect=true";
+        }
+        else
+        {
+            joinStatusMessage = "Incorrect passcode.";
+        }
+        return "JoinGroup?faces-redirect=true";
+    }
+
+    private boolean skip;
+
     public boolean isSkip() {
         return skip;
     }
- 
+
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
-     
+
     public String onFlowProcess(FlowEvent event) {
-        if(skip) {
+        if (skip) {
             skip = false;   //reset in case user goes back
             return "confirm";
-        }
-        else {
+        } else {
             return event.getNewStep();
         }
     }
-    
-    public void save() {  
+
+    public void save() {
         User user = new User();
 
         FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public String message(User newUser)
-    {
-        return "Congratulations "+ newUser.getFirstName()+ "!\n\n"
-                + "Your account have been successfully created!\n" 
-                + "Your account name is: "+ newUser.getUsername() +"\n\n" 
+
+    public String message(User newUser) {
+        return "Congratulations " + newUser.getFirstName() + "!\n\n"
+                + "Your account have been successfully created!\n"
+                + "Your account name is: " + newUser.getUsername() + "\n\n"
                 + "You can now have all the information about your recruits in one place. No more scrammbling around looking for information on your recruit or losing vital information \n\n"
                 + "Thank you for choosing us, \n"
-                + "Wicruit Support Team";               
+                + "Wicruit Support Team";
     }
-    
+
     public String cancel() {
-//        firstName = "";
-//        lastName = "";
-//        email = "";
-//        username = "";
-//        password = "";
-//        title = "";
-//        school = "";
-//        city = "";
-//        state = "";
-//        zipcode = 0;
-//        security_question = 0;
-//        security_answer = "";
-//        statusMessage = "";
-        
+        /*
+        firstName = "";
+        lastName = "";
+        email = "";
+        username = "";
+        password = "";
+        title = "";
+        school = "";
+        city = "";
+        state = "";
+        zipcode = 0;
+        security_question = 0;
+        security_answer = "";
+        statusMessage = "";*/
+
         return "index";
     }
 }

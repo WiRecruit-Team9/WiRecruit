@@ -7,12 +7,14 @@ package com.mycompany.managers;
 import com.mycompany.entitypackage.RecruitPhoto;
 import com.mycompany.entitypackage.Recruit;
 import com.mycompany.entitypackage.Event;
+import com.mycompany.entitypackage.Upvote;
 import com.mycompany.entitypackage.User;
 import com.mycompany.jsfpackage.util.JsfUtil;
 import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
 import com.mycompany.sessionbeanpackage.Group1Facade;
+import com.mycompany.sessionbeanpackage.UpvoteFacade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
 import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.GroupUserFacade;
@@ -84,6 +86,7 @@ public class RecruitManager implements Serializable {
     private String centerGeocode = "40, 40";
     private String searchedRecruitName;
     private String weather;
+    private int selectedNumLikes = 0;
     
     private String statusMessage = "";
     
@@ -109,6 +112,9 @@ public class RecruitManager implements Serializable {
     private Group1Facade groupFacade;
     @EJB
     private GroupUserFacade groupUserFacade;
+    
+    @EJB
+    private UpvoteFacade upvoteFacade;
     
     public RecruitManager()
     {
@@ -137,6 +143,14 @@ public class RecruitManager implements Serializable {
 
     public void setGeoModel(MapModel geoModel) {
         this.geoModel = geoModel;
+    }
+
+    public int getSelectedNumLikes() {
+        return selectedNumLikes;
+    }
+
+    public void setSelectedNumLikes(int selectedNumLikes) {
+        this.selectedNumLikes = selectedNumLikes;
     }
 
     public String getRecruitedYear() {
@@ -772,5 +786,33 @@ public class RecruitManager implements Serializable {
     
     public void loadWeather() {
         RequestContext.getCurrentInstance().execute("loadWeather()");
+    public void likeUnlike()
+    {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User currentUser = userFacade.find(user_id);
+        if (upvoteFacade.findUpVoteByUserRecruit(currentUser, selected) != null)
+        {
+            upvoteFacade.remove(upvoteFacade.findUpVoteByUserRecruit(currentUser, selected));
+            //return "Dashboard";
+            if (upvoteFacade.searchUpvoteByRecruit(selected) != null)
+                setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
+            else
+                setSelectedNumLikes(0);
+        }
+        else
+        {
+            try {
+                
+                Upvote upvote = new Upvote();
+                upvote.setRecruitId(selected);
+                upvote.setUserId(currentUser);
+                
+                upvoteFacade.create(upvote);  
+                
+                setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the Upvote!";
+            }
+        }
     }
 }
