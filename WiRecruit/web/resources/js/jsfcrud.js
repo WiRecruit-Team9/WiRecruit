@@ -8,5 +8,10 @@ function handleSubmit(args, dialog) {
 }
 
 function geocode() {
-    PF('geoMap').geocode(document.getElementById('address').value);
+    var address = document.getElementById("recruitInfo:address").value + ", " + 
+            document.getElementById("recruitInfo:city").value + ", " + 
+            document.getElementById("recruitInfo:state").value + " " + 
+            document.getElementById("recruitInfo:zipcode").value;
+    
+    PF('geoMap').geocode(address);
 }

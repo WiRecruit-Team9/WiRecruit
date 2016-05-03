@@ -271,7 +271,6 @@ public class AccountManager implements Serializable {
                 userFacade.create(user); 
                 
             } catch (EJBException e) {
-                username = "";
                 statusMessage = "Something went wrong while creating your account!";
                 return "";
             }
@@ -515,19 +514,19 @@ public class AccountManager implements Serializable {
     }
     
     public String cancel() {
-        firstName = "";
-        lastName = "";
-        email = "";
-        username = "";
-        password = "";
-        title = "";
-        school = "";
-        city = "";
-        state = "";
-        zipcode = 0;
-        security_question = 0;
-        security_answer = "";
-        statusMessage = "";
+//        firstName = "";
+//        lastName = "";
+//        email = "";
+//        username = "";
+//        password = "";
+//        title = "";
+//        school = "";
+//        city = "";
+//        state = "";
+//        zipcode = 0;
+//        security_question = 0;
+//        security_answer = "";
+//        statusMessage = "";
         
         return "index";
     }

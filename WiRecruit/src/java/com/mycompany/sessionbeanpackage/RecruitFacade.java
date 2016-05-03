@@ -5,6 +5,7 @@
 package com.mycompany.sessionbeanpackage;
 
 import com.mycompany.entitypackage.Recruit;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,5 +50,16 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
                 .setParameter("commit", search)
                 .getResultList());        
         }
+    }
+    
+    public List<Recruit> searchRecruitByName(String name) {
+        List<Recruit> recruits = new ArrayList<>();
+        
+        if (name.trim().length() != 0) {
+            recruits = em.createQuery("SELECT r FROM Recruit r WHERE r.firstName LIKE '%" + name + "%'", Recruit.class)
+                .getResultList();
+        }
+
+        return recruits;
     }
 }

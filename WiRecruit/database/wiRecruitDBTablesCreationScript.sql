@@ -75,7 +75,6 @@ CREATE TABLE `GroupUser`
     PRIMARY KEY (id),
     user_id INT NOT NULL,
     group_id INT NOT NULL,
-    admin boolean,
     FOREIGN KEY (user_id) REFERENCES `User`(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
 );
@@ -132,4 +131,16 @@ CREATE TABLE `Event`
     FOREIGN KEY (user_id) REFERENCES `User`(id) ON DELETE CASCADE,
     FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
+);
+
+/* The Comment table contains attributes of interest of an comment. */
+CREATE TABLE `Comment`
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    comment_text text NOT NULL,
+    user_id INT,
+    recruit_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES `User`(id) ON DELETE CASCADE,
+    FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE
 );

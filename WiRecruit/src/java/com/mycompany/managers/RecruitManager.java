@@ -31,6 +31,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -84,10 +85,11 @@ public class RecruitManager implements Serializable {
     private String notes;
     private Recruit currentRecruitID;
     private Recruit selected;
-    private MapModel simpleModel = new DefaultMapModel();
+    private MapModel geoModel;
     private List<String> listOfEmails = null;
     private String userSchool;
     private String centerGeocode = "40, 40";
+    private String searchedRecruitName;
     
     private String statusMessage = "";
     
@@ -97,31 +99,31 @@ public class RecruitManager implements Serializable {
     private final String[] listOfPositions = Constants.POSITIONS;
     
     private List<Recruit> listOfRecruits = null;
+    private List<Recruit> matchedRecruits = new ArrayList();
     
     @EJB
     private com.mycompany.sessionbeanpackage.RecruitFacade ejbFacade;
-    
     @EJB
     private RecruitFacade recruitFacade;
-    
     @EJB
     private EventFacade eventFacade;
-    
     @EJB
     private RecruitPhotoFacade recruitPhotoFacade;
-    
     @EJB
     private UserFacade userFacade;
-    
     @EJB
     private Group1Facade groupFacade;
-    
     @EJB
     private GroupUserFacade groupUserFacade;
     
     public RecruitManager()
     {
         
+    }
+    
+    @PostConstruct
+    public void init() {
+        geoModel = new DefaultMapModel();
     }
     
     public List<Recruit> getItems() {
@@ -135,12 +137,12 @@ public class RecruitManager implements Serializable {
         return listOfRecruits;
     }
 
-    public MapModel getSimpleModel() {
-        return simpleModel;
+    public MapModel getGeoModel() {
+        return geoModel;
     }
 
-    public void setSimpleModel(MapModel simpleModel) {
-        this.simpleModel = simpleModel;
+    public void setGeoModel(MapModel geoModel) {
+        this.geoModel = geoModel;
     }
 
     public String getRecruitedYear() {
@@ -391,6 +393,22 @@ public class RecruitManager implements Serializable {
 
     public void setCenterGeocode(String centerGeocode) {
         this.centerGeocode = centerGeocode;
+    }
+
+    public String getSearchedRecruitName() {
+        return searchedRecruitName;
+    }
+
+    public void setSearchedRecruitName(String searchedRecruitName) {
+        this.searchedRecruitName = searchedRecruitName;
+    }
+
+    public List<Recruit> getMatchedRecruits() {
+        return matchedRecruits;
+    }
+
+    public void setMatchedRecruits(List<Recruit> matchedRecruits) {
+        this.matchedRecruits = matchedRecruits;
     }
     
     public String createRecruit() throws UnsupportedEncodingException {
@@ -718,5 +736,30 @@ public class RecruitManager implements Serializable {
     
     public void geocode() {
         RequestContext.getCurrentInstance().execute("geocode()");
+    }
+    
+    public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
+         
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            centerGeocode = center.getLat() + "," + center.getLng();
+        }
+    }
+    
+    public void searchedRecruits() {
+        matchedRecruits = recruitFacade.searchRecruitByName(searchedRecruitName);
+    }
+    
+    public void onRecruitRowSelect() {
+        //System.out.println(selectedGroup);
+        ConfigurableNavigationHandler configurableNavigationHandler
+                = (ConfigurableNavigationHandler) FacesContext.
+                getCurrentInstance().getApplication().getNavigationHandler();
+
+        configurableNavigationHandler.performNavigation("RecruitProfile?faces-redirect=true");
+
+        searchedRecruitName = "";
+        matchedRecruits.clear();
     }
 }

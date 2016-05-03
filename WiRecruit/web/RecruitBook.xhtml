@@ -20,6 +20,17 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
             <ui:define name="editableContent">
                 <h2>Recruit Book</h2>
                 <h:form id="RecruitListForm">
+                    <p:inputText id="searchBox" style="margin-right:10px; margin-left:10px; " placeholder="Search recruits" value="#{recruitManager.searchedRecruitName}">
+                        <p:ajax event="keyup" update="searchDT" listener="#{recruitManager.searchedRecruits}" />
+                    </p:inputText>
+                    <p:overlayPanel id="searchPanel" for="searchBox" hideEffect="fade">
+                        <p:dataTable id="searchDT" var="recruit" value="#{recruitManager.matchedRecruits}" selectionMode="single" selection="#{recruitManager.selected}" rowKey="#{recruit.id}" styleClass="hide-column-names">
+                            <p:ajax event="rowSelect" update="searchDT" listener="#{recruitManager.onRecruitRowSelect()}"/> 
+                            <p:column>
+                                <h:outputText value="#{recruit.firstName}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:overlayPanel>
                     <p:panel header="#{accountManager.school}'s Recruits" style="background:#34495e">
                         <p:dataTable id="datalist" value="#{recruitManager.items}" var="item"
                                      selectionMode="single" selection="#{recruitManager.selected}"

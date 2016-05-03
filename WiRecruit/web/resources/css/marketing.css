@@ -407,3 +407,7 @@ ul, menu, dir {
     -webkit-margin-end: 0px;
     -webkit-padding-start: 40px;
 }
+
+.hide-column-names table thead tr {
+    display: none;
+}
