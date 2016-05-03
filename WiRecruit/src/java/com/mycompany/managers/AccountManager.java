@@ -75,6 +75,7 @@ public class AccountManager implements Serializable {
     private List<Event> eventFeed = null;
 
     private boolean groupExist = false;
+    private String joinStatusMessage;
     private String joinPasscode;
     private String createGroupTitle;
     private int createGroupPasscode;
@@ -135,6 +136,14 @@ public class AccountManager implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getJoinStatusMessage() {
+        return joinStatusMessage;
+    }
+
+    public void setJoinStatusMessage(String joinStatusMessage) {
+        this.joinStatusMessage = joinStatusMessage;
     }
 
     public String getTitle() {
@@ -567,9 +576,14 @@ public class AccountManager implements Serializable {
         groupExist = true;
         if (groupFacade.findGroupByPasscode(Integer.parseInt(joinPasscode)) != null)
         {
+            joinStatusMessage = "";
             return "CreateAccount?faces-redirect=true";
         }
-        return "";
+        else
+        {
+            joinStatusMessage = "Incorrect passcode.";
+        }
+        return "JoinGroup?faces-redirect=true";
     }
 
     private boolean skip;
