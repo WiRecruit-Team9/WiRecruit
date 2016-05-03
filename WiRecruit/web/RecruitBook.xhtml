@@ -27,7 +27,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <p:dataTable id="searchDT" var="recruit" value="#{recruitManager.matchedRecruits}" selectionMode="single" selection="#{recruitManager.selected}" rowKey="#{recruit.id}" styleClass="hide-column-names">
                             <p:ajax event="rowSelect" update="searchDT" listener="#{recruitManager.onRecruitRowSelect()}"/> 
                             <p:column>
-                                <h:outputText value="#{recruit.firstName}" />
+                                <h:outputText value="#{recruit.firstName} #{recruit.lastName}" />
                             </p:column>
                         </p:dataTable>
                     </p:overlayPanel>

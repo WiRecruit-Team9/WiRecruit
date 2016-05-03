@@ -411,3 +411,11 @@ ul, menu, dir {
 .hide-column-names table thead tr {
     display: none;
 }
+
+/* This places the horizontal cascading PrimeFaces navigation menu bar on the right top corner */
+.rightTopCornerAlign {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+}
