@@ -15,3 +15,19 @@ function geocode() {
     
     PF('geoMap').geocode(address);
 }
+
+function loadWeather(){
+    $.ajax({
+        url: "http://api.openweathermap.org/data/2.5/weather?zip=" + 
+                document.getElementById("recruitInfo:zipcode").value + 
+                ",us&appid=58df88917a0cb920eac73723a75f30e6",
+        dataType: 'jsonp',
+        success: function(jsonPData){
+            var kelvin = jsonPData["main"]["temp"];
+            var farenheit = kelvin * 9/5 - 459.67;
+            var weather = "The current weather is " + jsonPData["weather"][0]["main"] + " and " +
+                    farenheit.toFixed(1) + "&#8457";
+            $("#weather").html(weather);
+        }
+    });
+}

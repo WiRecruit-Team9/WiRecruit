@@ -16,13 +16,11 @@ import com.mycompany.sessionbeanpackage.Group1Facade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
 import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.GroupUserFacade;
-import com.mycompany.managers.ProfileViewManager;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,11 +31,8 @@ import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -51,9 +46,7 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 import org.primefaces.event.map.GeocodeEvent;
-import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.model.map.GeocodeResult;
  
 @Named(value = "recruitManager")
@@ -90,6 +83,7 @@ public class RecruitManager implements Serializable {
     private String userSchool;
     private String centerGeocode = "40, 40";
     private String searchedRecruitName;
+    private String weather;
     
     private String statusMessage = "";
     
@@ -409,6 +403,14 @@ public class RecruitManager implements Serializable {
 
     public void setMatchedRecruits(List<Recruit> matchedRecruits) {
         this.matchedRecruits = matchedRecruits;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
     }
     
     public String createRecruit() throws UnsupportedEncodingException {
@@ -734,6 +736,11 @@ public class RecruitManager implements Serializable {
         recruitFacade.edit(selected);
     }
     
+    public void onLoad() {
+        geocode();
+        loadWeather();
+    }
+    
     public void geocode() {
         RequestContext.getCurrentInstance().execute("geocode()");
     }
@@ -761,5 +768,9 @@ public class RecruitManager implements Serializable {
 
         searchedRecruitName = "";
         matchedRecruits.clear();
+    }
+    
+    public void loadWeather() {
+        RequestContext.getCurrentInstance().execute("loadWeather()");
     }
 }

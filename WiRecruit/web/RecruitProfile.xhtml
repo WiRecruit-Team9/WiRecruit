@@ -115,16 +115,17 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                 <p:inputText value="#{recruitManager.selectedNotes}" required="true" label="text" />
                             </p:inplace>
                         </h:panelGrid>    
-                        <br/>
-                        <br/>
-                        <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Back to Recruit Book" />
                     </h:form> 
                     <h:form prependId="false">
-                        <p:remoteCommand name="onload" action="#{recruitManager.geocode()}" autoRun="true"/>
-                        <h3>Map</h3>
+                        <p:remoteCommand name="onload" action="#{recruitManager.onLoad()}" autoRun="true"/>
+                        <h3>Map and Weather</h3>
+                        <h:outputText id="weather" value="Weather"/>
                         <p:gmap id="geoGmap" widgetVar="geoMap" center="#{recruitManager.centerGeocode}" zoom="18" type="HYBRID" style="width:600px;height:400px" model="#{recruitManager.geoModel}" >
                             <p:ajax event="geocode" listener="#{recruitManager.onGeocode}" update="@this" />
                         </p:gmap>
+                        <br/>
+                        <br/>
+                        <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="Back to Recruit Book" />
                     </h:form>
 
                 </div>
