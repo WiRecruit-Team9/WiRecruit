@@ -19,7 +19,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
                 <h:form>
-                    <h2>Dashboard</h2>
+                    <article role="profile"><h5>Dashboard</h5></article>
                     <p:dataScroller value="#{accountManager.eventFeed}" var="event" chunkSize="10">
                         <f:facet name="header">
                             Recent Activities of #{accountManager.updateGroupTitle()}
@@ -29,12 +29,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
                         </f:facet>
 
-                        <h:panelGrid columns="2" style="width:50%" columnClasses="logo,detail">
+                        <h:panelGrid columns="2" style="width:80%" columnClasses="logo,detail">
                             <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(event.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/> 
 
                             <p:outputPanel>
                                 <h:panelGrid columns="1" cellpadding="5">
-                                    <h:outputText value=" #{event.userId.firstName} #{event.userId.lastName} #{event.description} #{event.recruitId.firstName} #{event.recruitId.lastName}" style="font-weight: bold"/>
+                                    <h:outputText value=" #{event.userId.firstName} #{event.userId.lastName} #{event.description}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                             

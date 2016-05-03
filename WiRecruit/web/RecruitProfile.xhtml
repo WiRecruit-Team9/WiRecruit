@@ -119,7 +119,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <p:dataScroller id="comments" value="#{recruitManager.comments}" var="comment" style="text-align: left">
                             <h:outputText value=" #{comment.commentText}" escape="false"/>
                         </p:dataScroller>
-                        <p:editor id="editor" widgetVar="editorWidget" value="#{recruitManager.text}" width="600"
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{recruitManager.text}" width="450"
                                   style="padding-top: 10px"/>
                         <h:panelGrid columns="2" style="margin-top: 10px">
                             <p:commandButton value="Submit" actionListener="#{recruitManager.submitComment()}" icon="ui-icon-disk" update="comments"/>
@@ -131,7 +131,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <p:remoteCommand name="onload" action="#{recruitManager.onLoad()}" autoRun="true"/>
                         <h3>Map and Weather</h3>
                         <h:outputText id="weather" value="Weather"/>
-                        <p:gmap id="geoGmap" widgetVar="geoMap" center="#{recruitManager.centerGeocode}" zoom="18" type="HYBRID" style="width:600px;height:400px" model="#{recruitManager.geoModel}" >
+                        <p:gmap id="geoGmap" widgetVar="geoMap" center="#{recruitManager.centerGeocode}" zoom="18" type="HYBRID" style="width:450px;height:400px" model="#{recruitManager.geoModel}" >
                             <p:ajax event="geocode" listener="#{recruitManager.onGeocode}" update="@this" />
                         </p:gmap>
                         <br/>

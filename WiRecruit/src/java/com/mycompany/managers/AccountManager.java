@@ -389,6 +389,7 @@ public class AccountManager implements Serializable {
             initializeSessionMap();
             sendEmail();
             save();
+            reset();
             return "StaffProfile?faces-redirect=true";
         }
         return "";
@@ -636,7 +637,10 @@ public class AccountManager implements Serializable {
     }
 
     public String cancel() {
-        /*
+        return "index";
+    }
+    
+    public void reset() {
         firstName = "";
         lastName = "";
         email = "";
@@ -649,8 +653,6 @@ public class AccountManager implements Serializable {
         zipcode = 0;
         security_question = 0;
         security_answer = "";
-        statusMessage = "";*/
-
-        return "index";
+        statusMessage = "";
     }
 }

@@ -18,7 +18,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <h2>Staff Book</h2>
+                <article role="profile"><h5>Staff Book</h5></article>
                 <h:form> 
                     <p:dataScroller value="#{accountManager.listOfStaff}" var="staff" chunkSize="10" mode="inline">
                         <f:facet name="header">

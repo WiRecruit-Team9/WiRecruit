@@ -22,7 +22,10 @@ import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -495,8 +498,11 @@ public class RecruitManager implements Serializable {
             
             try {
                 
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                
                 Event event = new Event();
-                event.setDescription("created a new recruit");
+                event.setDescription("created a new recruit, " + selected.getFirstName() + " " + selected.getLastName() + " on " +date);
                 event.setRecruitId(selected);
                 event.setUserId(user);
                 event.setGroupId(groupUserFacade.selectGroupFromUser(user).getGroupId());

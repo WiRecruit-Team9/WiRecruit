@@ -18,7 +18,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
     <h:body>
         <ui:composition template="/template/userpages/userSiteTemplate.xhtml">
             <ui:define name="editableContent">
-                <h2>Recruit Book</h2>
+                <article role="profile"><h5>Recruit Book</h5></article>
                 <h:form id="RecruitListForm">
                     <p:inputText id="searchBox" style="margin-right:10px; margin-left:10px; " placeholder="Search recruits" value="#{recruitManager.searchedRecruitName}">
                         <p:ajax event="keyup" update="searchDT" listener="#{recruitManager.searchedRecruits}" />
