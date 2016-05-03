@@ -41,6 +41,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         <h:outputText value="Last Name: *" />
                                         <p:inputText value="#{accountManager.lastName}" required="true" label="Lastname"/>
 
+                                        <h:outputText value="Title: " />
+                                        <h:selectOneMenu id="title" value="#{accountManager.title}" required="true">
+                                            <f:selectItems value="#{accountManager.listOfTitles}" var="title"
+                                                           itemLabel="#{title}" itemValue="#{title}" />
+                                        </h:selectOneMenu>
+                                        
                                         <h:outputText value="City: " />
                                         <p:inputText value="#{accountManager.city}" />
 
@@ -116,9 +122,6 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                             <h:outputText value="Title:             " />
                                             <h:outputText value="#{accountManager.title}" styleClass="outputLabel"/>
-
-                                            <h:outputText value="School:             " />
-                                            <h:outputText value="#{accountManager.school}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Email:             " />
                                             <h:outputText value="#{accountManager.email}" styleClass="outputLabel"/>
