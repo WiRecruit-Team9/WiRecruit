@@ -22,18 +22,22 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <h:form>
                     <p:dataScroller value="#{accountManager.eventFeed}" var="event" chunkSize="10">
                         <f:facet name="header">
-                            Scroll Down to Load More Events
+                            Recent Activity For #{accountManager.school} Recruiting
+                        </f:facet>
+                        
+                        <f:facet name="loader">
+                            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
                         </f:facet>
 
-                        <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+                        <h:panelGrid columns="2" style="width:50%" columnClasses="logo,detail">
+                            <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(event.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/> 
 
                             <p:outputPanel>
-                                <h:panelGrid columns="3" cellpadding="5">
-                                    <h:link outcome="" value="#{event.userId.firstName}" />
-                                    <h:outputLabel value="#{event.description}"/>
-                                    <h:link outcome="" value="#{event.recruitId.firstName}" />
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <h:outputText value=" #{event.userId.firstName} #{event.userId.lastName} #{event.description} #{event.recruitId.firstName} #{event.recruitId.lastName}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
+                            
                         </h:panelGrid>
                     </p:dataScroller>
                     <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
