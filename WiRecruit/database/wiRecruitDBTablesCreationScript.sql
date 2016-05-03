@@ -53,7 +53,6 @@ CREATE TABLE `Recruit`
     city VARCHAR (255) NOT NULL,
     state VARCHAR (32) NOT NULL,
     zipcode INT NOT NULL,
-    geocode VARCHAR(255) NOT NULL,
     year VARCHAR(255) NOT NULL,
     recruitedYear VARCHAR(255) NOT NULL,
     height int NOT NULL,

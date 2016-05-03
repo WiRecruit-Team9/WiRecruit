@@ -6,3 +6,7 @@ function handleSubmit(args, dialog) {
         PF(dialog).hide();
     }
 }
+
+function geocode() {
+    PF('geoMap').geocode(document.getElementById('address').value);
+}

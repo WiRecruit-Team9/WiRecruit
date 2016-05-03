@@ -27,6 +27,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -44,12 +45,14 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.model.map.GeocodeResult;
  
 @Named(value = "recruitManager")
@@ -82,10 +85,9 @@ public class RecruitManager implements Serializable {
     private Recruit currentRecruitID;
     private Recruit selected;
     private MapModel simpleModel = new DefaultMapModel();
-    private LatLng coord = new LatLng(36.879466, 30.667648);
     private List<String> listOfEmails = null;
     private String userSchool;
-    private String centerGeocode;
+    private String centerGeocode = "40, 40";
     
     private String statusMessage = "";
     
@@ -119,7 +121,7 @@ public class RecruitManager implements Serializable {
     
     public RecruitManager()
     {
-        simpleModel.addOverlay(new Marker(coord, "school", "High School"));
+        
     }
     
     public List<Recruit> getItems() {
@@ -147,16 +149,6 @@ public class RecruitManager implements Serializable {
 
     public void setRecruitedYear(String recruitedYear) {
         this.recruitedYear = recruitedYear;
-    }
-    
-    
-
-    public LatLng getCoord() {
-        return coord;
-    }
-
-    public void setCoord(LatLng coord) {
-        this.coord = coord;
     }
     
     public Recruit getSelected() {
@@ -724,13 +716,7 @@ public class RecruitManager implements Serializable {
         recruitFacade.edit(selected);
     }
     
-
-    public void onGeocode(GeocodeEvent event) {
-        List<GeocodeResult> results = event.getResults();
-         
-        if (results != null && !results.isEmpty()) {
-            LatLng center = results.get(0).getLatLng();
-            centerGeocode = center.getLat() + "," + center.getLng();
-        }
+    public void geocode() {
+        RequestContext.getCurrentInstance().execute("geocode()");
     }
 }

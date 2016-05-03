@@ -99,10 +99,6 @@ public class Recruit implements Serializable {
     private int zipcode;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "geocode")
-    private String geocode;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "year")
     private String year;
@@ -260,14 +256,6 @@ public class Recruit implements Serializable {
 
     public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
-    }
-
-    public String getGeocode() {
-        return geocode;
-    }
-
-    public void setGeocode(String geocode) {
-        this.geocode = geocode;
     }
 
     public String getYear() {
