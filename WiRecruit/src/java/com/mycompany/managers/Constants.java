@@ -41,5 +41,6 @@ public class Constants {
 
     public static final int[] SKILL_LEVELS = {0, 1, 2, 3, 4, 5};
     
-    public static final String[] POSITIONS = {"", "RHP", "LHP", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"};
+    public static final String[] POSITIONS = {"Starting Pitcher", "Closing Pitcher", "Catcher", "First Baseman", "Second Baseman",
+        "Third Baseman", "Shortstop", "Left Fielder", "Center Fielder", "Right Fielder"};
 }
