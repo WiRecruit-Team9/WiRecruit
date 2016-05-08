@@ -19,7 +19,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
             <!-- Create the content for this page below -->
             <ui:define name="editableContent">
-                
+
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
                         <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
@@ -41,11 +41,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                         <h:outputText value="Email: " />
                                         <p:inputText value="#{recruitManager.email}" required="true"/>
-                                        
+
                                         <h:outputText value="Phone Number: " />
                                         <p:inputText value="#{recruitManager.phone}" required="true"/>
-                                        
-                                        
+
+
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -56,13 +56,13 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="School: " />
                                         <p:inputText value="#{recruitManager.school}" required="true"/>
-                                        
+
                                         <h:outputText value="Address: " />
                                         <p:inputText value="#{recruitManager.address1}" required="true"/>
-                                        
+
                                         <h:outputText value="Address 2: " />
                                         <p:inputText value="#{recruitManager.address2}"/>
- 
+
                                         <h:outputText value="City: " />
                                         <p:inputText value="#{recruitManager.city}" required="true"/>
 
@@ -74,20 +74,20 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                         <h:outputText value="Zipcode: " />
                                         <p:inputText value="#{recruitManager.zipcode}" />
-                                        
+
                                         <h:outputText value="GPA: " />
                                         <p:inputText id="gpa" value="#{recruitManager.gpa}" 
                                                      required="true" label="gpa">
                                             <f:validateLength minimum="2" maximum="4" />
                                         </p:inputText>
-                              
+
                                         <h:outputText value="Grad Year: " />
                                         <h:selectOneMenu id="year" value="#{recruitManager.year}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="year"
                                                            itemLabel="#{year}" itemValue="#{year}" />
                                         </h:selectOneMenu>
 
-                                        
+
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -98,34 +98,34 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="Height (in): " />
                                         <p:inputText value="#{recruitManager.height}" required="true"/>
-                                        
+
                                         <h:outputText value="Weight (lbs) " />
                                         <p:inputText value="#{recruitManager.weight}" required="true"/>
-                                      
+
                                         <h:outputText value="Position: " />
                                         <h:selectOneMenu id="position" value="#{recruitManager.position}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfPositions}" var="position"
                                                            itemLabel="#{position}" itemValue="#{position}" />
                                         </h:selectOneMenu>
-                                        
+
                                         <h:outputText value="Secondary Position: " />
                                         <h:selectOneMenu id="secondaryPosition" value="#{recruitManager.secondaryPosition}">
                                             <f:selectItems value="#{recruitManager.listOfPositions}" var="secondaryPosition"
                                                            itemLabel="#{secondaryPosition}" itemValue="#{secondaryPosition}" />
                                         </h:selectOneMenu>
-                                         
+
                                         <h:outputText value="Skill Level: " />
                                         <h:selectOneMenu id="skillLevel" value="#{recruitManager.skillLevel}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfSkillLevels}" var="skillLevel"
                                                            itemLabel="#{skillLevel}" itemValue="#{skillLevel}" />
                                         </h:selectOneMenu>
-                                        
+
                                         <h:outputText value="Recruited Year " />
                                         <h:selectOneMenu id="recruitedYear" value="#{recruitManager.recruitedYear}" required="true">
                                             <f:selectItems value="#{recruitManager.listOfSchoolYear}" var="recruitedYear"
                                                            itemLabel="#{recruitedYear}" itemValue="#{recruitedYear}" />
                                         </h:selectOneMenu>
-                                        
+
                                         <h:outputText value="Notes: " />
                                         <h:inputTextarea id="notes" value="#{recruitManager.notes}" 
                                                          required="false" label="notes" rows="10" cols="30">
@@ -139,26 +139,26 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:tab id="confirm" title="Confirmation">
                                 <p:panel header="Confirmation">
                                     <h:panelGrid id="confirmation" columns="1" columnClasses="grid">
-                                        
+
                                         <h:panelGrid columns="2" columnClasses="label, value">
                                             <h:outputText value="First Name:             " />
                                             <h:outputText value="#{recruitManager.firstName}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Last Name:             " />
                                             <h:outputText value="#{recruitManager.lastName}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Email:             " />
                                             <h:outputText value="#{recruitManager.email}" styleClass="outputLabel"/>
-                                                                                      
+
                                             <h:outputText value="Phone:              " />
                                             <h:outputText value="#{recruitManager.phone}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="School:             " />
                                             <h:outputText id="confirmSchool" value="#{recruitManager.school}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Address 1:             " />
                                             <h:outputText value="#{recruitManager.address1}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Address 2:             " />
                                             <h:outputText value="#{recruitManager.address2}" styleClass="outputLabel"/>
 
@@ -179,13 +179,13 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                             <h:outputText value="Position:             " />
                                             <h:outputText value="#{recruitManager.position}" styleClass="outputLabel"/> 
-                                            
+
                                             <h:outputText value="Secondary Position:             " />
                                             <h:outputText value="#{recruitManager.secondaryPosition}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Skill Level             " />
                                             <h:outputText value="#{recruitManager.skillLevel}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Recruited Year:             " />
                                             <h:outputText value="#{recruitManager.recruitedYear}" styleClass="outputLabel"/>
 
@@ -194,15 +194,14 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
 
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                        <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
-                                        
-                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                                        action="#{recruitManager.createRecruit()}" value="Submit"/>
-                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
+                                    <h:outputLabel id="error" value="#{recruitManager.statusMessage}"  />
+
+                                    <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                                     action="#{recruitManager.createRecruit()}" value="Submit"/>
+                                    <h:button class="btn btn-lg btn-danger" id="cancel" outcome="RecruitBook" value="Cancel" />
                                 </p:panel>
                             </p:tab>
                         </p:wizard>
-
                     </h:form>
                 </div>
             </ui:define>

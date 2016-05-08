@@ -844,6 +844,23 @@ public class RecruitManager implements Serializable {
             else
                 setSelectedNumLikes(0);
             
+            try {
+                
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                
+                Event event = new Event();
+                event.setDescription("liked recruit " + selected.getFirstName() + " " + selected.getLastName() + " on " +date);
+                event.setRecruitId(selected);
+                event.setUserId(currentUser);
+                event.setGroupId(groupUserFacade.selectGroupFromUser(currentUser).getGroupId());
+                event.setType(0);
+                
+                eventFacade.create(event);               
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the event!";
+            }
+            
             like = "Like";
         }
         else
@@ -860,6 +877,23 @@ public class RecruitManager implements Serializable {
                 like = "Unlike";
             } catch (EJBException e) {
                 statusMessage = "Something went wrong while creating the Upvote!";
+            }
+            
+            try {
+                
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                
+                Event event = new Event();
+                event.setDescription("unliked recruit " + selected.getFirstName() + " " + selected.getLastName() + " on " +date);
+                event.setRecruitId(selected);
+                event.setUserId(currentUser);
+                event.setGroupId(groupUserFacade.selectGroupFromUser(currentUser).getGroupId());
+                event.setType(0);
+                
+                eventFacade.create(event);               
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the event!";
             }
         }
     }
@@ -880,7 +914,24 @@ public class RecruitManager implements Serializable {
             comment.setUserId(currentUser);
             
             commentFacade.create(comment);
-
+            
+            try {
+                
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                
+                Event event = new Event();
+                event.setDescription("commented on recruit " + selected.getFirstName() + " " + selected.getLastName() + " on " +date);
+                event.setRecruitId(selected);
+                event.setUserId(currentUser);
+                event.setGroupId(groupUserFacade.selectGroupFromUser(currentUser).getGroupId());
+                event.setType(0);
+                
+                eventFacade.create(event);               
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong while creating the event!";
+            }
+            
             text = "";
         }
     }
