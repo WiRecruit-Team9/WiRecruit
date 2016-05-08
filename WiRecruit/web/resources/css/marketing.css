@@ -250,11 +250,11 @@ a.pure-button-primary {
 .footer {
     background: #111;
     width:100%;
-    height: 45px;
+    height: 60px;
     position:relative;
     bottom:0;
     left:0;
-    
+    color: #ffffff;
 }
 
 /*
@@ -422,12 +422,12 @@ ul, menu, dir {
 }
 
 div.box {
-  background-color:#34495e;
+  /*background-color:#34495e;*/
+  background-image: url(./images/fieldBackground.png); 
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
-  overflow: auto;
-  height: 100%;
+  height: 95%;
 }
 
 div.userbox {
@@ -437,10 +437,10 @@ div.userbox {
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 1%;
-  overflow: auto;
+  padding-bottom: 5%;
   height: 100%;
+  overflow: auto;
 }

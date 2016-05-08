@@ -24,20 +24,12 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <f:facet name="header">
                             Recent Activities of #{accountManager.updateGroupTitle()}
                         </f:facet>
-                        
-                        <f:facet name="loader">
-                            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
-                        </f:facet>
 
-                        <h:panelGrid columns="2" style="width:80%" columnClasses="logo,detail">
+                        <h:panelGrid columns="2" cellpadding="5" style="width:80%" columnClasses="logo,detail">
                             <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(event.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/> 
 
-                            <p:outputPanel>
-                                <h:panelGrid columns="1" cellpadding="5">
-                                    <h:outputText value=" #{event.userId.firstName} #{event.userId.lastName} #{event.description}" style="font-weight: bold"/>
-                                </h:panelGrid>
-                            </p:outputPanel>
-                            
+                            <h:outputText value=" #{event.userId.firstName} #{event.userId.lastName} #{event.description}" style="font-weight: bold"/>
+
                         </h:panelGrid>
                     </p:dataScroller>
                     <h:link outcome="#{recruitManager.getListOfRecruitsByCommitment()}" value="" />
