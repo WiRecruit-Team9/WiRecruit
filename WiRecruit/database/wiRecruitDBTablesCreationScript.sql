@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS `UserPhoto`;
 DROP TABLE IF EXISTS `RecruitPhoto`;
 DROP TABLE IF EXISTS `Upvote`;
 DROP TABLE IF EXISTS `Event`;
+DROP TABLE IF EXISTS `Comment`;
 
 
 /* The User table contains attributes of interest of a user. */

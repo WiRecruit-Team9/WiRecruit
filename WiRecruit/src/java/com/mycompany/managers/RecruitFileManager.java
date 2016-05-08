@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -36,7 +37,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author jsuriano
  */
-public class RecruitFileManager {
+public class RecruitFileManager implements Serializable{
 
     // Instance Variables (Properties)
     private UploadedFile file;
@@ -141,7 +142,7 @@ public class RecruitFileManager {
         inputStream.read(buffer);
 
         // Write the series of bytes on file.
-        File targetFile = new File(Constants.ROOT_DIRECTORY, childName);
+        File targetFile = new File(Constants.RECRUIT_DIRECTORY, childName);
 
         OutputStream outStream;
         outStream = new FileOutputStream(targetFile);
@@ -157,7 +158,7 @@ public class RecruitFileManager {
             BufferedImage original = ImageIO.read(inputFile);
             BufferedImage thumbnail = Scalr.resize(original, Constants.THUMBNAIL_SZ);
             ImageIO.write(thumbnail, inputPhoto.getExtension(),
-                new File(Constants.ROOT_DIRECTORY, inputPhoto.getThumbnailName()));
+                new File(Constants.RECRUIT_DIRECTORY, inputPhoto.getThumbnailName()));
         } catch (IOException ex) {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -174,7 +175,7 @@ public class RecruitFileManager {
                 Files.deleteIfExists(Paths.get(photo.getFilePath()));
                 Files.deleteIfExists(Paths.get(photo.getThumbnailFilePath()));
                 
-                Files.deleteIfExists(Paths.get(Constants.ROOT_DIRECTORY+"tmp_file"));
+                Files.deleteIfExists(Paths.get(Constants.RECRUIT_DIRECTORY+"tmp_file"));
                  
                 photoFacade.remove(photo);
             } catch (IOException ex) {

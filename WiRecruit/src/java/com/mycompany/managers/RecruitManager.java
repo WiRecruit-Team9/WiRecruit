@@ -90,8 +90,7 @@ public class RecruitManager implements Serializable {
     private String centerGeocode = "40, 40";
     private String searchedRecruitName;
     private String weather;
-    private int selectedNumLikes = 0;
-    private String like = "Like";
+    private String like;
     private String statusMessage = "";
     private String text;
     
@@ -102,7 +101,6 @@ public class RecruitManager implements Serializable {
     
     private List<Recruit> listOfRecruits = null;
     private List<Recruit> matchedRecruits = new ArrayList();
-    private List<Comment> comments = new ArrayList();
     
     @EJB
     private com.mycompany.sessionbeanpackage.RecruitFacade ejbFacade;
@@ -120,7 +118,6 @@ public class RecruitManager implements Serializable {
     private GroupUserFacade groupUserFacade;
     @EJB
     private CommentFacade commentFacade;
-    
     @EJB
     private UpvoteFacade upvoteFacade;
     
@@ -153,12 +150,15 @@ public class RecruitManager implements Serializable {
         this.geoModel = geoModel;
     }
 
-    public int getSelectedNumLikes() {
-        return selectedNumLikes;
-    }
-
-    public void setSelectedNumLikes(int selectedNumLikes) {
-        this.selectedNumLikes = selectedNumLikes;
+    public int getNumLikes() {
+        List<Upvote> upvotes = upvoteFacade.searchUpvoteByRecruit(selected);
+        
+        if (upvotes == null) {
+            return 0;
+        }
+        else {
+            return upvotes.size();
+        }
     }
 
     public String getRecruitedYear() {
@@ -436,11 +436,17 @@ public class RecruitManager implements Serializable {
     }
 
     public String getLike() {
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User currentUser = userFacade.find(user_id);
+        if (upvoteFacade.findUpVoteByUserRecruit(currentUser, selected) != null)
+        {
+            like = "Unlike";
+        }
+        else {
+            like = "Like";
+        }
+        
         return like;
-    }
-
-    public void setLike(String like) {
-        this.like = like;
     }
 
     public String getText() {
@@ -453,10 +459,6 @@ public class RecruitManager implements Serializable {
 
     public List<Comment> getComments() {
         return commentFacade.getAllCommentsForRecruit(selected.getId());
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
     
     public String createRecruit() throws UnsupportedEncodingException {
@@ -560,6 +562,7 @@ public class RecruitManager implements Serializable {
     
     public String viewRecruit()
     {
+        text = "";
         return "RecruitProfile?faces-redirect=true";
     }
     
@@ -816,7 +819,8 @@ public class RecruitManager implements Serializable {
     }
     
     public void onRecruitRowSelect() {
-        //System.out.println(selectedGroup);
+        text = "";
+        
         ConfigurableNavigationHandler configurableNavigationHandler
                 = (ConfigurableNavigationHandler) FacesContext.
                 getCurrentInstance().getApplication().getNavigationHandler();
@@ -838,11 +842,6 @@ public class RecruitManager implements Serializable {
         if (upvoteFacade.findUpVoteByUserRecruit(currentUser, selected) != null)
         {
             upvoteFacade.remove(upvoteFacade.findUpVoteByUserRecruit(currentUser, selected));
-            //return "Dashboard";
-            if (upvoteFacade.searchUpvoteByRecruit(selected) != null)
-                setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
-            else
-                setSelectedNumLikes(0);
             
             like = "Like";
         }
@@ -854,8 +853,6 @@ public class RecruitManager implements Serializable {
                 upvote.setUserId(currentUser);
                 
                 upvoteFacade.create(upvote);  
-                
-                setSelectedNumLikes(upvoteFacade.searchUpvoteByRecruit(selected).size());
                 
                 like = "Unlike";
             } catch (EJBException e) {

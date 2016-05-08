@@ -118,7 +118,7 @@ public class UserPhoto implements Serializable {
     }
     
     public String getFilePath() {
-        return Constants.ROOT_DIRECTORY + getFilename();
+        return Constants.USER_DIRECTORY + getFilename();
     }
 
     public String getFilename() {
@@ -130,7 +130,7 @@ public class UserPhoto implements Serializable {
     }
     
     public String getThumbnailFilePath() {
-        return Constants.ROOT_DIRECTORY + getThumbnailName();
+        return Constants.USER_DIRECTORY + getThumbnailName();
     }
     
 }

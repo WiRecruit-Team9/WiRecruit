@@ -117,7 +117,7 @@ public class RecruitPhoto implements Serializable {
     }
     
     public String getFilePath() {
-        return Constants.ROOT_DIRECTORY + getFilename();
+        return Constants.RECRUIT_DIRECTORY + getFilename();
     }
 
     public String getFilename() {
@@ -129,7 +129,7 @@ public class RecruitPhoto implements Serializable {
     }
     
     public String getThumbnailFilePath() {
-        return Constants.ROOT_DIRECTORY + getThumbnailName();
+        return Constants.RECRUIT_DIRECTORY + getThumbnailName();
     }
     
 }

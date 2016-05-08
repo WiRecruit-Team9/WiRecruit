@@ -33,28 +33,28 @@ public class UpvoteFacade extends AbstractFacade<Upvote> {
     
     public Upvote findUpVoteByUserRecruit(User id, Recruit selected)
     {
-        if (em.createQuery("SELECT g FROM Upvote g WHERE g.userId = :pass AND g.recruitId = :rec")
+        List<Upvote> upvotes = em.createQuery("SELECT u FROM Upvote u WHERE u.userId = :pass AND u.recruitId = :rec")
                 .setParameter("pass", id).setParameter("rec", selected)
-                .getResultList().isEmpty()) {
+                .getResultList();
+        
+        if (upvotes.isEmpty()) {
             return null;
         }
         else {
-            return (Upvote)(em.createQuery("SELECT g FROM Upvote g WHERE g.userId = :pass AND g.recruitId = :rec")
-                .setParameter("pass", id).setParameter("rec", selected)
-                .getSingleResult());
+            return upvotes.get(0);
         }
     }
     
     public List<Upvote> searchUpvoteByRecruit(Recruit selected) {
-        if (em.createQuery("SELECT g FROM Upvote g WHERE g.recruitId = :rec")
+        List<Upvote> upvotes = em.createQuery("SELECT g FROM Upvote g WHERE g.recruitId = :rec")
                 .setParameter("rec", selected)
-                .getResultList().isEmpty()) {
+                .getResultList();
+        
+        if (upvotes.isEmpty()) {
             return null;
         }
         else {
-            return (List<Upvote>)(em.createQuery("SELECT g FROM Upvote g WHERE g.recruitId = :rec")
-                .setParameter("rec", selected)
-                .getResultList());
+            return upvotes;
         }
     }
 }

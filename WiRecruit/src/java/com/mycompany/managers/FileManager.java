@@ -145,7 +145,7 @@ public class FileManager {
         inputStream.read(buffer);
 
         // Write the series of bytes on file.
-        File targetFile = new File(Constants.ROOT_DIRECTORY, childName);
+        File targetFile = new File(Constants.USER_DIRECTORY, childName);
 
         OutputStream outStream;
         outStream = new FileOutputStream(targetFile);
@@ -161,7 +161,7 @@ public class FileManager {
             BufferedImage original = ImageIO.read(inputFile);
             BufferedImage thumbnail = Scalr.resize(original, Constants.THUMBNAIL_SZ);
             ImageIO.write(thumbnail, inputPhoto.getExtension(),
-                new File(Constants.ROOT_DIRECTORY, inputPhoto.getThumbnailName()));
+                new File(Constants.USER_DIRECTORY, inputPhoto.getThumbnailName()));
         } catch (IOException ex) {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -183,7 +183,7 @@ public class FileManager {
                 Files.deleteIfExists(Paths.get(photo.getFilePath()));
                 Files.deleteIfExists(Paths.get(photo.getThumbnailFilePath()));
                 
-                Files.deleteIfExists(Paths.get(Constants.ROOT_DIRECTORY+"tmp_file"));
+                Files.deleteIfExists(Paths.get(Constants.USER_DIRECTORY+"tmp_file"));
                  
                 photoFacade.remove(photo);
             } catch (IOException ex) {
