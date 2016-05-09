@@ -10,9 +10,9 @@ package com.mycompany.managers;
  */
 public class Constants {
     
-    public static final String RECRUIT_DIRECTORY = "/home/cs4984/SurianoSiu/FileStorageLocation/Recruit/";
+    public static final String RECRUIT_DIRECTORY = "/home/cs4984/Team9StorageLocation/FileStorageLocation/Recruit/";
     
-    public static final String USER_DIRECTORY = "/home/cs4984/SurianoSiu/FileStorageLocation/User/";
+    public static final String USER_DIRECTORY = "/home/cs4984/Team9StorageLocation/FileStorageLocation/User/";
 
     public static final String TEMP_FILE = "tmp_file";
 
