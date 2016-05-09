@@ -122,7 +122,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <h3>Comments</h3>
                         <p:dataScroller id="comments" value="#{recruitManager.comments}" var="comment" style="text-align: left">
                             <h:panelGrid columns="2" cellpadding="5" style="width:80%" columnClasses="logo,detail">
-                                <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(comment.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/>
+                                <p:graphicImage value="FileStorageLocation/User/#{accountManager.findPhoto(comment.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/>
                                 <h:outputText value="#{comment.userId.firstName} #{comment.userId.lastName}: #{comment.commentText}" escape="false"/>
                             </h:panelGrid>
                         </p:dataScroller>
