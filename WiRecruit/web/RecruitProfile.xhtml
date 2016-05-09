@@ -36,7 +36,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                         <a class="pure-button" href="RecruitEditPhoto.xhtml">Edit Photo </a>
                         <br/>
                         <br/>
-                        
+
                         <!-- Basic Info goes here -->
                         <h:panelGrid columns="2" cellpadding="6">
                             <h:outputText value="Position: " />
@@ -118,10 +118,13 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                     <h:form prependId="false">
                         <h:outputText id="result" value="#{recruitManager.numLikes} Likes" style="padding-right: 5px"/>
                         <p:commandButton id="likeButton" value="#{recruitManager.like}" actionListener="#{recruitManager.likeUnlike}" update="result, likeButton"/>
-                        
+
                         <h3>Comments</h3>
                         <p:dataScroller id="comments" value="#{recruitManager.comments}" var="comment" style="text-align: left">
-                            <h:outputText value=" #{comment.commentText}" escape="false"/>
+                            <h:panelGrid columns="2" cellpadding="5" style="width:80%" columnClasses="logo,detail">
+                                <p:graphicImage value="FileStorageLocation/#{accountManager.findPhoto(comment.userId.username)}" class="img-rounded col-md-3" height="60px" width="60px"/>
+                                <h:outputText value="#{comment.userId.firstName} #{comment.userId.lastName}: #{comment.commentText}" escape="false"/>
+                            </h:panelGrid>
                         </p:dataScroller>
                         <p:editor id="editor" widgetVar="editorWidget" value="#{recruitManager.text}" width="450"
                                   style="padding-top: 10px"/>
@@ -129,7 +132,7 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                             <p:commandButton value="Submit" actionListener="#{recruitManager.submitComment()}" icon="ui-icon-disk" update="comments, editor"/>
                             <p:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
                         </h:panelGrid>
-                        
+
                         <p:remoteCommand name="onload" action="#{recruitManager.onLoad()}" autoRun="true"/>
                         <h3>Map and Weather</h3>
                         <h:outputText id="weather" value="Weather"/>
