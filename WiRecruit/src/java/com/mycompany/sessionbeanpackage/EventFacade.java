@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// EventFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class EventFacade extends AbstractFacade<Event> {
 
@@ -29,6 +31,8 @@ public class EventFacade extends AbstractFacade<Event> {
     public EventFacade() {
         super(Event.class);
     }
+    
+    // The following findEventsByGroup method is added to the generated code.
     
     public List<Event> findEventsByGroup(Group1 searchGroup){
         if (em.createQuery("SELECT e FROM Event e WHERE e.groupId = :groupID "

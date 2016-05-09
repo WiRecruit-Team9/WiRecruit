@@ -24,13 +24,14 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 
                 <div align="center" style="width:50%; margin:0 auto;">
                     <h:form class="form-signin">
+                        <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
                         <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
                         <h2 class="form-signin-heading">New Account</h2>
 
                         <p:growl id="growl" sticky="true" showDetail="true"/> 
                         <p:messages id="msgs" />
 
-                        <p:wizard flowListener="#{accountManager.onFlowProcess}">
+                        <p:wizard>
                             <p:tab id="personal" title="Personal">
                                 <p:panel header="Personal Details">
                                     <p:messages />
@@ -56,8 +57,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{state}" itemValue="#{state}" />
                                         </h:selectOneMenu>
 
-                                        <h:outputText value="Zipcode: " />
-                                        <p:inputText value="#{accountManager.zipcode}" />
+                                        <p:outputLabel for="zipcode" value="Zip Code" />
+                                        <h:inputText id="zipcode" value="#{accountManager.zipcode}" 
+                                                     required="true" label="Zip Code">
+                                            <f:validateLength minimum="5" maximum="5"/>
+                                        </h:inputText>
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -75,8 +79,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                      required="true" label="Username"/>
 
                                         <h:outputText value="Password: *" />
-                                        <p:password id="feedback" feedback="true" value="#{accountManager.password}" 
-                                                    required="true" label="Password"/>
+                                        <p:password id="password" feedback="true" value="#{accountManager.password}" 
+                                                    required="true" label="Password">
+                                            <f:validator validatorId="passwordValidator" /> 
+                                        </p:password>
 
                                         <h:outputText value="Confirm Password: *" />
                                         <h:inputSecret id="confirmPassword" 
@@ -93,9 +99,9 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                      required="true" label="Secuirty Answer">
                                             <f:validateLength minimum="4" />
                                         </h:inputText>
-
-
+                                        <br />
                                     </h:panelGrid>
+                                    <h:outputLabel id="errorContact" value="#{accountManager.statusMessage}"  />
                                 </p:panel>
                             </p:tab>
 
@@ -130,14 +136,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:panelGrid>
                                     </h:panelGrid>
                                     
-                                   
-                                    <!--<h:form>-->
-                                        <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
-                                        <br />
-                                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                                         action="#{accountManager.createAccount()}" value="Submit"/>
-                                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="#{accountManager.cancel()}" value="Cancel" />
-                                    <!--</h:form>-->
+                                    <h:outputLabel id="errorConfirm" value="#{accountManager.statusMessage}"  />
+                                    <br />
+                                    <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                                     action="#{accountManager.createAccount()}" value="Submit"/>
+                                    <h:commandButton class="btn btn-lg btn-danger" id="cancel" action="#{accountManager.cancel()}" value="Cancel" />
                                 </p:panel>
                             </p:tab>
                         </p:wizard>

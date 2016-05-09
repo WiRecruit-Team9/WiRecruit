@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// UserPhotoFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
 
@@ -28,6 +30,8 @@ public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
     public UserPhotoFacade() {
         super(UserPhoto.class);
     }
+    
+    // The following findPhotosByUserID method is added to the generated code.
     
     public List<UserPhoto> findPhotosByUserID(Integer userID) {
         return (List<UserPhoto>) em.createNamedQuery("UserPhoto.findPhotosByUserId")

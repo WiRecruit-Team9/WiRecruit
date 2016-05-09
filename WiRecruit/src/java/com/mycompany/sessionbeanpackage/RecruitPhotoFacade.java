@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// RecruitPhotoFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class RecruitPhotoFacade extends AbstractFacade<RecruitPhoto> {
 
@@ -28,6 +30,8 @@ public class RecruitPhotoFacade extends AbstractFacade<RecruitPhoto> {
     public RecruitPhotoFacade() {
         super(RecruitPhoto.class);
     }
+    
+    // The following findPhotosByRecruitID method is added to the generated code.
     
     public List<RecruitPhoto> findPhotosByRecruitID(Integer recruitID) {
         return (List<RecruitPhoto>) em.createNamedQuery("RecruitPhoto.findPhotosByRecruitId")

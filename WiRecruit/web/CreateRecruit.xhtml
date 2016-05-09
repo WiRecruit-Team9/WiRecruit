@@ -55,16 +55,16 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                     <p:messages />
                                     <h:panelGrid columns="2" columnClasses="label, value">
                                         <h:outputText value="School: " />
-                                        <p:inputText value="#{recruitManager.school}" required="true"/>
+                                        <p:inputText value="#{recruitManager.school}" required="true" label="School"/>
 
                                         <h:outputText value="Address: " />
-                                        <p:inputText value="#{recruitManager.address1}" required="true"/>
+                                        <p:inputText value="#{recruitManager.address1}" required="true" label="Address"/>
 
                                         <h:outputText value="Address 2: " />
                                         <p:inputText value="#{recruitManager.address2}"/>
 
                                         <h:outputText value="City: " />
-                                        <p:inputText value="#{recruitManager.city}" required="true"/>
+                                        <p:inputText value="#{recruitManager.city}" required="true" label="City"/>
 
                                         <h:outputText value="State: " />
                                         <h:selectOneMenu id="state" value="#{recruitManager.state}" required="true">
@@ -72,8 +72,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{state}" itemValue="#{state}" />
                                         </h:selectOneMenu>
 
-                                        <h:outputText value="Zipcode: " />
-                                        <p:inputText value="#{recruitManager.zipcode}" />
+                                        <p:outputLabel for="zipcode" value="Zip Code" />
+                                        <h:inputText id="zipcode" value="#{accountManager.zipcode}" 
+                                                     required="true" label="Zip Code">
+                                            <f:validateLength minimum="5" maximum="5"/>
+                                        </h:inputText>
 
                                         <h:outputText value="GPA: " />
                                         <p:inputText id="gpa" value="#{recruitManager.gpa}" 

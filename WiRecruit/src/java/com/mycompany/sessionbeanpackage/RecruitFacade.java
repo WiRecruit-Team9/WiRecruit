@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// RecruitFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class RecruitFacade extends AbstractFacade<Recruit> {
 
@@ -38,6 +40,8 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
     public Recruit getRecruit(int id) {
         return em.find(Recruit.class, id);
     }
+    
+    // The following methods are added to the generated code.
     
     public List findRecruitsByCommitment(String search){
         if (em.createQuery("SELECT r FROM Recruit r WHERE r.commitment = :commit")

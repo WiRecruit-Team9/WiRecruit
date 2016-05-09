@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// Group1Facade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class Group1Facade extends AbstractFacade<Group1> {
 
@@ -27,6 +29,8 @@ public class Group1Facade extends AbstractFacade<Group1> {
     public Group1Facade() {
         super(Group1.class);
     }
+    
+    // The following findGroupByPasscode method is added to the generated code.
     
     public Group1 findGroupByPasscode(int search){
         if (em.createQuery("SELECT g FROM Group1 g WHERE g.passcode = :pass")

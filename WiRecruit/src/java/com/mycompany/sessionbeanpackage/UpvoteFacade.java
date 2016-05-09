@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// UpvoteFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class UpvoteFacade extends AbstractFacade<Upvote> {
 
@@ -30,6 +32,8 @@ public class UpvoteFacade extends AbstractFacade<Upvote> {
     public UpvoteFacade() {
         super(Upvote.class);
     }
+    
+    // The following methods are added to the generated code.
     
     public Upvote findUpVoteByUserRecruit(User id, Recruit selected)
     {

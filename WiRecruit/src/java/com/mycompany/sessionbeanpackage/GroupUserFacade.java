@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// GroupUserFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class GroupUserFacade extends AbstractFacade<GroupUser> {
 
@@ -29,6 +31,7 @@ public class GroupUserFacade extends AbstractFacade<GroupUser> {
         super(GroupUser.class);
     }
     
+    // The following selectGroupFromUser method is added to the generated code.
     
     public GroupUser selectGroupFromUser(User id)
     {

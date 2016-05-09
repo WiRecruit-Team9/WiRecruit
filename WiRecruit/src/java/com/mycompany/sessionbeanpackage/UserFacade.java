@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author ftyyeung
  */
+// UserFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
 
@@ -32,6 +34,8 @@ public class UserFacade extends AbstractFacade<User> {
     public User getUser(int id) {
         return em.find(User.class, id);
     }
+    
+    // The following methods are added to the generated code.
     
     public User findByUsername(String username) {
         if (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")

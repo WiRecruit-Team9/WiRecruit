@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author Peter Cho
  */
+// CommentFacade is an EJB style POJO (Plain Old Java Object) session bean, 
+// which is annotated to be @Stateless.
 @Stateless
 public class CommentFacade extends AbstractFacade<Comment> {
 
@@ -28,6 +30,8 @@ public class CommentFacade extends AbstractFacade<Comment> {
     public CommentFacade() {
         super(Comment.class);
     }
+    
+    // The following getAllCommentsForRecruit method is added to the generated code.
     
     public List<Comment> getAllCommentsForRecruit(int id) {
         return em.createQuery("SELECT c FROM Comment c WHERE c.recruitId.id = :id").
