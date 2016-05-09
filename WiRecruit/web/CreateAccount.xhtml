@@ -22,16 +22,15 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                 <br />
                 <br />
                 
-                <div align="center" style="width:50%; margin:0 auto;">
+                <div align="center" style="width:75%; margin:0 auto;">
                     <h:form class="form-signin">
                         <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
                         <img class="pure-img-responsive" alt="File Icons" height="300" width="250" src="resources/images/WiRecruitSprite.png"/>
                         <h2 class="form-signin-heading">New Account</h2>
 
                         <p:growl id="growl" sticky="true" showDetail="true"/> 
-                        <p:messages id="msgs" />
 
-                        <p:wizard>
+                        <p:wizard style="margin:auto">
                             <p:tab id="personal" title="Personal">
                                 <p:panel header="Personal Details">
                                     <p:messages />
@@ -57,11 +56,11 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                                            itemLabel="#{state}" itemValue="#{state}" />
                                         </h:selectOneMenu>
 
-                                        <p:outputLabel for="zipcode" value="Zip Code" />
-                                        <h:inputText id="zipcode" value="#{accountManager.zipcode}" 
+                                        <h:outputText value="Zip Code" />
+                                        <p:inputText id="zipcodeCreate" value="#{accountManager.zipcode}" 
                                                      required="true" label="Zip Code">
                                             <f:validateLength minimum="5" maximum="5"/>
-                                        </h:inputText>
+                                        </p:inputText>
                                     </h:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -85,9 +84,9 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </p:password>
 
                                         <h:outputText value="Confirm Password: *" />
-                                        <h:inputSecret id="confirmPassword" 
+                                        <p:password id="confirmPassword" 
                                                        required="true" label="Confirm Password">
-                                        </h:inputSecret>
+                                        </p:password>
 
                                         <p:outputLabel for="security_ques" value="Security Question" />
                                         <h:selectOneMenu id="security_ques" value="#{accountManager.security_question}" required="true">
@@ -95,10 +94,10 @@ Copyright © 2016 Julio Suriano Siu. All rights reserved.
                                         </h:selectOneMenu>
 
                                         <p:outputLabel for="security_ans" value="Answer" />
-                                        <h:inputText id="security_ans" value="#{accountManager.security_answer}" 
+                                        <p:inputText id="security_ans" value="#{accountManager.security_answer}" 
                                                      required="true" label="Secuirty Answer">
                                             <f:validateLength minimum="4" />
-                                        </h:inputText>
+                                        </p:inputText>
                                         <br />
                                     </h:panelGrid>
                                     <h:outputLabel id="errorContact" value="#{accountManager.statusMessage}"  />
