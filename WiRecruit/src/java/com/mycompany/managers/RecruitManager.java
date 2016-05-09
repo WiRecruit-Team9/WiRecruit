@@ -15,7 +15,6 @@ import com.mycompany.jsfpackage.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeanpackage.CommentFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
 import com.mycompany.sessionbeanpackage.RecruitPhotoFacade;
-import com.mycompany.sessionbeanpackage.Group1Facade;
 import com.mycompany.sessionbeanpackage.UpvoteFacade;
 import com.mycompany.sessionbeanpackage.RecruitFacade;
 import com.mycompany.sessionbeanpackage.EventFacade;
@@ -85,7 +84,6 @@ public class RecruitManager implements Serializable {
     private Recruit currentRecruitID;
     private Recruit selected;
     private MapModel geoModel;
-    private List<String> listOfEmails = null;
     private String userSchool;
     private String centerGeocode = "40, 40";
     private String searchedRecruitName;
@@ -112,8 +110,6 @@ public class RecruitManager implements Serializable {
     private RecruitPhotoFacade recruitPhotoFacade;
     @EJB
     private UserFacade userFacade;
-    @EJB
-    private Group1Facade groupFacade;
     @EJB
     private GroupUserFacade groupUserFacade;
     @EJB
@@ -606,7 +602,6 @@ public class RecruitManager implements Serializable {
         int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
         User currentUser = userFacade.find(user_id);
         userSchool = currentUser.getState();
-        listOfEmails = userFacade.findUserByUniversity(userSchool);
         String body = message(currentUser);
         String host = "smtp.gmail.com";
         String user = "wicruit@gmail.com";
@@ -815,7 +810,10 @@ public class RecruitManager implements Serializable {
     }
     
     public void searchedRecruits() {
-        matchedRecruits = recruitFacade.searchRecruitByName(searchedRecruitName);
+        int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+        User currentUser = userFacade.find(user_id);
+        
+        matchedRecruits = recruitFacade.searchRecruitByName(searchedRecruitName, currentUser.getSchool());
     }
     
     public void onRecruitRowSelect() {

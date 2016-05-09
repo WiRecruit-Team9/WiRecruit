@@ -80,17 +80,6 @@ CREATE TABLE `GroupUser`
     FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
 );
 
-/* The Group Recruit table contains attributes of the group and the recruit in the group. */
-CREATE TABLE `GroupRecruit`
-(
-    id INT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (id),
-    recruit_id INT NOT NULL,
-    group_id INT NOT NULL,
-    FOREIGN KEY (recruit_id) REFERENCES `Recruit`(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (group_id) REFERENCES `Group`(id) ON DELETE CASCADE
-);
-
 /* The Photo table contains attributes of interest of a user's photo. */
 CREATE TABLE `UserPhoto`
 (

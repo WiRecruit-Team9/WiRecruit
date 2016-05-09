@@ -16,7 +16,6 @@ import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import com.mycompany.sessionbeanpackage.Group1Facade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +27,6 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Properties;
 import javax.faces.application.FacesMessage;
 import javax.mail.Message;
@@ -71,7 +66,6 @@ public class AccountManager implements Serializable {
     private final String[] listOfTitles = Constants.TITLES;
     private User selected;
     private List<User> listOfStaff = null;
-    private static ArrayList<String> feed = new ArrayList<String>();
     private List<Event> eventFeed = null;
 
     private boolean groupExist = false;
@@ -310,6 +304,9 @@ public class AccountManager implements Serializable {
             username = "";
             statusMessage = "Username already exists! Please select a different one!";
             return "";
+        }
+        else {
+            statusMessage = "";
         }
 
         if (statusMessage.isEmpty()) {

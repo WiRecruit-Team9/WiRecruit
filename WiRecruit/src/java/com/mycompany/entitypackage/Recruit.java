@@ -7,7 +7,6 @@ package com.mycompany.entitypackage;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -150,8 +149,6 @@ public class Recruit implements Serializable {
     @Size(max = 65535)
     @Column(name = "notes")
     private String notes;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruitId")
-    private Collection<GroupRecruit> groupRecruitCollection;
     @OneToMany(mappedBy = "recruitId")
     private Collection<RecruitPhoto> recruitPhotoCollection;
     @OneToMany(mappedBy = "recruitId")
@@ -352,15 +349,6 @@ public class Recruit implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    @XmlTransient
-    public Collection<GroupRecruit> getGroupRecruitCollection() {
-        return groupRecruitCollection;
-    }
-
-    public void setGroupRecruitCollection(Collection<GroupRecruit> groupRecruitCollection) {
-        this.groupRecruitCollection = groupRecruitCollection;
     }
 
     @XmlTransient

@@ -52,13 +52,14 @@ public class RecruitFacade extends AbstractFacade<Recruit> {
         }
     }
     
-    public List<Recruit> searchRecruitByName(String name) {
+    public List<Recruit> searchRecruitByName(String name, String commitment) {
         List<Recruit> recruits = new ArrayList<>();
         
         if (name.trim().length() != 0) {
-            recruits = em.createQuery("SELECT r FROM Recruit r WHERE r.firstName LIKE '%" + name + "%' "
-                    + "OR r.lastName LIKE '%" + name + "%'", Recruit.class)
-                .getResultList();
+            recruits = em.createQuery("SELECT r FROM Recruit r WHERE (r.firstName LIKE '%" + name + "%' "
+                    + "OR r.lastName LIKE '%" + name + "%') AND r.commitment = :commitment", Recruit.class)
+                    .setParameter("commitment", commitment)
+                    .getResultList();
         }
 
         return recruits;

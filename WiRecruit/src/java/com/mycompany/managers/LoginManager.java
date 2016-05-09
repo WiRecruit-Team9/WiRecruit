@@ -4,17 +4,10 @@
  */
 package com.mycompany.managers;
 
-import com.mycompany.entitypackage.Event;
 import com.mycompany.entitypackage.User;
-import com.mycompany.sessionbeanpackage.EventFacade;
 import com.mycompany.sessionbeanpackage.UserFacade;
-import com.mycompany.sessionbeanpackage.GroupUserFacade;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -39,8 +32,6 @@ public class LoginManager implements Serializable {
      */
     @EJB
     private UserFacade userFacade;
-    private EventFacade eventFacade;
-    private GroupUserFacade groupUserFacade;
 
     /**
      * Creates a new instance of LoginManager

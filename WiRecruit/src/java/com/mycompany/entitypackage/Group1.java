@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Group1 implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
-    private Collection<GroupRecruit> groupRecruitCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
     private Collection<GroupUser> groupUserCollection;
 
     private static final long serialVersionUID = 1L;
@@ -117,15 +115,6 @@ public class Group1 implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entitypackage.Group1[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<GroupRecruit> getGroupRecruitCollection() {
-        return groupRecruitCollection;
-    }
-
-    public void setGroupRecruitCollection(Collection<GroupRecruit> groupRecruitCollection) {
-        this.groupRecruitCollection = groupRecruitCollection;
     }
 
     @XmlTransient

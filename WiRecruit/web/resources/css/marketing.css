@@ -326,7 +326,8 @@ a.pure-button-primary {
     padding-bottom: 0 !important;
     padding-top: 0 !important;
     border-left: 1px #ddd solid !important;
-    border-bottom: 1px #34495e solid !important
+    border-bottom: 1px #34495e solid !important;
+    z-index: 2;
 }
 
 .ui-menuItem {
@@ -340,6 +341,7 @@ a.pure-button-primary {
     border-right: 1px #ddd solid !important;
     align-content: center !important;
     font: Arial bold !important;
+    z-index: 2;
 }
 
 .ui-menu-list {
